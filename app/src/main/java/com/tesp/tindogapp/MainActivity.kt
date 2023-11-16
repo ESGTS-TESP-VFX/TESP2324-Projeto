@@ -28,11 +28,13 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "login") {
                         composable("login") {
-                            paginaA(navController)
+                            loginPage(navController)
                         }
+                        /*
                         composable("criarConta") {
                             paginaB(navController)
                         }
+                        */
                     }
                 }
             }
