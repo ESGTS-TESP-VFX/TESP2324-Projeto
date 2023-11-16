@@ -25,7 +25,7 @@ fun Logotipo () {
     ) {
         Image(
             painter = painterResource(id = R.drawable.tindog_logo),
-            contentDescription = null
+            contentDescription = R.string.logotipoDesc.toString()
         )
     }
 }

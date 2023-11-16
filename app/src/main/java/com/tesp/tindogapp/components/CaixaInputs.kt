@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.tesp.tindogapp.R
 
 @Composable
 fun CaixaInputs() {
@@ -31,10 +32,9 @@ fun CaixaInputs() {
             modifier = Modifier
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            // verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Login to your Dog House",
+                text = R.string.loginText.toString(),
                 fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Center,
                 modifier = Modifier

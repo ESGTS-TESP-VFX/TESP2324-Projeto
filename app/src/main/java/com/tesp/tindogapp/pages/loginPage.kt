@@ -27,10 +27,6 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
         ) {
             Logotipo()
             CaixaInputs()
-            // Logotipo
-            // box salmao recebe imputs
-            //imputs
-
         }
     }
 }
