@@ -30,11 +30,11 @@ class MainActivity : ComponentActivity() {
                         composable("login") {
                             loginPage(navController)
                         }
-                        /*
-                        composable("criarConta") {
-                            paginaB(navController)
+
+                        composable("DogForm") {
+                            DogFormPage(navController)
                         }
-                        */
+
                     }
                 }
             }
