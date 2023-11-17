@@ -27,6 +27,7 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
         ) {
             Logotipo()
             CaixaInputs()
+
         }
     }
 }
