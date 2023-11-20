@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -31,7 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true, heightDp = 780, widthDp = 380)
+@Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
 fun DogFormPage(navController: NavHostController = rememberNavController()): Unit {
     Column(
@@ -39,122 +42,17 @@ fun DogFormPage(navController: NavHostController = rememberNavController()): Uni
             .fillMaxSize()
     ) {
         Logotipo()
-        ContainerInputs()
+        ContainerPage1()
     }
 }
 
 
-@Composable
-fun ContainerInputs() {
-    Box(
-        modifier = Modifier
-            .background(
-                Color(0xFFFFDBD2),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            InputDogNameAge()
-            NextButton()
-        }
-    }
-}
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun InputDogNameAge() {
-    var inputName by remember { mutableStateOf("") }
-    var inputAge by remember { mutableStateOf("") }
 
-    // Input DogName
-    Text(
-        text = "What's your Dog's Name?",
-        style = androidx.compose.ui.text.TextStyle(
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold
-        ),
-        modifier = Modifier.padding(bottom = 8.dp)
-    )
 
-    // Input DogName
-    OutlinedTextField(
-        value = inputName,
-        onValueChange = { inputName = it },
-        label = { Text("Insert here dog's name...") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp)
-            .background(Color.White, RoundedCornerShape(16.dp)),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-        )
-    )
 
-    // Input DogAge
-    Text(
-        text = "What's your Dog's Age?",
-        style = androidx.compose.ui.text.TextStyle(
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold
-        ),
-        modifier = Modifier.padding(bottom = 8.dp)
-    )
 
-    // Input DogAge
-    OutlinedTextField(
-        value = inputAge,
-        onValueChange = { inputAge = it },
-        label = { Text("Insert here dog's age...") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp)
-            .background(Color.White, RoundedCornerShape(16.dp)),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-        )
-    )
-}
-
-@Composable
-fun NextButton() {
-
-    val onNextClick: () -> Unit = {
-        var inputName = ""
-        var inputAge = ""
-        println("Dog's Name: $inputName, Dog's Age: $inputAge")
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-    ) {
-        androidx.compose.material3.Button(
-            onClick = onNextClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-            //.background(Color(0xFFFF8769))
-        ) {
-            Text(
-                text = "Next",
-                style = androidx.compose.ui.text.TextStyle(
-                    fontSize = 23.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            )
-        }
-    }
-}
 
 
 

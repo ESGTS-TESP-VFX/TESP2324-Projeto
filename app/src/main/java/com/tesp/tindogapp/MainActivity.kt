@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    val navController = rememberNavController()
+                    /*val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "login") {
                         composable("login") {
                             loginPage(navController)
@@ -33,11 +33,12 @@ class MainActivity : ComponentActivity() {
 
                         composable("DogForm") {
                             DogFormPage(navController)
-                        }
+                        }*/
+                    PageSequency()
 
                     }
                 }
             }
         }
     }
-}
+
