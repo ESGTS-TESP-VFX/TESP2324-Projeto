@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.CaixaInputs
 import com.tesp.tindogapp.components.Logotipo
 
-@Preview(showBackground = true, heightDp = 600, widthDp = 380)
+@Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
 fun loginPage(navController: NavHostController = rememberNavController()): Unit {
     Box(
@@ -23,7 +23,7 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(8.dp)
         ) {
             Logotipo()
             CaixaInputs()
@@ -32,4 +32,8 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
     }
 }
 
+//todo: resolver o problema das strings;
+//todo: formatar os input fields com o aspeto certo;
+//todo: inserir validação de email e de password;
+//todo: resolver como acionar os textos de dados inválidos e link para reset password
 

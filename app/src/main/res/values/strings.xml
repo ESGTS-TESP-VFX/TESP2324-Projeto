@@ -3,4 +3,7 @@
     <string name="loginText">Login to your Dog House</string>
     <string name="bemyfriendText">be my friend</string>
     <string name="logotipoDesc">TinDog Logo</string>
+    <string name="create_account_message">New here? \nMake a paw registration</string>
+    <string name="invalid_login_data">Incorrect email or password</string>
+    <string name="reset_password_link">Reset Password</string>
 </resources>

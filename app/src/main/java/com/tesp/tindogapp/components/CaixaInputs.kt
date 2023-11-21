@@ -45,7 +45,42 @@ fun CaixaInputs() {
             )
             InputEmailComponent()
             InputPasswordComponent()
+
+
             SignInButtonComponent()
+
+            //este texto só aparece quando os dados de login forem inválidos
+            Text(
+                text = R.string.invalid_login_data.toString(),
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                color = Color(0xFFFF0000),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+
+            Text(
+                text = R.string.reset_password_link.toString(),
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                color = Color(0xFFFF0000),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+
+
+            Text(
+                text = R.string.create_account_message.toString(),
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+
+            SignUpButtonComponent()
         }
     }
 }
