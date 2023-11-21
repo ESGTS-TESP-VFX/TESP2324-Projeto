@@ -84,7 +84,7 @@ fun Step2(onBack: () -> Unit, onNext: () -> Unit) {
         InputDescBox(onBack = onBack, onNext = onNext)
     }
 }
-
+// FORM PARA RAÇA E SEXO DO CAO
 @Composable
 fun Step3(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
@@ -92,7 +92,7 @@ fun Step3(onBack: () -> Unit,onNext: () -> Unit) {
         InputBreedSexBox(onBack = onBack,onNext = onNext)
     }
 }
-
+// FORM PARA LOCALIZACAO DO CAO
 @Composable
 fun Step4(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
@@ -100,7 +100,7 @@ fun Step4(onBack: () -> Unit,onNext: () -> Unit) {
         InputLocBox(onBack = onBack,onNext = onNext)
     }
 }
-
+// FROM PARA CHIP DO CAO
 @Composable
 fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
@@ -108,7 +108,7 @@ fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
         InputChipBox(onBack = onBack,onNext = onNext)
     }
 }
-
+//FORM PARA FINISH OU NAO DO CAO
 @Composable
 fun Step6(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
@@ -311,7 +311,7 @@ fun InputBreedSexBox(onBack: () -> Unit,onNext:() -> Unit) {
 }
 
 
-// VAR INPUTS DE TELA COM 1 PERGUNTA E RESPOSTA
+// VAR INPUTS DE LOCALIZACAO DO CAO
 @Composable
 fun InputLocBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
@@ -379,6 +379,7 @@ fun InputLocBox(onBack: () -> Unit,onNext:() -> Unit) {
     }
 }
 
+// VAR INPUTS DE CHIP OU NAO DO CAO
 @Composable
 fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
@@ -395,8 +396,6 @@ fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
-            //VarInputLocBox()
 
             Text(
                 text = "Does your dog have a microchip?",
@@ -454,6 +453,7 @@ fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
     }
 }
 
+// VAR INPUTS DE FINISH OU NAO DO CAO
 @Composable
 fun InputFinishBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
