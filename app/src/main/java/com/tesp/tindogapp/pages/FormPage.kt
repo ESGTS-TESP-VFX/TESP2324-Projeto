@@ -21,7 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,9 +50,9 @@ fun FormPage(navController: NavHostController = rememberNavController()) {
             2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
             3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
             4 -> Step4(onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
-            5 -> Step5(onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
-            6 -> Step6(onNext = { currentStep = 7 })
-
+            5 -> Step5(onBack = { currentStep = 6 }, onNext = { currentStep = 6 })
+            6 -> Step6(onBack = { currentStep = 1 }, onNext = { currentStep = 10 })
+            //7 -> Step7(onBack = { currentStep = 1 })
         }
     }
 }
@@ -108,7 +110,15 @@ fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
 }
 
 @Composable
-fun Step6(onNext: () -> Unit) {
+fun Step6(onBack: () -> Unit,onNext: () -> Unit) {
+    Column {
+        Logotipo()
+        InputFinishBox(onBack = onBack,onNext = onNext)
+    }
+}
+
+@Composable
+fun Step7(onNext: () -> Unit) {
     Column {
         Logotipo()
     }
@@ -388,6 +398,15 @@ fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
 
             //VarInputLocBox()
 
+            Text(
+                text = "Does your dog have a microchip?",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -434,3 +453,77 @@ fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
         }
     }
 }
+
+@Composable
+fun InputFinishBox(onBack: () -> Unit,onNext:() -> Unit) {
+    Box(
+        modifier = Modifier
+            .background(
+                Color(0xFFFFDBD2),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxSize()
+            .padding(30.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+
+            Text(
+                text = "Are you finished?",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "No",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+                Button(onClick = onNext,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Finished",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+            }
+
+        }
+    }
+}
+
