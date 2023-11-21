@@ -1,6 +1,7 @@
 package com.tesp.tindogapp.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -99,22 +101,23 @@ fun likeDislike(navController: NavHostController = rememberNavController()): Uni
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
+                .padding(top = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
                 painter = painterResource(id = R.drawable.dislike),
                 contentDescription = "dislike",
                 modifier = Modifier
                     .size(100.dp, 100.dp)
-                //.align(Alignment.Start)
             )
             Image(
                 painter = painterResource(id = R.drawable.like),
                 contentDescription = "like",
                 modifier = Modifier
                     .size(100.dp, 100.dp)
-                //.align(Alignment.End)
             )
         }
+
+        Text(text = stringResource(id = R.string.bemyfriendText))
     }
 }
