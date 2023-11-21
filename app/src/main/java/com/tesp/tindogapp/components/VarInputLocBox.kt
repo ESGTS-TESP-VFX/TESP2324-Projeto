@@ -25,12 +25,12 @@ import androidx.compose.ui.unit.sp
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VarInputNameBox() {
-    var inputName by remember { mutableStateOf("") }
+fun VarInputLocBox() {
+    var inputLoc by remember { mutableStateOf("") }
 
 
     Text(
-        text = "What's your Name?",
+        text = "What's your Dog Location?",
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
@@ -40,11 +40,11 @@ fun VarInputNameBox() {
 
 
     OutlinedTextField(
-        value = inputName,
-        onValueChange = { inputName = it },
+        value = inputLoc,
+        onValueChange = { inputLoc = it },
         label = {
             Text(
-                "Insert your name...",
+                "Insert your location...",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace,

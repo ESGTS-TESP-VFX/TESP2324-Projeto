@@ -30,8 +30,8 @@ import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
 import com.tesp.tindogapp.components.VarInputBreedSexDog
 import com.tesp.tindogapp.components.VarInputDescBox
+import com.tesp.tindogapp.components.VarInputLocBox
 import com.tesp.tindogapp.components.VarInputNameAgeBox
-import com.tesp.tindogapp.components.VarInputNameBox
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
@@ -47,7 +47,10 @@ fun FormPage(navController: NavHostController = rememberNavController()) {
             1 -> Step1(onNext = { currentStep = 2 })
             2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
             3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
-            4 -> Step4(onNext = { currentStep = 2 })
+            4 -> Step4(onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
+            5 -> Step5(onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
+            6 -> Step6(onNext = { currentStep = 7 })
+
         }
     }
 }
@@ -89,7 +92,23 @@ fun Step3(onBack: () -> Unit,onNext: () -> Unit) {
 }
 
 @Composable
-fun Step4(onNext: () -> Unit) {
+fun Step4(onBack: () -> Unit,onNext: () -> Unit) {
+    Column {
+        Logotipo()
+        InputLocBox(onBack = onBack,onNext = onNext)
+    }
+}
+
+@Composable
+fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
+    Column {
+        Logotipo()
+        InputChipBox(onBack = onBack,onNext = onNext)
+    }
+}
+
+@Composable
+fun Step6(onNext: () -> Unit) {
     Column {
         Logotipo()
     }
@@ -284,7 +303,7 @@ fun InputBreedSexBox(onBack: () -> Unit,onNext:() -> Unit) {
 
 // VAR INPUTS DE TELA COM 1 PERGUNTA E RESPOSTA
 @Composable
-fun InputOwnerNameBox(onNext:() -> Unit) {
+fun InputLocBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -300,19 +319,37 @@ fun InputOwnerNameBox(onNext:() -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            VarInputNameBox()
+            VarInputLocBox()
 
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 50.dp),
-                contentAlignment = Alignment.Center,
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
+
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Back",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
 
                 Button(onClick = onNext,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+
+                        .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFF8769)
                     ),
@@ -320,7 +357,73 @@ fun InputOwnerNameBox(onNext:() -> Unit) {
                 ) {
                     Text(text = "Next",
                         style = androidx.compose.ui.text.TextStyle(
-                            fontSize = 23.sp,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+            }
+
+        }
+    }
+}
+
+@Composable
+fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
+    Box(
+        modifier = Modifier
+            .background(
+                Color(0xFFFFDBD2),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxSize()
+            .padding(30.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+
+            //VarInputLocBox()
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "No",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+                Button(onClick = onNext,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Yes",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
                     )
