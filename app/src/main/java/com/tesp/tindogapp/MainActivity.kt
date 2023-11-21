@@ -26,15 +26,15 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formulario") {
                         composable("login") {
                             loginPage(navController)
                         }
-                        /*
-                        composable("criarConta") {
-                            paginaB(navController)
+
+                        composable("formulario") {
+                            FormPage(navController)
                         }
-                        */
+
                     }
                 }
             }
