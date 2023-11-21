@@ -46,7 +46,7 @@ fun FormPage(navController: NavHostController = rememberNavController()) {
         when (currentStep) {
             1 -> Step1(onNext = { currentStep = 2 })
             2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
-            3 -> Step3(onNext = { currentStep = 4 })
+            3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
             4 -> Step4(onNext = { currentStep = 2 })
         }
     }
@@ -62,7 +62,7 @@ fun Step1(onNext: () -> Unit) {
 }
 */
 
-// FORM PARA TELA COM 2 PERGUNTAS E 2 RESPOSTAS AKA AGE AND NAME DOG
+// FORM PARA NOME E IDADE DO CAO
 @Composable
 fun Step1(onNext: () -> Unit) {
     Column {
@@ -81,10 +81,10 @@ fun Step2(onBack: () -> Unit, onNext: () -> Unit) {
 }
 
 @Composable
-fun Step3(onNext: () -> Unit) {
+fun Step3(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
-        InputBreedSexBox(onNext = onNext)
+        InputBreedSexBox(onBack = onBack,onNext = onNext)
     }
 }
 
@@ -95,9 +95,9 @@ fun Step4(onNext: () -> Unit) {
     }
 }
 
-// VAR INPUTS DE TELA COM 1 PERGUNTA E RESPOSTA
+// STEP-1 VAR INPUTS NOME E IDADE DO CAO
 @Composable
-fun InputOwnerNameBox(onNext:() -> Unit) {
+fun InputDogNameBox(onNext:() -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -105,7 +105,7 @@ fun InputOwnerNameBox(onNext:() -> Unit) {
                 shape = RoundedCornerShape(16.dp)
             )
             .fillMaxSize()
-            .padding(30.dp)
+            .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
@@ -113,16 +113,15 @@ fun InputOwnerNameBox(onNext:() -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            VarInputNameBox()
+            VarInputNameAgeBox()
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
-                contentAlignment = Alignment.Center,
+                    .padding(top = 16.dp)
             ) {
-
-                Button(onClick = onNext,
+                Button(
+                    onClick = onNext,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -130,21 +129,22 @@ fun InputOwnerNameBox(onNext:() -> Unit) {
                         containerColor = Color(0xFFFF8769)
                     ),
                     shape = RoundedCornerShape(16.dp)
+
                 ) {
-                    Text(text = "Next",
-                        style = androidx.compose.ui.text.TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                    Text(
+                        text = "Next",
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
+
                     )
                 }
-
             }
 
         }
     }
 }
-// VAR INPUTS DE DESCRIPTION
+
+// STEP-2 VAR INPUTS DE DESCRIPTION
 @Composable
 fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
     Box(
@@ -211,59 +211,11 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
         }
     }
 }
-// VAR INPUTS DE TELA COM 2 PERGUNTAS E RESPOSTAS
+
+
+// STEP-3 VAR INPUTS RACA E SEXO DO CAO
 @Composable
-fun InputDogNameBox(onNext:() -> Unit) {
-    Box(
-        modifier = Modifier
-            .background(
-                Color(0xFFFFDBD2),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-
-            VarInputNameAgeBox()
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-            ) {
-                Button(
-                    onClick = onNext,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-
-                ) {
-                    Text(
-                        text = "Next",
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-
-                    )
-                }
-            }
-
-        }
-    }
-}
-
-
-/////////////////////////////////////////
-@Composable
-fun InputBreedSexBox(onNext:() -> Unit) {
+fun InputBreedSexBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -281,13 +233,83 @@ fun InputBreedSexBox(onNext:() -> Unit) {
 
             VarInputBreedSexDog()
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Back",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+                Button(onClick = onNext,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Next",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+            }
+
+        }
+    }
+}
+
+
+// VAR INPUTS DE TELA COM 1 PERGUNTA E RESPOSTA
+@Composable
+fun InputOwnerNameBox(onNext:() -> Unit) {
+    Box(
+        modifier = Modifier
+            .background(
+                Color(0xFFFFDBD2),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxSize()
+            .padding(30.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+
+            VarInputNameBox()
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp)
+                    .padding(top = 50.dp),
+                contentAlignment = Alignment.Center,
             ) {
-                Button(
-                    onClick = onNext,
+
+                Button(onClick = onNext,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -295,15 +317,15 @@ fun InputBreedSexBox(onNext:() -> Unit) {
                         containerColor = Color(0xFFFF8769)
                     ),
                     shape = RoundedCornerShape(16.dp)
-
                 ) {
-                    Text(
-                        text = "Next",
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-
+                    Text(text = "Next",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     )
                 }
+
             }
 
         }
