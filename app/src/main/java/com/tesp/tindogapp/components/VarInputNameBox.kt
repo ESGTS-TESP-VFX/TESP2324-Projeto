@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.sp
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VarInputNameBox() {
+fun VarInputNameBox(): Boolean {
     var inputName by remember { mutableStateOf("") }
-
+    var isValid by remember { mutableStateOf(false) }
 
     Text(
         text = "What's your Name?",
@@ -38,10 +38,12 @@ fun VarInputNameBox() {
         modifier = Modifier.padding(bottom = 8.dp)
     )
 
-
     OutlinedTextField(
         value = inputName,
-        onValueChange = { inputName = it },
+        onValueChange = {
+            inputName = it
+            isValid = it.isNotBlank()
+        },
         label = {
             Text(
                 "Insert your name...",
@@ -56,11 +58,11 @@ fun VarInputNameBox() {
             .fillMaxWidth()
             .padding(0.dp, 30.dp, 0.dp, 0.dp)
             .background(Color.White, CircleShape),
-
-
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
         )
     )
+
+    return isValid
 }
