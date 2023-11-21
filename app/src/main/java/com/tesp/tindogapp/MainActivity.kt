@@ -25,20 +25,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    /*val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "login") {
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "formulario") {
                         composable("login") {
                             loginPage(navController)
                         }
 
-                        composable("DogForm") {
-                            DogFormPage(navController)
-                        }*/
-                    PageSequency()
+                        composable("formulario") {
+                            FormPage(navController)
+                        }
 
                     }
                 }
             }
         }
     }
+}
 

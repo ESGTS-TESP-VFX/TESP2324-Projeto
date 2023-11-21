@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tesp.tindogapp.R
-@Preview(showBackground = true, heightDp = 300, widthDp = 200)
+
 @Composable
 fun CaixaInputs() {
     Box(
