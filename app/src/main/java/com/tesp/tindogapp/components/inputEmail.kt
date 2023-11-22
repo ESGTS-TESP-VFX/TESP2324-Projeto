@@ -43,11 +43,17 @@ fun InputEmailComponent(): Boolean {
         label = {
             Text("Email")
         },
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.White,
+            cursorColor = Color.White, //
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(shape = RoundedCornerShape(16.dp))
-            .background(Color.White),
+            //.background(Color.White),
     )
 
 return isValid;

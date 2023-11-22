@@ -8,6 +8,7 @@ import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,11 +40,17 @@ fun InputPasswordComponent(): Boolean{
         label = {
             Text("Password")
         },
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.White,
+            cursorColor = Color.White,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(8. dp)
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(Color.White),
+            .clip(shape = RoundedCornerShape(16.dp)),
+            //.background(Color.White),
         visualTransformation = PasswordVisualTransformation()
     )
     return  isvalid;
