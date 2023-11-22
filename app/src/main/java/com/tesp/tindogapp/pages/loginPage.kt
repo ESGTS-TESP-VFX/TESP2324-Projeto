@@ -31,9 +31,3 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
         }
     }
 }
-
-//todo: resolver o problema das strings;
-//todo: formatar os input fields com o aspeto certo;
-//todo: inserir validação de email e de password;
-//todo: resolver como acionar os textos de dados inválidos e link para reset password
-

@@ -1,6 +1,7 @@
 package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,13 +10,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tesp.tindogapp.R
 
 @Preview
@@ -35,49 +43,59 @@ fun CaixaInputs() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            var respostaValid by remember {
+                mutableStateOf(true)
+            }
             Text(
-                text = R.string.loginText.toString(),
+                text = stringResource(id = R.string.loginText),
                 fontFamily = FontFamily.Monospace,
+                fontSize = 22.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 16.dp, top = 5.dp)
             )
-            InputEmailComponent()
-            InputPasswordComponent()
+            var email = InputEmailComponent()
+            var pwd = InputPasswordComponent()
+            respostaValid = email && pwd;
 
 
             SignInButtonComponent()
 
-            //este texto só aparece quando os dados de login forem inválidos
+            if(!respostaValid) {
+                //este texto só aparece quando os dados de login forem inválidos
+                Text(
+                    text = stringResource(id = R.string.invalid_login_data),
+                    fontFamily = FontFamily.Monospace,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFFFF0000),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
+
             Text(
-                text = R.string.invalid_login_data.toString(),
+                text = stringResource(R.string.reset_password_link),
                 fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = Color(0xFFFF0000),
+                color = Color(0xFF000000),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
+                    .clickable { /*ação*/ }
             )
 
-            Text(
-                text = R.string.reset_password_link.toString(),
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                color = Color(0xFFFF0000),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-            )
-
 
             Text(
-                text = R.string.create_account_message.toString(),
+                text = stringResource(R.string.create_account_message),
                 fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
+                    .clickable {  }
             )
 
             SignUpButtonComponent()
