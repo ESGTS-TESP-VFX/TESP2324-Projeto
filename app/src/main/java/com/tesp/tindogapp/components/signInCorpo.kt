@@ -28,7 +28,7 @@ import com.tesp.tindogapp.R
 
 @Preview
 @Composable
-fun CaixaInputs() {
+fun SignInCorpo() {
     Box(
         modifier = Modifier
             .background(
