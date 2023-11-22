@@ -45,7 +45,7 @@ fun InputEmailComponent(): Boolean {
         },
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White,
-            cursorColor = Color.White, //
+            cursorColor = Color.White,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
