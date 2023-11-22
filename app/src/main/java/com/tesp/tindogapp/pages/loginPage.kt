@@ -17,7 +17,7 @@ import com.tesp.tindogapp.components.Logotipo
 fun loginPage(navController: NavHostController = rememberNavController()): Unit {
     Box(
         modifier = Modifier
-            .padding(0.dp) // Set the margins here
+            .padding(0.dp)
     ) {
 
         Column(
