@@ -38,6 +38,9 @@ class MainActivity : ComponentActivity() {
                         composable("signPage") {
                             SignInPage(navController)
                         }
+                        composable("match") {
+                            likeDislike(navController)
+                        }
                     }
                 }
             }
