@@ -10,11 +10,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
-import com.tesp.tindogapp.components.SignInCorpo
+import com.tesp.tindogapp.components.SignUpCorpo
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
-fun SignInPage(navController: NavHostController = rememberNavController()): Unit {
+fun SignUpPage(navController: NavHostController = rememberNavController()): Unit {
     Box(
         modifier = Modifier
             .padding(0.dp) // Set the margins here
@@ -26,8 +26,9 @@ fun SignInPage(navController: NavHostController = rememberNavController()): Unit
                 .padding(8.dp)
         ) {
             Logotipo()
-            SignInCorpo()
+            SignUpCorpo()
 
         }
     }
 }
+//

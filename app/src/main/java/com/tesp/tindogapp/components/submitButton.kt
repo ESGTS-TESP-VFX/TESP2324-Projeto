@@ -19,22 +19,22 @@ import com.tesp.tindogapp.R
 @Preview
 @Composable
 
-fun SignUpButtonComponent() {
+fun SubmitButtonComponent() {
 
     Button(
         onClick = {
             /* Handle login logic here */
         },
         colors = ButtonDefaults.buttonColors(
-            Color(0xFFFFFFFF),
-            contentColor = Color(0xFF000000)),
+            Color(0xFFFF8769),
+            contentColor = Color(0xFFFFFFFF)),
         modifier = Modifier
             //.fillMaxWidth()
             .padding(6.dp)
             .width(200.dp)
 
     ) {
-        Text(text = "Sign Up")
+        Text(text = "Submit")
 
     }
 }

@@ -6,4 +6,6 @@
     <string name="create_account_message">New here?\nMake a paw registration</string>
     <string name="invalid_login_data">Incorrect email or password</string>
     <string name="reset_password_link">Reset Password</string>
+    <string name="register">Register With us!</string>
+    <string name="invalid_register_data">Incorrect data, please check your inputs</string>
 </resources>

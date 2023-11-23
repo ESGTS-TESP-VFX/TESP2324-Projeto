@@ -28,7 +28,7 @@ import com.tesp.tindogapp.R
 
 @Preview
 @Composable
-fun SignInCorpo() {
+fun SignUpCorpo() {
     Box(
         modifier = Modifier
             .background(
@@ -47,7 +47,7 @@ fun SignInCorpo() {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.loginText),
+                text = stringResource(id = R.string.register),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -55,17 +55,19 @@ fun SignInCorpo() {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
+            InputUsernameComponent()
             var email = InputEmailComponent()
-            var pwd = InputPasswordComponent()
-            respostaValid = email && pwd;
+            var (pwd, isValidA) = InputPasswordComponent()
+            var (confirmPassword, isValidB) = InputConfirmPasswordComponent()
+            respostaValid = email && isValidA && isValidB && pwd == confirmPassword ;
 
 
-            SignInButtonComponent()
+            //SignInButtonComponent()
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_login_data),
+                    text = stringResource(id = R.string.invalid_register_data),
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
@@ -75,30 +77,8 @@ fun SignInCorpo() {
                 )
             }
 
-            Text(
-                text = stringResource(R.string.reset_password_link),
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color(0xFF000000),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
-            )
-
-
-            Text(
-                text = stringResource(R.string.create_account_message),
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable {  }
-            )
-
-            SignUpButtonComponent()
+            SubmitButtonComponent()
         }
     }
 }
+//

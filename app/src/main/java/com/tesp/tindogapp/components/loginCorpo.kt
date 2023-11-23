@@ -56,8 +56,8 @@ fun LoginCorpo() {
                     .padding(bottom = 16.dp, top = 5.dp)
             )
             var email = InputEmailComponent()
-            var pwd = InputPasswordComponent()
-            respostaValid = email && pwd;
+            var (pwd, isValidA) = InputPasswordComponent()
+            respostaValid = email && isValidA;
 
 
             SignInButtonComponent()
@@ -102,3 +102,4 @@ fun LoginCorpo() {
         }
     }
 }
+//

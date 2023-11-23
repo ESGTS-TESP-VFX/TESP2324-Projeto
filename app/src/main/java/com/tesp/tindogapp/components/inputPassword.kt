@@ -25,17 +25,17 @@ import androidx.compose.ui.unit.dp
 @Preview()
 @Composable
 
-fun InputPasswordComponent(): Boolean{
+fun InputPasswordComponent(): Pair<String, Boolean> {
     var password by remember {
         mutableStateOf("")
     }
-    var isvalid by remember { mutableStateOf(false) }
+    var isvalidA by remember { mutableStateOf(false) }
 
     TextField(
         value = password,
         onValueChange = {
             password = it
-            isvalid= !it.isNullOrEmpty()
+            isvalidA= !it.isNullOrEmpty()
         },
         label = {
             Text("Password")
@@ -50,8 +50,8 @@ fun InputPasswordComponent(): Boolean{
             .fillMaxWidth()
             .padding(8. dp)
             .clip(shape = RoundedCornerShape(16.dp)),
-            //.background(Color.White),
         visualTransformation = PasswordVisualTransformation()
     )
-    return  isvalid;
+    return  password to isvalidA;
 }
+//

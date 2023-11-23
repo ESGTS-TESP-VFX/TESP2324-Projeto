@@ -38,8 +38,7 @@ fun InputUsernameComponent(): Boolean {
         value = username,
         onValueChange = {
             username = it
-            isValid = !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
-            // temos de pensar nas validações que fazem sentido com username
+            isValid = !it.isNullOrEmpty() && it.length > 5
         },
         label = {
             Text("Username")
@@ -59,3 +58,4 @@ fun InputUsernameComponent(): Boolean {
 
 return isValid;
 }
+//
