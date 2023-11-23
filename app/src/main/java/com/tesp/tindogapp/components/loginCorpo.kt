@@ -65,7 +65,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
 
             SignInButtonComponent{
                 if (respostaValid)
-                    navController.navigate("signPage")
+                    navController.navigate("home")
             }
 
             if(!respostaValid) {
@@ -104,7 +104,9 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .clickable { }
             )
 
-            SignUpButtonComponent()
+            SignUpButtonComponent(){
+                navController.navigate("signPage")
+            }
         }
     }
 }
