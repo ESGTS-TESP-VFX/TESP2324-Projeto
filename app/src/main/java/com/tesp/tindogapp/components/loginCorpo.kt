@@ -26,9 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tesp.tindogapp.R
 
-@Preview
 @Composable
-fun LoginCorpo() {
+fun LoginCorpo(onClickSigin: () -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -60,7 +59,7 @@ fun LoginCorpo() {
             respostaValid = email && pwd;
 
 
-            SignInButtonComponent()
+            SignInButtonComponent(onClickSigin)
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos

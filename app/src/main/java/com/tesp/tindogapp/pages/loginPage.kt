@@ -1,4 +1,5 @@
 package com.tesp.tindogapp.pages
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,8 +27,7 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
                 .padding(8.dp)
         ) {
             Logotipo()
-            LoginCorpo()
-
+            LoginCorpo { navController.navigate("signPage") }
         }
     }
 }

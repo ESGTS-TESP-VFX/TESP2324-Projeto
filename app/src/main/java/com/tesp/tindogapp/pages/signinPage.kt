@@ -26,8 +26,6 @@ fun SignInPage(navController: NavHostController = rememberNavController()): Unit
                 .padding(8.dp)
         ) {
             Logotipo()
-            SignInCorpo()
-
         }
     }
 }
