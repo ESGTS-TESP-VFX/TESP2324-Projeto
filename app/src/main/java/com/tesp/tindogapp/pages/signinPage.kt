@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
 import com.tesp.tindogapp.components.SignInCorpo
+import com.tesp.tindogapp.components.inputBox
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
@@ -26,6 +28,8 @@ fun SignInPage(navController: NavHostController = rememberNavController()): Unit
                 .padding(8.dp)
         ) {
             Logotipo()
+            inputBox("Password", visualTransformation = PasswordVisualTransformation())
+            inputBox("Texto",)
         }
     }
 }

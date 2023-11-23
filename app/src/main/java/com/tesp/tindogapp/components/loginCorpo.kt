@@ -58,7 +58,6 @@ fun LoginCorpo(onClickSigin: () -> Unit) {
             var pwd = InputPasswordComponent()
             respostaValid = email && pwd;
 
-
             SignInButtonComponent(onClickSigin)
 
             if(!respostaValid) {
