@@ -1,7 +1,6 @@
 package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,16 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 
 @Composable
 @Preview
-fun SignInCorpo(onClickSigin: () -> Unit ={}) {
+fun SignUpCorpo(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -47,7 +47,7 @@ fun SignInCorpo(onClickSigin: () -> Unit ={}) {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.loginText),
+                text = stringResource(id = R.string.register),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -55,18 +55,17 @@ fun SignInCorpo(onClickSigin: () -> Unit ={}) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-
+            InputUsernameComponent()
             var email = InputEmailComponent()
-            var pwd = InputPasswordComponent()
-            respostaValid = true;
+            var pwd= InputPasswordComponent()
+            var confirmPassword = InputConfirmPasswordComponent()
 
-            SignInButtonComponent(onClickSigin)
-
+            respostaValid = Verficar(email, pwd, confirmPassword);
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_login_data),
+                    text = stringResource(id = R.string.invalid_register_data),
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
@@ -76,30 +75,16 @@ fun SignInCorpo(onClickSigin: () -> Unit ={}) {
                 )
             }
 
-            Text(
-                text = stringResource(R.string.reset_password_link),
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color(0xFF000000),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
-            )
-
-
-            Text(
-                text = stringResource(R.string.create_account_message),
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable {  }
-            )
-
-            SignUpButtonComponent()
+            SubmitButtonComponent(){
+                navController.navigate("login")
+            }
         }
     }
+}
+
+fun Verficar(email: String, pwd: String, confirmPassword: String): Boolean {
+    return !email.isNullOrEmpty() &&
+            !pwd.isNullOrEmpty() &&
+            !confirmPassword.isNullOrEmpty() &&
+            pwd == confirmPassword;
 }
