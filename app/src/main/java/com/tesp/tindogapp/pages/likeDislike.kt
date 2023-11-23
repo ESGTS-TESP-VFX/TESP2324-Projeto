@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,97 +28,99 @@ import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.tesp.tindogapp.components.NavigationTopBar
 
 
 @Preview(showBackground = true, heightDp = 750, widthDp = 380)
 @Composable
 fun likeDislike(navController: NavHostController = rememberNavController()): Unit {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
 
-// Botão de seleção para o cão à procura de companhia
-        Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            contentPadding = PaddingValues(),
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-                .align(Alignment.End)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.fotocao1),
-                contentDescription = "botao_redondo"
-            )
-        }
-
-        // Imagem principal da galeria
-        Image(
-            painter = painterResource(id = R.drawable.fotocao2),
-            contentDescription = "foto da galeria",
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-        )
-
-        // Textos (alterar para json)
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp)
-        ) {
-            Text(
-                text = "Bobi, 9",
-                style = androidx.compose.ui.text.TextStyle( // ???
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 8.dp)
-            )
-
-            Text(
-                text = "Vila Franca de Xira",
-                style = androidx.compose.ui.text.TextStyle( // ???
-                    fontSize = 20.sp
-                ),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp)
-            )
-        }
-        Text(
-            text = "Esporte: Corrida na relva. Sou um cão de guarda reformado, minha tutora trouxe-me para viver na cidade. Gosto de outros cães e busco companhia para passeios.",
-            //style = TextStyle( // ???
-            style = androidx.compose.ui.text.TextStyle( // ???
-                fontSize = 14.sp
-            )
+                .padding(16.dp)
         )
+        {
+            // Botão de seleção para o cão à procura de companhia
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                contentPadding = PaddingValues(),
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.End)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.fotocao1),
+                    contentDescription = "botao_redondo"
+                )
+            }
 
-        // Botões like e dislike (ajustar com o que Rodrigo fez)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+            // Imagem principal da galeria
             Image(
-                painter = painterResource(id = R.drawable.dislike),
-                contentDescription = "dislike",
+                painter = painterResource(id = R.drawable.fotocao2),
+                contentDescription = "foto da galeria",
                 modifier = Modifier
-                    .size(100.dp, 100.dp)
+                    .clip(RoundedCornerShape(20.dp))
             )
-            Image(
-                painter = painterResource(id = R.drawable.like),
-                contentDescription = "like",
+
+            // Textos (alterar para json)
+            Row(
                 modifier = Modifier
-                    .size(100.dp, 100.dp)
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            ) {
+                Text(
+                    text = "Bobi, 9",
+                    style = androidx.compose.ui.text.TextStyle( // ???
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp)
+                )
+
+                Text(
+                    text = "Vila Franca de Xira",
+                    style = androidx.compose.ui.text.TextStyle( // ???
+                        fontSize = 20.sp
+                    ),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp)
+                )
+            }
+            Text(
+                text = "Esporte: Corrida na relva. Sou um cão de guarda reformado, minha tutora trouxe-me para viver na cidade. Gosto de outros cães e busco companhia para passeios.",
+                //style = TextStyle( // ???
+                style = androidx.compose.ui.text.TextStyle( // ???
+                    fontSize = 14.sp
+                )
             )
+
+            // Botões like e dislike (ajustar com o que Rodrigo fez)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.dislike),
+                    contentDescription = "dislike",
+                    modifier = Modifier
+                        .size(100.dp, 100.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.like),
+                    contentDescription = "like",
+                    modifier = Modifier
+                        .size(100.dp, 100.dp)
+                )
+            }
+
+            Text(text = stringResource(id = R.string.bemyfriendText))
         }
-
-        Text(text = stringResource(id = R.string.bemyfriendText))
-    }
 }

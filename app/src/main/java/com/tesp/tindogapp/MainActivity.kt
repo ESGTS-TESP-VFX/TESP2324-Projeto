@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.pages.*
 //import com.tesp.tindogapp.pages.paginaB
 import com.tesp.tindogapp.ui.theme.TinDogAppTheme
@@ -39,7 +40,10 @@ class MainActivity : ComponentActivity() {
                             SignInPage(navController)
                         }
                         composable("match") {
-                            likeDislike(navController)
+                            NavigationTopBar(navController = navController)
+                            {
+                                likeDislike(navController)
+                            }
                         }
                     }
                 }
