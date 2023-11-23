@@ -24,11 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
-
-@Preview
+import java.io.Console
+import android.util.Log
 @Composable
-fun LoginCorpo() {
+@Preview()
+fun LoginCorpo(navController: NavController= rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -56,11 +60,13 @@ fun LoginCorpo() {
                     .padding(bottom = 16.dp, top = 5.dp)
             )
             var email = InputEmailComponent()
-            var (pwd, isValidA) = InputPasswordComponent()
-            respostaValid = email && isValidA;
+            var pwd = InputPasswordComponent()
+            respostaValid = VerificarCredenciais(email, pwd);
 
-
-            SignInButtonComponent()
+            SignInButtonComponent{
+                if (respostaValid)
+                    navController.navigate("home")
+            }
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos
@@ -95,11 +101,22 @@ fun LoginCorpo() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
-                    .clickable {  }
+                    .clickable { }
             )
 
-            SignUpButtonComponent()
+            SignUpButtonComponent(){
+                navController.navigate("signPage")
+            }
         }
     }
 }
-//
+
+fun VerificarCredenciais(email: String, pwd: String): Boolean {
+   Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234"}")
+
+    if (email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234") {
+        return true;
+    }
+
+    return  false;
+}

@@ -1,7 +1,6 @@
 package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,16 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 
-@Preview
 @Composable
-fun SignUpCorpo() {
+@Preview
+fun SignUpCorpo(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -57,12 +57,10 @@ fun SignUpCorpo() {
             )
             InputUsernameComponent()
             var email = InputEmailComponent()
-            var (pwd, isValidA) = InputPasswordComponent()
-            var (confirmPassword, isValidB) = InputConfirmPasswordComponent()
-            respostaValid = email && isValidA && isValidB && pwd == confirmPassword ;
+            var pwd= InputPasswordComponent()
+            var confirmPassword = InputConfirmPasswordComponent()
 
-
-            //SignInButtonComponent()
+            respostaValid = Verficar(email, pwd, confirmPassword);
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos
@@ -81,4 +79,10 @@ fun SignUpCorpo() {
         }
     }
 }
-//
+
+fun Verficar(email: String, pwd: String, confirmPassword: String): Boolean {
+    return !email.isNullOrEmpty() &&
+            !pwd.isNullOrEmpty() &&
+            !confirmPassword.isNullOrEmpty() &&
+            pwd == confirmPassword;
+}
