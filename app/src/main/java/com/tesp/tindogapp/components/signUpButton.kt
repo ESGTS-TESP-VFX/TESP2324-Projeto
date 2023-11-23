@@ -19,12 +19,10 @@ import com.tesp.tindogapp.R
 @Preview
 @Composable
 
-fun SignUpButtonComponent() {
+fun SignUpButtonComponent(onClickSigin: () -> Unit ={}) {
 
     Button(
-        onClick = {
-            /* Handle login logic here */
-        },
+        onClick = onClickSigin,
         colors = ButtonDefaults.buttonColors(
             Color(0xFFFFFFFF),
             contentColor = Color(0xFF000000)),
