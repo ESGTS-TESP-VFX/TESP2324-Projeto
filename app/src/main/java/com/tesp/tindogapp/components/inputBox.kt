@@ -48,7 +48,7 @@ fun InputConfirmPasswordComponent():String{
 @Preview()
 fun InputPasswordComponent():String{
     var valid= false
-    return inputBox("Password", isValidCall = { valid }){
+    return inputBox("Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
         valid = !it.isNullOrEmpty()
     }
 }
