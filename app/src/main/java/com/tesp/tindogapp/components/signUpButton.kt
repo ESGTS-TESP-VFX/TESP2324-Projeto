@@ -18,7 +18,6 @@ import com.tesp.tindogapp.R
 
 @Preview
 @Composable
-
 fun SignUpButtonComponent(onClickSigin: () -> Unit ={}) {
 
     Button(
