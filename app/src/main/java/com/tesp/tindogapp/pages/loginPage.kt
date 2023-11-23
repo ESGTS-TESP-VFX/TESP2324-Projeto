@@ -27,7 +27,7 @@ fun loginPage(navController: NavHostController = rememberNavController()): Unit 
                 .padding(8.dp)
         ) {
             Logotipo()
-            LoginCorpo { navController.navigate("signPage") }
+            LoginCorpo(navController)
         }
     }
 }

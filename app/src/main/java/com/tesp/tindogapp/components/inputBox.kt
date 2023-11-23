@@ -22,46 +22,42 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 @Preview
-fun InputEmailComponent(): Boolean {
-    var valid= false
-    inputBox("Email", isValid = { valid }){
+fun InputEmailComponent(): String {
+    var valid = false
+    return  inputBox("Email", isValidCall = { valid }){
         valid= !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
     }
-    return valid;
 }
 @Composable
 @Preview()
-fun InputUsernameComponent():Boolean{
+fun InputUsernameComponent():String{
     var valid= false
-    inputBox("Username", isValid = { valid }){
+    return inputBox("Username", isValidCall = { valid }){
         valid= !it.isNullOrEmpty() && it.length > 5
     }
-    return valid;
 }
 @Composable
 @Preview()
-fun InputConfirmPasswordComponent():Boolean{
+fun InputConfirmPasswordComponent():String{
     var valid= false
-    inputBox("Confirmar Password", visualTransformation = PasswordVisualTransformation(), isValid = { valid }){
+    return inputBox("Confirmar Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
         valid = !it.isNullOrEmpty()
     }
-    return valid;
 }
 @Composable
 @Preview()
-fun InputPasswordComponent():Boolean{
+fun InputPasswordComponent():String{
     var valid= false
-    inputBox("Password", visualTransformation = PasswordVisualTransformation(), isValid = { valid }){
+    return inputBox("Password", isValidCall = { valid }){
         valid = !it.isNullOrEmpty()
     }
-    return valid;
 }
 @Composable
 @Preview()
 fun ExemploTexto(): Unit {
 
     var valid= false
-    inputBox("Titulo Normal", isValid = { valid }){
+    inputBox("Titulo Normal", isValidCall = { valid }){
         !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
     }
 }
@@ -71,16 +67,16 @@ fun ExemploTexto(): Unit {
 @Preview()
 fun inputBox(titulo: String ="Titulo Default",
              visualTransformation: VisualTransformation = VisualTransformation.None,
-             isValid: () -> Boolean = { true},
-             onValueChange: (String) -> Unit = {}): Boolean {
-    var value by remember { mutableStateOf("asd") }
+             isValidCall: () -> Boolean = { true},
+             onValueChange: (String) -> Unit = {}): String {
+    var value by remember { mutableStateOf("") }
     var isValid by remember { mutableStateOf(false) }
 
     TextField(
         value = value,
         onValueChange = {
             value = it
-            isValid = isValid()
+            isValid = isValidCall()
         },
         label = { Text(titulo) },
         colors = TextFieldDefaults.textFieldColors(
@@ -98,5 +94,5 @@ fun inputBox(titulo: String ="Titulo Default",
         visualTransformation = visualTransformation
     )
 
-    return isValid;
+    return value;
 }
