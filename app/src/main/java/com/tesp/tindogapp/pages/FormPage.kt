@@ -1,5 +1,9 @@
 package com.tesp.tindogapp.pages
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +38,14 @@ import com.tesp.tindogapp.components.Logotipo
 import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.components.VarInputNameAgeBox
 import com.tesp.tindogapp.components.VarInputNameBox
+import coil.compose.AsyncImage
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.runtime.currentCompositionLocalContext
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import com.tesp.tindogapp.R
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
@@ -46,7 +60,7 @@ fun FormPage(navController: NavHostController = rememberNavController()) {
         when (currentStep) {
             1 -> Step1(onNext = { currentStep = 2 })
             2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
-            3 -> Step3(onBack = { currentStep = 2 })
+            3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4})
         }
     }
 }
@@ -79,9 +93,10 @@ fun Step2(onBack: () -> Unit, onNext: () -> Unit) {
 }
 
 @Composable
-fun Step3(onBack: () -> Unit) {
+fun Step3(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
+        PhotoPicker(name = "", modifier = Modifier, onBack = onBack, onNext = onNext)
 
     }
 }
@@ -273,4 +288,123 @@ fun InputDogNameBox(onNext:() -> Unit) {
 
         }
     }
+}
+
+
+@Composable
+fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit, onNext: () -> Unit) {
+
+    /*
+    val packageName = LocalContext.current.packageName
+    val placeholderImageUri: Uri = Uri.parse("android.resource://$packageName/${R.drawable.tindog_logo}")
+    */
+
+    var selectedImageUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            selectedImageUri = it
+        }
+    )
+
+    Box (
+        modifier = Modifier
+            .background(
+                Color(0xFFFFDBD2),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxSize()
+            .padding(30.dp)
+    ) {
+        Column{
+
+            Text(
+                text = "Show us how you look !",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Spacer(modifier = Modifier.size(20.dp))
+
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(16.dp)),
+                model = selectedImageUri,
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds
+            )
+
+            Text(text = selectedImageUri?.encodedPath.toString() )
+
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFBF8B7E)
+                ),
+                onClick = {
+                    photoPickerLauncher.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                }) {
+                Text(text = "Choose Image")
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Back",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+                Button(onClick = onNext,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Next",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+            }
+
+
+
+
+        }
+    }
+
 }
