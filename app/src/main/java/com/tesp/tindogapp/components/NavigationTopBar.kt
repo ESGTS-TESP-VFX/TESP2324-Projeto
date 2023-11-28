@@ -51,7 +51,7 @@ fun NavigationTopBar(
     drawerContent: @Composable () -> Unit = {}
 ): Unit {
     val scope = rememberCoroutineScope()
-    var state = rememberDrawerState(DrawerValue.Open);
+    var state = rememberDrawerState(DrawerValue.Closed);
 
     Column {
         if (state.isClosed) {
