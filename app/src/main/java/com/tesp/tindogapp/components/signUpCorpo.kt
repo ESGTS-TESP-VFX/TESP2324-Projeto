@@ -76,7 +76,7 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
             }
 
             SubmitButtonComponent(){
-                navController.navigate("login")
+                navController.navigate("formOwnerPage")
             }
         }
     }

@@ -80,13 +80,13 @@ fun NavigationTopBar(
             drawerContent = {
                 Row (modifier = Modifier
                     .clip(RoundedCornerShape(0,10,10, 0))
-                    .background(Color(0x4DFF8769))) {
+                    ) {
                     Column(
                         modifier = Modifier
                             .clip(RoundedCornerShape(0,10,10, 0))
                     ) {
                         Button(
-                            onClick = {  navController.navigate("home") },
+                            onClick = {  navController.navigate("pickDog") },
                             colors = ButtonDefaults.buttonColors(
                                 Color(0xFFFF8769),
                                 contentColor = Color(0xFFFFFFFF)),
@@ -96,10 +96,10 @@ fun NavigationTopBar(
                                 .width(200.dp)
 
                         ) {
-                            Text(text = "Link A")
+                            Text(text = "Home")
                         }
                         Button(
-                            onClick = {  navController.navigate("home") },
+                            onClick = {  navController.navigate("seeOwnerPage") },
                             colors = ButtonDefaults.buttonColors(
                                 Color(0xFFFF8769),
                                 contentColor = Color(0xFFFFFFFF)),
@@ -109,10 +109,10 @@ fun NavigationTopBar(
                                 .width(200.dp)
 
                         ) {
-                            Text(text = "Link B")
+                            Text(text = "Profile")
                         }
                         Button(
-                            onClick = {  navController.navigate("home") },
+                            onClick = {  navController.navigate("MatchesPage") },
                             colors = ButtonDefaults.buttonColors(
                                 Color(0xFFFF8769),
                                 contentColor = Color(0xFFFFFFFF)),
@@ -122,10 +122,8 @@ fun NavigationTopBar(
                                 .width(200.dp)
 
                         ) {
-                            Text(text = "Link C")
+                            Text(text = "Matches")
                         }
-
-
                     }
                     Image(
                         modifier = Modifier

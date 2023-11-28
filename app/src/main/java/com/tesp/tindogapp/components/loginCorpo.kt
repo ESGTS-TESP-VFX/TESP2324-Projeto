@@ -65,7 +65,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
 
             SignInButtonComponent{
                 if (respostaValid)
-                    navController.navigate("home")
+                    navController.navigate("pickDog")
             }
 
             if(!respostaValid) {

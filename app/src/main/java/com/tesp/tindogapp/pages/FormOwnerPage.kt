@@ -57,7 +57,10 @@ fun FormOwnerPage(navController: NavHostController = rememberNavController()) {
         when (currentStep) {
             1 -> Step1_Owner(onNext = { currentStep = 2 })
             2 -> Step2_Owner(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
-            3 -> Step3_Owner(onBack = { currentStep = 2 }, onNext = { currentStep = 4})
+            3 -> Step3_Owner(onBack = { currentStep = 2 }, onNext = {
+                currentStep = 4
+                navController.navigate("formDogPage")
+            })
         }
     }
 }
