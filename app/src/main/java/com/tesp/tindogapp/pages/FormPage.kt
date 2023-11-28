@@ -35,9 +35,9 @@ import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.components.VarInputLocBox
 import com.tesp.tindogapp.components.VarInputNameAgeBox
 
-@Preview(showBackground = true, heightDp = 600, widthDp = 380)
+@Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
-fun FormPage(navController: NavHostController = rememberNavController()) {
+fun FormDogPage(navController: NavHostController = rememberNavController()) {
     var currentStep by remember { mutableStateOf(1) }
 
     Column(
@@ -51,7 +51,7 @@ fun FormPage(navController: NavHostController = rememberNavController()) {
             3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
             4 -> Step4(onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
             5 -> Step5(onBack = { currentStep = 6 }, onNext = { currentStep = 6 })
-            6 -> Step6(onBack = { currentStep = 1 }, onNext = { currentStep = 10 })
+            6 -> Step6(onBack = { currentStep = 1 }, onNext = { navController.navigate("match") })
             //7 -> Step7(onBack = { currentStep = 1 })
         }
     }
@@ -191,7 +191,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            VarInputDescBox()
+            VarInputDescBox("Dog Description")
 
             Row(
                 modifier = Modifier

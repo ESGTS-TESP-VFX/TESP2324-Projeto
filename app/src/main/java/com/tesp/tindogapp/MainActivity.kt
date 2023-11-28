@@ -28,21 +28,41 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "formulario") {
+                    NavHost(navController = navController, startDestination = "login") {
                         composable("login") {
                             loginPage(navController)
                         }
-                        composable("formulario") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                FormPage(navController)
-                            }
-                        }
-                        composable("home") {
-                            Text(text = "Ecrã por Criar")
-                        }
                         composable("signPage") {
                             SignUpCorpo(navController)
+                        }
+                        composable("pickDog") {
+                            NavigationTopBar(navController = navController)
+                            {
+                                var dogCounter = 1
+                                if (dogCounter == 1)
+                                    likeDislike(navController)
+                                else
+                                    Text(text = "Pick Dog Screen")
+                            }
+                        }
+
+                        composable("formOwnerPage") {
+                            FormOwnerPage(navController)
+                        }
+                        composable("seeOwnerPage") {
+                            NavigationTopBar(navController = navController)
+                            {
+                                Text(text = "seeOwnerPage")
+                            }
+                        }
+                        composable("MatchesPage") {
+                            NavigationTopBar(navController = navController)
+                            {
+                                Text(text = "MatchesPage")
+                            }
+                        }
+                        composable("formDogPage") {
+                            FormDogPage(navController)
                         }
                         composable("match") {
                             NavigationTopBar(navController = navController)
