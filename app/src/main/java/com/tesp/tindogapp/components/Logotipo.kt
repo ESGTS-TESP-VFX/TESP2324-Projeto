@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tesp.tindogapp.R
 
-@Preview
+@Preview(showBackground = true, heightDp = 700, widthDp = 400)
 @Composable
 fun Logotipo () {
     Box(

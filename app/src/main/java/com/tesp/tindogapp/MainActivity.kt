@@ -28,14 +28,19 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formulario") {
                         composable("login") {
                             loginPage(navController)
+                        }
+                        composable("formulario") {
+                            NavigationTopBar(navController = navController)
+                            {
+                                FormPage(navController)
+                            }
                         }
                         composable("home") {
                             Text(text = "Ecrã por Criar")
                         }
-
                         composable("signPage") {
                             SignUpCorpo(navController)
                         }
@@ -51,3 +56,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
