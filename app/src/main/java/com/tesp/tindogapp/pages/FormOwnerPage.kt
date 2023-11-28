@@ -41,15 +41,12 @@ import com.tesp.tindogapp.components.VarInputNameBox
 import coil.compose.AsyncImage
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.runtime.currentCompositionLocalContext
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import com.tesp.tindogapp.R
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
-fun FormPage(navController: NavHostController = rememberNavController()) {
+fun FormOwnerPage(navController: NavHostController = rememberNavController()) {
     var currentStep by remember { mutableStateOf(1) }
 
     Column(
