@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VarInputNameAgeBox() {
-    var inputName by remember { mutableStateOf("") }
-    var inputAge by remember { mutableStateOf("") }
+fun VarInputBreedSexDog() {
+    var inputBreed by remember { mutableStateOf("") }
+    var inputSex by remember { mutableStateOf("") }
 
     // What's your Dog's Name?
     Text(
-        text = "What's your Dog's Name?",
+        text = "What's your Dog's Breed?",
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
@@ -42,9 +42,9 @@ fun VarInputNameAgeBox() {
 
     // Input DogName
     OutlinedTextField(
-        value = inputName,
-        onValueChange = { inputName = it },
-        label = { Text("Insert here dog's name...",
+        value = inputBreed,
+        onValueChange = { inputBreed = it },
+        label = { Text("Insert here dog's breed...",
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
@@ -64,7 +64,7 @@ fun VarInputNameAgeBox() {
     )
     // What's your Dog's Age?
     Text(
-        text = "What's your Dog's Age?",
+        text = "What's your Dog's Sex?",
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
@@ -74,9 +74,9 @@ fun VarInputNameAgeBox() {
 
     // Input DogAge
     OutlinedTextField(
-        value = inputAge,
-        onValueChange = { inputAge = it },
-        label = { Text("Insert here dog's age...",
+        value = inputSex,
+        onValueChange = { inputSex = it },
+        label = { Text("Insert here dog's sex...",
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
@@ -93,3 +93,4 @@ fun VarInputNameAgeBox() {
         )
     )
 }
+

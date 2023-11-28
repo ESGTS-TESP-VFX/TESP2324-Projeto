@@ -2,10 +2,8 @@ package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -27,12 +25,12 @@ import androidx.compose.ui.unit.sp
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VarInputDescBox(text: String ="") {
-    var inputDesc by remember { mutableStateOf("") }
+fun VarInputLocBox() {
+    var inputLoc by remember { mutableStateOf("") }
 
 
     Text(
-        text = text,
+        text = "What's your Dog Location?",
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Monospace,
@@ -42,23 +40,22 @@ fun VarInputDescBox(text: String ="") {
 
 
     OutlinedTextField(
-        value = inputDesc,
-        onValueChange = { inputDesc = it },
+        value = inputLoc,
+        onValueChange = { inputLoc = it },
         label = {
             Text(
-                "Insert a description...",
+                "Insert your location...",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Center,
-                color = Color(0xFFBF8B7E),
+                color = Color(0xFFBF8B7E)
             )
         },
         modifier = Modifier
             .fillMaxWidth()
             .padding(0.dp, 30.dp, 0.dp, 0.dp)
-            .background(Color.White, RoundedCornerShape(16.dp))
-            .height(150.dp),
+            .background(Color.White, CircleShape),
 
 
         colors = TextFieldDefaults.outlinedTextFieldColors(

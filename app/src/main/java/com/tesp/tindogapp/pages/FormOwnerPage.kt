@@ -55,49 +55,38 @@ fun FormOwnerPage(navController: NavHostController = rememberNavController()) {
             .padding(16.dp)
     ) {
         when (currentStep) {
-            1 -> Step1(onNext = { currentStep = 2 })
-            2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
-            3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4})
+            1 -> Step1_Owner(onNext = { currentStep = 2 })
+            2 -> Step2_Owner(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
+            3 -> Step3_Owner(onBack = { currentStep = 2 }, onNext = { currentStep = 4})
         }
     }
 }
 
 
 @Composable
-fun Step1(onNext: () -> Unit) {
+fun Step1_Owner(onNext: () -> Unit) {
     Column {
         Logotipo()
         InputOwnerNameBox(onNext = onNext)
     }
 }
 
-/*
 @Composable
-fun Step1(onNext: () -> Unit) {
+fun Step2_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
-        InputDogNameBox(onNext = onNext)
-    }
-}
-*/
-
-@Composable
-fun Step2(onBack: () -> Unit, onNext: () -> Unit) {
-    Column {
-        Logotipo()
-        InputDescBox(onBack = onBack, onNext = onNext)
+        InputDescBox_Owner(onBack = onBack, onNext = onNext)
     }
 }
 
 @Composable
-fun Step3(onBack: () -> Unit, onNext: () -> Unit) {
+fun Step3_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
         PhotoPicker(name = "", modifier = Modifier, onBack = onBack, onNext = onNext)
 
     }
 }
-
 
 @Composable
 fun InputOwnerNameBox(onNext: () -> Unit) {
@@ -164,7 +153,7 @@ fun InputOwnerNameBox(onNext: () -> Unit) {
 }
 
 @Composable
-fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
+fun InputDescBox_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -180,7 +169,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            VarInputDescBox()
+            VarInputDescBox("Tell us What do you Like?")
 
             Row(
                 modifier = Modifier
@@ -229,64 +218,6 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
         }
     }
 }
-
-@Composable
-fun InputDogNameBox(onNext:() -> Unit) {
-    Box(
-        modifier = Modifier
-            .background(
-                Color(0xFFFFDBD2),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-
-            var respostaValida by remember { mutableStateOf(false) }
-
-            VarInputNameAgeBox()
-
-            if (!respostaValida){
-                Text(text = "Não é valido!")
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-            ) {
-
-
-
-                Button(
-                    onClick = onNext,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-
-                ) {
-                    Text(
-                        text = "Next",
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-
-                    )
-                }
-            }
-
-        }
-    }
-}
-
 
 @Composable
 fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit, onNext: () -> Unit) {
