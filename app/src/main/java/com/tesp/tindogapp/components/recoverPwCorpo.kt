@@ -84,6 +84,17 @@ fun RecoverPwCorpo(navController: NavController= rememberNavController()) {
     }
 }
 
+fun VerificarEmailRecoverPw(email: String): Boolean {
+    Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com"}")
+    // de futura verifca se email existe na bd
+
+    if (email=="pedro.torrezao@gmail.com") {
+        return true;
+    }
+
+    return  false;
+}
+
 /*
 fun VerificarCredenciais(email: String, pwd: String): Boolean {
    Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234"}")
