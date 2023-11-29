@@ -8,4 +8,6 @@
     <string name="reset_password_link">Reset Password</string>
     <string name="register">Register With us!</string>
     <string name="invalid_register_data">Incorrect data, please check your inputs</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="verify_your_email">Verify your email</string>
 </resources>

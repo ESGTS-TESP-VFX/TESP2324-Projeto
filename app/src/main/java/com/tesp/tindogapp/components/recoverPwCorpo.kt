@@ -32,7 +32,7 @@ import java.io.Console
 import android.util.Log
 @Composable
 @Preview()
-fun LoginCorpo(navController: NavController= rememberNavController()) {
+fun RecoverPwCorpo(navController: NavController= rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -51,7 +51,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.loginText),
+                text = stringResource(id = R.string.reset_password),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -60,18 +60,18 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .padding(bottom = 16.dp, top = 5.dp)
             )
             var email = InputEmailComponent()
-            var pwd = InputPasswordComponent()
-            respostaValid = VerificarCredenciais(email, pwd);
+            respostaValid = VerificarEmailRecoverPw(email);
 
-            SignInButtonComponent{
+            ResetPwButtonComponent{
                 if (respostaValid)
                     navController.navigate("pickDog")
+                //temos de mudar rota
             }
 
             if(!respostaValid) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_login_data),
+                    text = stringResource(id = R.string.verify_your_email),
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
@@ -80,37 +80,11 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-
-            Text(
-                text = stringResource(R.string.reset_password_link),
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color(0xFF000000),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
-            )
-
-
-            Text(
-                text = stringResource(R.string.create_account_message),
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { }
-            )
-
-            SignUpButtonComponent(){
-                navController.navigate("signPage")
-            }
         }
     }
 }
 
+/*
 fun VerificarCredenciais(email: String, pwd: String): Boolean {
    Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234"}")
 
@@ -120,14 +94,5 @@ fun VerificarCredenciais(email: String, pwd: String): Boolean {
 
     return  false;
 }
+*/
 
-fun VerificarEmailRecoverPw(email: String): Boolean {
-    Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com"}")
-    // de futura verifca se email existe na bd
-
-    if (email=="pedro.torrezao@gmail.com") {
-        return true;
-    }
-
-    return  false;
-}

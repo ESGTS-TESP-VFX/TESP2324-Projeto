@@ -26,6 +26,7 @@ fun InputEmailComponent(): String {
     var valid = false
     return  inputBox("Email", isValidCall = { valid }){
         valid= !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
+        //temos de validar a regra .com
     }
 }
 @Composable
