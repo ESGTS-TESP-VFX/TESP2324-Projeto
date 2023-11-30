@@ -61,6 +61,12 @@ class MainActivity : ComponentActivity() {
                                 Text(text = "MatchesPage")
                             }
                         }
+                        composable("KennelPage") {
+                            NavigationTopBar(navController = navController)
+                            {
+                                Text(text = "KennelPage")
+                            }
+                        }
                         composable("formDogPage") {
                             FormDogPage(navController)
                         }

@@ -57,15 +57,6 @@ fun FormDogPage(navController: NavHostController = rememberNavController()) {
     }
 }
 
-/* FORM PARA TELA COM APENAS 1 PERGUNTA E RESPOSTA
-@Composable
-fun Step1(onNext: () -> Unit) {
-    Column {
-        Logotipo()
-        InputOwnerNameBox(onNext = onNext)
-    }
-}
-*/
 
 // FORM PARA NOME E IDADE DO CAO
 @Composable
