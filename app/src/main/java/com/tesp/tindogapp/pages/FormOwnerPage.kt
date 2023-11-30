@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,13 +42,15 @@ import com.tesp.tindogapp.components.VarInputNameBox
 import coil.compose.AsyncImage
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import com.tesp.tindogapp.R
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
 fun FormOwnerPage(navController: NavHostController = rememberNavController()) {
-    var currentStep by remember { mutableStateOf(1) }
+    var currentStep by remember { mutableStateOf(3) }
 
     Column(
         modifier = Modifier
@@ -86,7 +89,7 @@ fun Step2_Owner(onBack: () -> Unit, onNext: () -> Unit) {
 fun Step3_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
-        PhotoPicker(name = "", modifier = Modifier, onBack = onBack, onNext = onNext)
+        PhotoPickerOwner(onBack = onBack, onNext = onNext)
 
     }
 }
@@ -222,14 +225,9 @@ fun InputDescBox_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     }
 }
 
+
 @Composable
-fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit, onNext: () -> Unit) {
-
-    /*
-    val packageName = LocalContext.current.packageName
-    val placeholderImageUri: Uri = Uri.parse("android.resource://$packageName/${R.drawable.tindog_logo}")
-    */
-
+fun PhotoPickerOwner(onBack: () -> Unit, onNext: () -> Unit): Unit {
     var selectedImageUri by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -241,7 +239,7 @@ fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit,
         }
     )
 
-    Box (
+    Box(
         modifier = Modifier
             .background(
                 Color(0xFFFFDBD2),
@@ -250,42 +248,62 @@ fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit,
             .fillMaxSize()
             .padding(30.dp)
     ) {
-        Column{
-
-            Text(
-                text = "Show us how you look !",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 8.dp)
+        Column (
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Show us how you look !",
+                style = androidx.compose.ui.text.TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
             )
 
-            Spacer(modifier = Modifier.size(20.dp))
-
-            AsyncImage(
+            Box (
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clip(RoundedCornerShape(16.dp)),
-                model = selectedImageUri,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds
-            )
+                    .padding(0.dp, 30.dp, 0.dp, 0.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.placeholder),
+                    contentDescription = "placehold",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.FillBounds
+                )
 
-            Text(text = selectedImageUri?.encodedPath.toString() )
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    model = selectedImageUri,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds
+                )
+            }
 
-            Button(
-                modifier = Modifier.fillMaxWidth(),
+            Button(onClick = {
+                photoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            },
+                modifier = Modifier
+                    .padding(0.dp, 30.dp, 0.dp, 0.dp)
+                    .height(50.dp),
+
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFBF8B7E)
                 ),
-                onClick = {
-                    photoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(text = "Add Photo!",
+                    style = androidx.compose.ui.text.TextStyle(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }) {
-                Text(text = "Choose Image")
+                )
             }
 
             Row(
@@ -315,7 +333,6 @@ fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit,
 
                 Button(onClick = onNext,
                     modifier = Modifier
-
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFF8769)
@@ -331,11 +348,9 @@ fun PhotoPicker(name: String, modifier: Modifier = Modifier, onBack: () -> Unit,
                 }
 
             }
-
-
-
-
         }
+
     }
 
 }
+

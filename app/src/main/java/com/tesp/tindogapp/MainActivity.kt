@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formOwnerPage") {
                         composable("login") {
                             loginPage(navController)
                         }
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         composable("seeOwnerPage") {
                             NavigationTopBar(navController = navController)
                             {
-                                Text(text = "seeOwnerPage")
+                                seeOwnerPage(navController)
                             }
                         }
                         composable("MatchesPage") {
