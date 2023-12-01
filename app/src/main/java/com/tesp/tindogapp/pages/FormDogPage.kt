@@ -193,7 +193,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
         mutableStateOf<Uri?>(null)
     }
 
-    val photoPickerLauncher = rememberLauncherForActivityResult(
+    val photoPickerLauncherDog = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
             selectedImageUriDog = it
@@ -225,7 +225,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.imageplaceholder),
-                    contentDescription = "placeholder",
+                    contentDescription = "placeholderimage",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(250.dp)
@@ -245,7 +245,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
             }
 
             Button(onClick = {
-                photoPickerLauncher.launch(
+                photoPickerLauncherDog.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             },
