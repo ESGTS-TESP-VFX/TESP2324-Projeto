@@ -32,7 +32,7 @@ import com.tesp.tindogapp.utils.isUsernameValid
 
 @Composable
 @Preview
-fun SignUpCorpo(navController: NavController = rememberNavController()) {
+fun SignUpBody(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(

@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
-import com.tesp.tindogapp.components.SignUpCorpo
+import com.tesp.tindogapp.components.SignUpBody
 
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
@@ -27,7 +27,7 @@ fun SignUpPage(navController: NavHostController = rememberNavController()): Unit
                 .padding(8.dp)
         ) {
             Logotipo()
-            SignUpCorpo(navController)
+            SignUpBody(navController)
         }
     }
 }

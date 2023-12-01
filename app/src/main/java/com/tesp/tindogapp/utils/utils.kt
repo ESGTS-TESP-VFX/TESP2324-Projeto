@@ -16,10 +16,12 @@ fun isPasswordValid(password: String): Boolean {
 }
 
 fun checkData(username: String, email: String, password: String, confirmPassword: String): Boolean {
-    return isUsernameValid(username) &&
-            isEmailValid(email)
-            isPasswordValid(password) &&
-            isPasswordValid(confirmPassword) &&
-            password == confirmPassword;
+    return(
+        isUsernameValid(username) &&
+        isEmailValid(email) &&
+        isPasswordValid(password) &&
+        isPasswordValid(confirmPassword) &&
+        password == confirmPassword
+    )
+
 }
-// algo está errado, não está a usar password e confirmpassword

@@ -45,7 +45,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var validData by remember {
+            var validAnswer by remember {
                 mutableStateOf(true)
             }
             Text(
@@ -59,18 +59,14 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
             )
             var email = InputEmailComponent()
             var pasword = InputPasswordComponent()
-            validData = checkCredentials(email, pasword);
+            validAnswer = checkCredentials(email, pasword);
 
-            SignInButtonComponent{
-                if (validData)
-                    navController.navigate("pickDog")
-            }
-
-            if(!validData) {
+            if (!validAnswer) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_login_data),
+                    text = stringResource(id = R.string.invalid_register_data),
                     fontFamily = FontFamily.Monospace,
+                    fontSize = 12.sp,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
                     modifier = Modifier
@@ -79,7 +75,13 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                 )
             }
 
+            SignInButtonComponent{
+                if (validAnswer)
+                    navController.navigate("pickDog")
+
+            }
             Text(
+                // texto só deverá aparecer quando se carrega no botão
                 text = stringResource(R.string.reset_password_link),
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
@@ -89,6 +91,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
                     .clickable { /*ação*/ }
+                    // ligação ao reset password
             )
 
 
