@@ -25,10 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
-import java.io.Console
 import android.util.Log
 @Composable
 @Preview()
@@ -47,7 +45,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var respostaValid by remember {
+            var validData by remember {
                 mutableStateOf(true)
             }
             Text(
@@ -60,15 +58,15 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .padding(bottom = 16.dp, top = 5.dp)
             )
             var email = InputEmailComponent()
-            var pwd = InputPasswordComponent()
-            respostaValid = VerificarCredenciais(email, pwd);
+            var pasword = InputPasswordComponent()
+            validData = checkCredentials(email, pasword);
 
             SignInButtonComponent{
-                if (respostaValid)
+                if (validData)
                     navController.navigate("pickDog")
             }
 
-            if(!respostaValid) {
+            if(!validData) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
                     text = stringResource(id = R.string.invalid_login_data),
@@ -111,13 +109,14 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
     }
 }
 
-fun VerificarCredenciais(email: String, pwd: String): Boolean {
-   Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234"}")
+fun checkCredentials(email: String, password: String): Boolean {
+   Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && password == "Sapo.1234"}")
 
-    if (email=="pedro.torrezao@gmail.com" && pwd == "Sapo1234") {
+    if (email=="pedro.torrezao@gmail.com" && password == "Sapo.1234") {
+        // a substituir por ligação à api
         return true;
     }
 
+
     return  false;
 }
-

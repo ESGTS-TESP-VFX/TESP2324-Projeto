@@ -19,30 +19,25 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tesp.tindogapp.utils.isUsernameValid
+import com.tesp.tindogapp.utils.isEmailValid
+import com.tesp.tindogapp.utils.isPasswordValid
 
-@Composable
-@Preview
-fun InputEmailComponent(): String {
-    var valid = false
-    return  inputBox("Email", isValidCall = { valid }){
-        valid= !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
-        //temos de validar a regra .com
-    }
-}
+
 @Composable
 @Preview()
 fun InputUsernameComponent():String{
     var valid= false
     return inputBox("Username", isValidCall = { valid }){
-        valid= !it.isNullOrEmpty() && it.length > 5
+        valid= isUsernameValid(it)
     }
 }
 @Composable
-@Preview()
-fun InputConfirmPasswordComponent():String{
-    var valid= false
-    return inputBox("Confirmar Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
-        valid = !it.isNullOrEmpty()
+@Preview
+fun InputEmailComponent(): String {
+    var valid = false
+    return  inputBox("Email", isValidCall = { valid }){
+        valid= isEmailValid(it)
     }
 }
 @Composable
@@ -50,16 +45,15 @@ fun InputConfirmPasswordComponent():String{
 fun InputPasswordComponent():String{
     var valid= false
     return inputBox("Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
-        valid = !it.isNullOrEmpty()
+        valid= isPasswordValid(it)
     }
 }
 @Composable
 @Preview()
-fun ExemploTexto(): Unit {
-
+fun InputConfirmPasswordComponent():String{
     var valid= false
-    inputBox("Titulo Normal", isValidCall = { valid }){
-        !it.isNullOrEmpty() && it.contains("@") && it.contains(".com")
+    return inputBox("Confirm Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
+        valid= isPasswordValid(it)
     }
 }
 

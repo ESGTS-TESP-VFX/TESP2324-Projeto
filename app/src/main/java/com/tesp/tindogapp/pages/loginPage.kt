@@ -15,7 +15,7 @@ import com.tesp.tindogapp.components.Logotipo
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
-fun loginPage(navController: NavHostController = rememberNavController()): Unit {
+fun LoginPage(navController: NavHostController = rememberNavController()): Unit {
     Box(
         modifier = Modifier
             .padding(0.dp)

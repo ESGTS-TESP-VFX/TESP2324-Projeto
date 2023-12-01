@@ -25,6 +25,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.utils.checkData
+import com.tesp.tindogapp.utils.isEmailValid
+import com.tesp.tindogapp.utils.isPasswordValid
+import com.tesp.tindogapp.utils.isUsernameValid
 
 @Composable
 @Preview
@@ -43,7 +47,7 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var respostaValid by remember {
+            var validAnswer by remember {
                 mutableStateOf(true)
             }
             Text(
@@ -55,18 +59,67 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-            InputUsernameComponent()
+
+            var username = InputUsernameComponent()
+            if (!isUsernameValid(username)) {
+                Text(
+                    text = stringResource(id = R.string.imput_invalid_username),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFFFF0000),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
             var email = InputEmailComponent()
-            var pwd= InputPasswordComponent()
+            if (!isEmailValid(email)) {
+                Text(
+                    text = stringResource(id = R.string.imput_invalid_email),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFFFF0000),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
+            var password = InputPasswordComponent()
+            if (!isPasswordValid(password)) {
+                Text(
+                    text = stringResource(id = R.string.imput_invalid_password),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFFFF0000),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
             var confirmPassword = InputConfirmPasswordComponent()
+            if (!isPasswordValid(confirmPassword)) {
+                Text(
+                    text = stringResource(id = R.string.imput_invalid_password),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFFFF0000),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
+            validAnswer = checkData(username, email, password, confirmPassword);
 
-            respostaValid = Verficar(email, pwd, confirmPassword);
-
-            if(!respostaValid) {
+            if (!validAnswer) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
                     text = stringResource(id = R.string.invalid_register_data),
                     fontFamily = FontFamily.Monospace,
+                    fontSize = 12.sp,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
                     modifier = Modifier
@@ -75,16 +128,9 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                 )
             }
 
-            SubmitButtonComponent(){
+            SubmitButtonComponent() {
                 navController.navigate("formOwnerPage")
             }
         }
     }
-}
-
-fun Verficar(email: String, pwd: String, confirmPassword: String): Boolean {
-    return !email.isNullOrEmpty() &&
-            !pwd.isNullOrEmpty() &&
-            !confirmPassword.isNullOrEmpty() &&
-            pwd == confirmPassword;
 }
