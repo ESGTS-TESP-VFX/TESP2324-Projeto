@@ -50,7 +50,7 @@ import com.tesp.tindogapp.R
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
 fun FormOwnerPage(navController: NavHostController = rememberNavController()) {
-    var currentStep by remember { mutableStateOf(3) }
+    var currentStep by remember { mutableStateOf(1) }
 
     Column(
         modifier = Modifier
@@ -81,18 +81,20 @@ fun Step1_Owner(onNext: () -> Unit) {
 fun Step2_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
-        InputDescBox_Owner(onBack = onBack, onNext = onNext)
+        PhotoPickerOwner(onBack = onBack, onNext = onNext)
+
     }
 }
+
 
 @Composable
 fun Step3_Owner(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
-        PhotoPickerOwner(onBack = onBack, onNext = onNext)
-
+        InputDescBox_Owner(onBack = onBack, onNext = onNext)
     }
 }
+
 
 @Composable
 fun InputOwnerNameBox(onNext: () -> Unit) {
