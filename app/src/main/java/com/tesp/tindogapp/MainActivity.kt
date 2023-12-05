@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formDogPage") {
                         composable("login") {
                             loginPage(navController)
                         }

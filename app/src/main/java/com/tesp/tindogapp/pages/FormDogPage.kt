@@ -213,6 +213,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Show us your dog!",
+                modifier = Modifier.padding(bottom = 10.dp),
                 style = androidx.compose.ui.text.TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -248,10 +249,12 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
                 photoPickerLauncherDog.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
+
             },
                 modifier = Modifier
-
+                    .padding(top = 10.dp)
                     .height(50.dp),
+
 
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFBF8B7E)
@@ -269,8 +272,9 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp),
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
