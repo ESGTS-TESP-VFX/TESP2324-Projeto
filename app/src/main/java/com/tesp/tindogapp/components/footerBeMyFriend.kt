@@ -34,13 +34,12 @@ fun footerBeMyFriend() {
         Text(
             text = stringResource(id = R.string.bemyfriendText),
             fontFamily = FontFamily.Monospace,
-            color = Color.hsl(0.04F, 1.0F, 0.71F),
+            color = Color(0xFFFF8969),
             fontSize = 15.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Bold,
             style = TextStyle(
-                fontSize = 24.sp,
                 shadow = Shadow(
                     color = Color.Gray, offset = offset, blurRadius = 3f)
             ),

@@ -16,15 +16,24 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
@@ -50,14 +59,6 @@ fun SeletorCaes(navHostController: NavHostController = rememberNavController()):
     )
     {
 
-        // Menu de navegação - ### CORRIGIR ###
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
-        ) {
-            // NavigationTopBar()
-        }
         // Galeria do seletor de cães
 
         Row(
@@ -86,25 +87,39 @@ fun SeletorCaes(navHostController: NavHostController = rememberNavController()):
                 }
             }
         }
-        // Slider de distância - Alterar a cor e incluir texto da legenda
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
+        // Slider de distância - Alterar a cor
+        Column() {
             val distancia = remember { mutableStateOf(5.0f) }
             Slider(
                 value = distancia.value,
                 onValueChange = { distancia.value = it },
-                valueRange = 1f..10f
+                valueRange = 1f..20f,
+                colors = SliderDefaults.colors(
+                    thumbColor = Color(0xFFFF8969),
+                    activeTrackColor = Color(0xFF7EAB9C),
+                    inactiveTrackColor = Color(0xFFB4E2D2),
+                )
+                )
+            Text(
+                text = "≤ ${distancia.value} km",
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Bold,
+                fontSize = 15.sp,
+                style = TextStyle(
+                    shadow = Shadow(
+                        color = Color(0xFF7EAB9C), blurRadius = 15f)
+                ),
             )
-            //Text(text = distancia.toString())
         }
 
         // Botão de busca
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
+                .padding(top = 8.dp),
             horizontalArrangement = Arrangement.End
         ) {
 
