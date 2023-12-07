@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                                 if (dogCounter == 1)
                                     likeDislike(navController)
                                 else
-                                    Text(text = "Pick Dog Screen")
+                                    SeletorCaes(navController)
                             }
                         }
 
