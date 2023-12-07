@@ -8,4 +8,9 @@
     <string name="reset_password_link">Reset Password</string>
     <string name="register">Register With us!</string>
     <string name="invalid_register_data">Incorrect data, please check your inputs</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="verify_your_email">Verify your email</string>
+    <string name="imput_invalid_username">Username must have between 6 and 20 characters</string>
+    <string name="imput_invalid_email">That is not a valide email</string>
+    <string name="imput_invalid_password">At least 8 characters, including uppercase, lowercase, digit, and special character</string>
 </resources>

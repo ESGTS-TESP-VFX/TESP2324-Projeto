@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.NavigationTopBar
-import com.tesp.tindogapp.components.SignUpCorpo
+import com.tesp.tindogapp.components.SignUpBody
 import com.tesp.tindogapp.pages.*
 import com.tesp.tindogapp.ui.theme.TinDogAppTheme
 
@@ -30,10 +30,10 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "login") {
                         composable("login") {
-                            loginPage(navController)
+                            LoginPage(navController)
                         }
                         composable("signPage") {
-                            SignUpCorpo(navController)
+                            SignUpBody(navController)
                         }
                         composable("pickDog") {
                             NavigationTopBar(navController = navController)
