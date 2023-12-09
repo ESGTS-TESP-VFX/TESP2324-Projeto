@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.utils.isCodeValid
 import com.tesp.tindogapp.utils.isEmailValid
 
 @Preview()
@@ -67,23 +68,30 @@ fun RecoverCodeBody(navController: NavController = rememberNavController()) {
 
                 modifier = Modifier
                     //.fillMaxWidth()
-                    .padding(8.dp)
-                    .height(60.dp)
-                    .width(220.dp)
-                    .background(colorResource(id = R.color.coral_claro)),
+                    .background(
+                        colorResource(id = R.color.coral_claro),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .padding(12.dp)
+                    .height(70.dp)
+                    .width(250.dp),
+
 
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
-                var code1 = InputCodeDigit()
-                var code2 = InputCodeDigit()
-                var code3 = InputCodeDigit()
-                var code4 = InputCodeDigit()
-            }
-            //validAnswer = isEmailValid(email);
+                var pincode1 = InputCodeDigit()
+                var pincode2 = InputCodeDigit()
+                var pincode3 = InputCodeDigit()
+                var pincode4 = InputCodeDigit()
+                var pincode = pincode1 + pincode2 + pincode3 + pincode4
 
-            ResetPwButtonComponent {
+                validAnswer = isCodeValid(pincode)
+            }
+
+
+            InputCodeButtonComponent {
                 if (validAnswer) {
                     navController.navigate("pickDog")
                     //temos de mudar rota
@@ -93,7 +101,7 @@ fun RecoverCodeBody(navController: NavController = rememberNavController()) {
 
             if (!validAnswer) {
                 Text(
-                    text = stringResource(id = R.string.verify_your_email),
+                    text = stringResource(id = R.string.invalid_code),
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),

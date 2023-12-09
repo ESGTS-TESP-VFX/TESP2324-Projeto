@@ -33,7 +33,7 @@ import com.tesp.tindogapp.utils.isPasswordValid
 
 
 @Composable
-@Preview()
+//@Preview()
 fun InputUsernameComponent():String{
     var valid= false
     return inputBox("Username", isValidCall = { valid }){
@@ -41,7 +41,7 @@ fun InputUsernameComponent():String{
     }
 }
 @Composable
-@Preview
+//@Preview
 fun InputEmailComponent(): String {
     var valid = false
     return  inputBox("Email", isValidCall = { valid }){
@@ -49,7 +49,7 @@ fun InputEmailComponent(): String {
     }
 }
 @Composable
-@Preview()
+//@Preview()
 fun InputPasswordComponent():String{
     var valid= false
     return inputBox("Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
@@ -57,7 +57,7 @@ fun InputPasswordComponent():String{
     }
 }
 @Composable
-@Preview()
+//@Preview()
 fun InputConfirmPasswordComponent():String{
     var valid= false
     return inputBox("Confirm Password", visualTransformation = PasswordVisualTransformation(), isValidCall = { valid }){
@@ -67,7 +67,7 @@ fun InputConfirmPasswordComponent():String{
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview()
+//@Preview()
 fun inputBox(titulo: String ="Titulo Default",
              visualTransformation: VisualTransformation = VisualTransformation.None,
              isValidCall: () -> Boolean = { true},
@@ -138,7 +138,9 @@ fun InputCodeDigit(titulo: String = "0",
         onValueChange = {
             value = it
         },
-        label = { Text(titulo) },
+        label = {
+            Text(text = titulo, textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxSize()) },
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White
         ),
@@ -146,8 +148,10 @@ fun InputCodeDigit(titulo: String = "0",
         modifier = Modifier
             .height(50.dp)
             .width(50.dp)
-            .clip(CircleShape)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(0.dp,0.dp,3.dp,3.dp)
+            .clip(CircleShape),
+
         //textAlign = TextAlign.Center
         //visualTransformation = visualTransformation
     )
