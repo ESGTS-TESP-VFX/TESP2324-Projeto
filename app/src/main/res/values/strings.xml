@@ -13,4 +13,5 @@
     <string name="imput_invalid_username">Username must have between 6 and 20 characters</string>
     <string name="imput_invalid_email">That is not a valide email</string>
     <string name="imput_invalid_password">At least 8 characters, including uppercase, lowercase, digit, and special character</string>
+    <string name="enter_code">Enter Code</string>
 </resources>

@@ -10,12 +10,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.components.Logotipo
-import com.tesp.tindogapp.components.RecoverPwBody
+import com.tesp.tindogapp.components.RecoverCodeBody
 
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
-fun RecoverPwPage(navController: NavHostController = rememberNavController()): Unit {
+fun RecoverCodePage(navController: NavHostController = rememberNavController()): Unit {
     Box(
         modifier = Modifier
             .padding(0.dp)
@@ -27,7 +27,7 @@ fun RecoverPwPage(navController: NavHostController = rememberNavController()): U
                 .padding(8.dp)
         ) {
             Logotipo()
-            RecoverPwBody(navController)
+            RecoverCodeBody(navController)
         }
     }
 }
