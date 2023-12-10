@@ -25,13 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
-import com.tesp.tindogapp.utils.checkData
-import com.tesp.tindogapp.utils.isEmailValid
 import com.tesp.tindogapp.utils.isPasswordValid
 
 @Composable
 @Preview
-fun SignUpBody(navController: NavController = rememberNavController()) {
+fun ResetPasswordBody(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -50,7 +48,7 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.register),
+                text = stringResource(id = R.string.setup_new_password),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -58,35 +56,7 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-/*
-            var username = InputUsernameComponent()
-            if (!isUsernameValid(username)) {
-                Text(
-                    text = stringResource(id = R.string.imput_invalid_username),
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 10.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFFFF0000),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-            }
 
- */
-            var email = InputEmailComponent()
-            if (!isEmailValid(email)) {
-                Text(
-                    text = stringResource(id = R.string.input_invalid_email),
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 10.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFFFF0000),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-            }
             var password = InputPasswordComponent()
             if (!isPasswordValid(password)) {
                 Text(
@@ -113,12 +83,11 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            validAnswer = checkData(email, password, confirmPassword);
+            validAnswer = isPasswordValid(password) && isPasswordValid(confirmPassword);
 
             if (!validAnswer) {
-                //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_register_data),
+                    text = stringResource(id = R.string.passwords_must_match),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 12.sp,
                     textAlign = TextAlign.Center,
@@ -129,10 +98,10 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                 )
             }
 
-            SubmitButtonComponent() {
-                navController.navigate("formOwnerPage")
+            SetupNewPasswordButtonComponent() {
+                navController.navigate("LoginPage")
+
             }
         }
     }
 }
-//
