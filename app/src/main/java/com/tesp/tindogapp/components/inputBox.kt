@@ -165,7 +165,5 @@ fun InputCodeComponent():String{
     return InputCodeDigit()
     }
 
-//.padding(16.dp)
-// Add padding for better appearance
-// .align(Alignment.CenterHorizontally)
 
+///
