@@ -59,7 +59,7 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-
+/*
             var username = InputUsernameComponent()
             if (!isUsernameValid(username)) {
                 Text(
@@ -73,6 +73,8 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
+
+ */
             var email = InputEmailComponent()
             if (!isEmailValid(email)) {
                 Text(
@@ -112,7 +114,7 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            validAnswer = checkData(username, email, password, confirmPassword);
+            validAnswer = checkData(email, password, confirmPassword);
 
             if (!validAnswer) {
                 //este texto só aparece quando os dados de login forem inválidos
@@ -134,3 +136,4 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
         }
     }
 }
+//

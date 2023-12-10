@@ -1,12 +1,15 @@
 package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,9 +20,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,10 +31,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
-import android.util.Log
-@Composable
+import com.tesp.tindogapp.utils.isCodeValid
+import com.tesp.tindogapp.utils.isEmailValid
+
 @Preview()
-fun LoginCorpo(navController: NavController= rememberNavController()) {
+@Composable
+
+fun RecoverCodeBody(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -49,7 +56,7 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.loginText),
+                text = stringResource(id = R.string.enter_code),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -57,16 +64,45 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-            var email = InputEmailComponent()
-            var pasword = InputPasswordComponent()
-            validAnswer = checkCredentials(email, pasword);
+            Row(
+
+                modifier = Modifier
+                    //.fillMaxWidth()
+                    .background(
+                        colorResource(id = R.color.coral_claro),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .padding(12.dp)
+                    .height(70.dp)
+                    .width(250.dp),
+
+
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                var pincode1 = InputCodeDigit()
+                var pincode2 = InputCodeDigit()
+                var pincode3 = InputCodeDigit()
+                var pincode4 = InputCodeDigit()
+                var pincode = pincode1 + pincode2 + pincode3 + pincode4
+
+                validAnswer = isCodeValid(pincode)
+            }
+
+
+            InputCodeButtonComponent {
+                if (validAnswer) {
+                    navController.navigate("pickDog")
+                    //temos de mudar rota
+                }
+            }
+            //este texto só aparece quando os dados de login forem inválidos
 
             if (!validAnswer) {
-                //este texto só aparece quando os dados de login forem inválidos
                 Text(
-                    text = stringResource(id = R.string.invalid_register_data),
+                    text = stringResource(id = R.string.invalid_code),
                     fontFamily = FontFamily.Monospace,
-                    fontSize = 12.sp,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
                     modifier = Modifier
@@ -74,54 +110,9 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-
-            SignInButtonComponent{
-                if (validAnswer)
-                    navController.navigate("pickDog")
-
-            }
-            Text(
-                // texto só deverá aparecer quando se carrega no botão
-                text = stringResource(R.string.reset_password_link),
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color(0xFF000000),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
-                    // ligação ao reset password
-            )
-
-
-            Text(
-                text = stringResource(R.string.create_account_message),
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clickable { }
-            )
-
-            SignUpButtonComponent(){
-                navController.navigate("signPage")
-            }
         }
     }
 }
 
-fun checkCredentials(email: String, password: String): Boolean {
-   Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && password == "Sapo.1234"}")
+//
 
-    if (email=="pedro.torrezao@gmail.com" && password == "Sapo.1234") {
-        // a substituir por ligação à api
-        return true;
-    }
-
-
-    return  false;
-}
-
-///

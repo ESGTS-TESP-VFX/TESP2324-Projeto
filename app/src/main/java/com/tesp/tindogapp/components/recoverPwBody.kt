@@ -30,7 +30,7 @@ import com.tesp.tindogapp.utils.isEmailValid
 @Preview()
 @Composable
 
-fun RecoverPwCorpo(navController: NavController = rememberNavController()) {
+fun RecoverPwBody(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -83,5 +83,5 @@ fun RecoverPwCorpo(navController: NavController = rememberNavController()) {
     }
 }
 
-
+//
 

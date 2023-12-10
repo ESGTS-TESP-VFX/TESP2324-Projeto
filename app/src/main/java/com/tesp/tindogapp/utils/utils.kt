@@ -15,9 +15,13 @@ fun isPasswordValid(password: String): Boolean {
     return passwordRegex.matches(password)
 }
 
-fun checkData(username: String, email: String, password: String, confirmPassword: String): Boolean {
+fun isCodeValid(pincode: String): Boolean {
+    return pincode.isNotEmpty() //&& code.length in minLength..maxLength
+}
+//, minLength: String = 4, maxLength: Int = 4
+fun checkData( email: String, password: String, confirmPassword: String): Boolean {
     return(
-        isUsernameValid(username) &&
+        //isUsernameValid(username) &&
         isEmailValid(email) &&
         isPasswordValid(password) &&
         isPasswordValid(confirmPassword) &&
@@ -25,3 +29,5 @@ fun checkData(username: String, email: String, password: String, confirmPassword
     )
 
 }
+
+//
