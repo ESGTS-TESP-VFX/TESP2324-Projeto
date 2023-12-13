@@ -28,26 +28,23 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import android.util.Log
+import com.tesp.tindogapp.viewmodels.LoginViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
+
 @Composable
 @Preview()
-fun LoginCorpo(navController: NavController= rememberNavController()) {
+fun LoginCorpo(
+    navController: NavController = rememberNavController(),
+    viewModel: MainViewModel = MainViewModel(),
+    loginVm: LoginViewModel = LoginViewModel()
+) {
     Box(
         modifier = Modifier
-            .background(
-                Color(0xFFFFDBD2),
-                shape = RoundedCornerShape(16.dp)
-            )
+            .background(Color(0xFFFFDBD2),shape = RoundedCornerShape(16.dp))
             .fillMaxSize()
             .padding(0.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            var validAnswer by remember {
-                mutableStateOf(true)
-            }
+        Column( modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = stringResource(id = R.string.loginText),
                 fontFamily = FontFamily.Monospace,
@@ -57,12 +54,10 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-            var email = InputEmailComponent()
-            var pasword = InputPasswordComponent()
-            validAnswer = checkCredentials(email, pasword);
+            loginVm.Email = InputEmailComponent()
+            loginVm.Password = InputPasswordComponent()
 
-            if (!validAnswer) {
-                //este texto só aparece quando os dados de login forem inválidos
+            if (!loginVm.IsValidCredentials()) {
                 Text(
                     text = stringResource(id = R.string.invalid_register_data),
                     fontFamily = FontFamily.Monospace,
@@ -76,9 +71,10 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
             }
 
             SignInButtonComponent{
-                if (validAnswer)
-                    navController.navigate("pickDog")
-
+                if (loginVm.IsValidCredentials()) {
+                    viewModel.AuthToken = loginVm.DoLogin()
+                    //navController.navigate("pickDog")
+                }
             }
             Text(
                 // texto só deverá aparecer quando se carrega no botão
@@ -111,17 +107,3 @@ fun LoginCorpo(navController: NavController= rememberNavController()) {
         }
     }
 }
-
-fun checkCredentials(email: String, password: String): Boolean {
-   Log.d("TAG", "IsValid ${email=="pedro.torrezao@gmail.com" && password == "Sapo.1234"}")
-
-    if (email=="pedro.torrezao@gmail.com" && password == "Sapo.1234") {
-        // a substituir por ligação à api
-        return true;
-    }
-
-
-    return  false;
-}
-
-///
