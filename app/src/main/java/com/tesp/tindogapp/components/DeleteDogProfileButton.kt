@@ -41,18 +41,18 @@ import com.tesp.tindogapp.ui.theme.Salmon
 
 
 @Composable
-fun DeleteDogProfileButton(onDeleteConfirmed: () -> Unit ): Unit {
+fun DeleteDogProfileButton(onDeleteConfirmedDog: () -> Unit ): Unit {
 
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialogDog by remember { mutableStateOf(false) }
 
-    fun showConfirmationDialog() {
-        showDialog = true
+    fun showConfirmationDialogDog() {
+        showDialogDog = true
     }
-    fun closeConfirmationDialog() {
-        showDialog = false
+    fun closeConfirmationDialogDog() {
+        showDialogDog = false
     }
 
-    Button(onClick = { showConfirmationDialog() },
+    Button(onClick = { showConfirmationDialogDog() },
         modifier = Modifier
             .height(65.dp)
             .padding(0.dp, 20.dp, 0.dp, 0.dp),
@@ -70,11 +70,11 @@ fun DeleteDogProfileButton(onDeleteConfirmed: () -> Unit ): Unit {
         )
 
     }
-    if (showDialog) {
+    if (showDialogDog) {
         AlertDialog(
             containerColor = Salmon ,
             modifier = Modifier.border(2.dp, Color.Black, shape = RoundedCornerShape(21.dp)),
-            onDismissRequest = { closeConfirmationDialog() },
+            onDismissRequest = { closeConfirmationDialogDog() },
             title = {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,8 +109,8 @@ fun DeleteDogProfileButton(onDeleteConfirmed: () -> Unit ): Unit {
             confirmButton = {
                 Button(
                     onClick = {
-                        closeConfirmationDialog()
-                        onDeleteConfirmed()
+                        closeConfirmationDialogDog()
+                        onDeleteConfirmedDog()
                     },
                     colors = ButtonDefaults.buttonColors(
                         Color(0xFFFF8769),
@@ -121,7 +121,7 @@ fun DeleteDogProfileButton(onDeleteConfirmed: () -> Unit ): Unit {
             },
             dismissButton = {
                 Button(
-                    onClick = { closeConfirmationDialog() },
+                    onClick = { closeConfirmationDialogDog() },
                     colors = ButtonDefaults.buttonColors(
                         Color(0xFF807471),
                         contentColor = Color(0xFFFFFFFF)),

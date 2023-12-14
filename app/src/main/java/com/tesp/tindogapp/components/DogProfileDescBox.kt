@@ -35,7 +35,7 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DogProfileDescBox(text: String ="") {
-    var inputDesc by remember { mutableStateOf("") }
+    var inputDescDog by remember { mutableStateOf("") }
 
     Column (
 
@@ -60,8 +60,8 @@ fun DogProfileDescBox(text: String ="") {
         )
 
         OutlinedTextField(
-            value = inputDesc,
-            onValueChange = { inputDesc = it },
+            value = inputDescDog,
+            onValueChange = { inputDescDog = it },
             label = {
                 Text(
                     "Example",

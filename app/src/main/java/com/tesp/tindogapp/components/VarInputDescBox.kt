@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tesp.tindogapp.ui.theme.OrangeOpacity65
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +52,7 @@ fun VarInputDescBox(text: String ="") {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Center,
-                color = Color(0xFFBF8B7E),
+                color = OrangeOpacity65,
             )
         },
         modifier = Modifier
