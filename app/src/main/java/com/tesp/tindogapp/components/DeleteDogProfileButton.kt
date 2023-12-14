@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.ui.theme.Brown
 import com.tesp.tindogapp.ui.theme.Salmon
 
 
@@ -56,7 +57,7 @@ fun DeleteDogProfileButton(onDeleteConfirmed: () -> Unit ): Unit {
             .height(65.dp)
             .padding(0.dp, 20.dp, 0.dp, 0.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF807471)
+            containerColor = Brown
         ),
         shape = RoundedCornerShape(16.dp)
     ) {

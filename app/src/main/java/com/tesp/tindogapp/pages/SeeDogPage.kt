@@ -20,6 +20,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +38,8 @@ import com.tesp.tindogapp.components.EditDogProfileButton
 import com.tesp.tindogapp.components.Logotipo
 
 import com.tesp.tindogapp.components.VarInputDescBox
+import com.tesp.tindogapp.ui.theme.Salmon
+
 
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
@@ -48,7 +51,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController()): Unit
         Column(
             modifier = Modifier
                 .background(
-                    Color(0xFFFFDBD2),
+                    color = Salmon,
                     shape = RoundedCornerShape(16.dp)
                 )
                 .fillMaxSize()
