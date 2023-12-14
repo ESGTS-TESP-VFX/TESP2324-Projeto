@@ -16,8 +16,8 @@ import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.SignUpBody
 import com.tesp.tindogapp.pages.*
 import com.tesp.tindogapp.ui.theme.TinDogAppTheme
-import com.tesp.tindogapp.viewmodels.LoginViewModel
 import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,22 +31,13 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "pickDog") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
 
                         // Rodrigo, Marcos, Alen
-                        composable("pickDog") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                var dogCounter = 1
-                                if (dogCounter == 1)
-                                    likeDislike(navController, viewModel)
-                                else
-                                    SeletorCaes(navController)
-                            }
-                        }
+                        composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
 
                         //Pedro
@@ -54,7 +45,12 @@ class MainActivity : ComponentActivity() {
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
                         composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
                         composable("formDogPage") {FormDogPage(navController)}
-                        composable("match") {NavigationTopBar(navController = navController){likeDislike(navController)}}
+                        composable("match") {
+                            NavigationTopBar(navController = navController){
+                                likeDislike(
+                            navController,
+                            matchDogViewModel = MatchDogViewModel()
+                        )}}
                     }
                 }
             }

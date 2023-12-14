@@ -15,15 +15,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -31,18 +28,18 @@ import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.footerBeMyFriend
 import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 
 
 @Preview(showBackground = true, heightDp = 750, widthDp = 380)
 @Composable
 fun likeDislike(
     navController: NavHostController = rememberNavController(),
-    viewModel: MainViewModel = MainViewModel()
+    viewModel: MainViewModel = MainViewModel(),
+    matchDogViewModel: MatchDogViewModel = MatchDogViewModel()
 ): Unit {
-    Text(text =viewModel.AuthToken)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,7 +55,7 @@ fun likeDislike(
             {
                 // Imagem principal da galeria
                 Image(
-                    painter = painterResource(id = R.drawable.fotocao2),
+                    painter = painterResource(id = matchDogViewModel.MatchDog?.Imagem?:2130968600),
                     contentDescription = "foto da galeria",
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
@@ -77,12 +74,14 @@ fun likeDislike(
                     contentPadding = PaddingValues(),
                     modifier = Modifier
                         .size(100.dp)
-                        .border(BorderStroke(4.dp,Color.Green),
-                            CircleShape)
+                        .border(
+                            BorderStroke(4.dp, Color.Green),
+                            CircleShape
+                        )
                         .clip(CircleShape)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.fotocao1),
+                        painter = painterResource(id = matchDogViewModel.Dog?.Imagem?:2130968600),
                         contentDescription = "botao_redondo"
                     )
                 }
@@ -99,7 +98,7 @@ fun likeDislike(
                 .padding(top = 8.dp, bottom = 8.dp)
         ) {
             Text(
-                text = "Bobi, 9",
+                text = "${matchDogViewModel.MatchDog?.Nome}, ${matchDogViewModel.MatchDog?.Idade}",
                 style = androidx.compose.ui.text.TextStyle( // ???
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -110,7 +109,7 @@ fun likeDislike(
             )
 
             Text(
-                text = "Vila Franca de Xira",
+                text = "${matchDogViewModel.MatchDog?.Localidade}",
                 style = androidx.compose.ui.text.TextStyle( // ???
                     fontSize = 20.sp
                 ),
@@ -120,7 +119,7 @@ fun likeDislike(
             )
         }
         Text(
-            text = "Esporte: Corrida na relva. Sou um cão de guarda reformado, minha tutora trouxe-me para viver na cidade. Gosto de outros cães e busco companhia para passeios.",
+            text = "${matchDogViewModel.MatchDog?.Descricao}",
             style = androidx.compose.ui.text.TextStyle( // ???
                 fontSize = 14.sp
             )
