@@ -1,30 +1,43 @@
 package com.tesp.tindogapp.viewmodels
 
-import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.util.concurrent.Executor
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.tesp.tindogapp.apiService.ApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class LoginViewModel:ViewModel() {
     var Email: String ="";
     var Password: String="";
 
-    fun DoLogin(): String {
-        /*
-        val client = OkHttpClient()
+    var LoginSuccessfull: Boolean by mutableStateOf(false)
+    var DoingLogin: Boolean by mutableStateOf(false)
 
-        Executor executor = Executors.new
+    fun DoLogin(mainViewModel: MainViewModel, navController: NavController) {
+        viewModelScope.launch {
+            DoingLogin = true;
+            val apiService = ApiService.getInstance();
+            try {
+                val token = withContext(Dispatchers.IO) {
+                    apiService.getToken().execute().body()?.token ?: ""
+                }
 
-        val request = Request.Builder()
-            .url("https://ac1f38b9-e49a-4f67-a964-c22a73af60de.mock.pstmn.io/api/token")
-            .addHeader("Content-Type", "application/json")
-            .build()
-        val response = client.newCall(request).execute()
+                navController.navigate("pickDog")
+                mainViewModel.AuthToken = token;
 
-        Log.d("TAG", response.message)
-*/
-        return  "asdq";
+                LoginSuccessfull = true;
+            }
+            catch (e:Exception)
+            {
+                LoginSuccessfull = false;
+            }
+        }
     }
 
     fun IsValidCredentials(): Boolean {
@@ -34,4 +47,9 @@ class LoginViewModel:ViewModel() {
 
         return passwordValid && emailValid;
     }
+
+    fun DoSignUp(mainViewModel: MainViewModel, navController: NavController) {
+        navController.navigate("signPage")
+    }
+
 }

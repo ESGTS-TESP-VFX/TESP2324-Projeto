@@ -33,12 +33,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.footerBeMyFriend
+import com.tesp.tindogapp.viewmodels.MainViewModel
 
 
 @Preview(showBackground = true, heightDp = 750, widthDp = 380)
 @Composable
-fun likeDislike(navController: NavHostController = rememberNavController()): Unit {
-
+fun likeDislike(
+    navController: NavHostController = rememberNavController(),
+    viewModel: MainViewModel = MainViewModel()
+): Unit {
+    Text(text =viewModel.AuthToken)
     Column(
         modifier = Modifier
             .fillMaxWidth()

@@ -6,5 +6,5 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class MainViewModel: ViewModel() {
-    var AuthToken by mutableStateOf("BLA")
+    var AuthToken by mutableStateOf("")
 }

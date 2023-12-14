@@ -32,21 +32,26 @@ class MainActivity : ComponentActivity() {
                     var viewModel = viewModel<MainViewModel>();
 
                     NavHost(navController = navController, startDestination = "login") {
-                        composable("login") { LoginPage(navController,viewModel, viewModel())}
+                        // Mario, Joao, Mafalda, Alexandre
+                        composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
+
+                        // Rodrigo, Marcos, Alen
                         composable("pickDog") {
                             NavigationTopBar(navController = navController)
                             {
                                 var dogCounter = 1
                                 if (dogCounter == 1)
-                                    likeDislike(navController)
+                                    likeDislike(navController, viewModel)
                                 else
                                     SeletorCaes(navController)
                             }
                         }
+                        composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
+
+                        //Pedro
                         composable("formOwnerPage") {FormOwnerPage(navController)}
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
-                        composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
                         composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
                         composable("formDogPage") {FormDogPage(navController)}
                         composable("match") {NavigationTopBar(navController = navController){likeDislike(navController)}}
