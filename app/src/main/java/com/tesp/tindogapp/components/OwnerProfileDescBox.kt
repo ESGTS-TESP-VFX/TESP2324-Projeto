@@ -69,7 +69,7 @@ fun OwnerProfileDescBox(text: String ="") {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 15.dp, 0.dp, 0.dp)
+                .padding(0.dp, 15.dp, 0.dp, 20.dp)
                 .background(Color.White, RoundedCornerShape(16.dp))
                 .height(150.dp),
 
