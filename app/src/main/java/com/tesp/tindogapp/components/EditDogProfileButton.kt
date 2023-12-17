@@ -15,10 +15,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@Preview(showBackground = true, heightDp = 600, widthDp = 380)
+
 @Composable
-fun EditDogProfileButton(): Unit {
-    Button(onClick = { /*TODO*/ },
+fun EditDogProfileButton(onClick: () -> Unit): Unit {
+    Button(onClick = onClick,
         modifier = Modifier
             .height(65.dp)
             .padding(0.dp, 20.dp, 0.dp, 0.dp),
