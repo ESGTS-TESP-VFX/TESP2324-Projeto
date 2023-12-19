@@ -1,5 +1,6 @@
 package com.tesp.tindogapp.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.tesp.tindogapp.apiService.ApiService
+import com.tesp.tindogapp.apiService.TokenRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,19 +26,28 @@ class LoginViewModel:ViewModel() {
             DoingLogin = true;
             val apiService = ApiService.getInstance();
             try {
-                val token = withContext(Dispatchers.IO) {
-                    apiService.getToken().execute().body()?.token ?: ""
+                var body =  withContext(Dispatchers.IO) {
+                    apiService.getToken(TokenRequest(Email, Password)).execute()
                 }
 
-                navController.navigate("pickDog")
-                mainViewModel.AuthToken = token;
-
-                LoginSuccessfull = true;
+                if (body.raw().code == 200 )
+                {
+                    navController.navigate("pickDog")
+                    mainViewModel.AuthToken = body.body()?.token ?:"";
+                    LoginSuccessfull = true;
+                }
+                else
+                {
+                    Password = "";
+                    LoginSuccessfull = false;
+                }
             }
             catch (e:Exception)
             {
+                Log.d("MYERROR", e.message.toString())
                 LoginSuccessfull = false;
             }
+            DoingLogin = false;
         }
     }
 

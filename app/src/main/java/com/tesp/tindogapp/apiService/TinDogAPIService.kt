@@ -5,28 +5,32 @@ import com.tesp.tindogapp.model.Dog
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 public  interface ApiService {
-    @GET("api/token")
-    fun getToken(): Call<TokenResponse>
+    @POST("/token")
+    fun getToken(@Body TokenRequest: TokenRequest ): Call<TokenResponse>
 
-    @GET("/api/dogs")
-    fun getDogs(): Call<List<Dog>>
-    @GET("/api/dogs/1")
-    fun getDog(): Call<Dog>
+    @GET("/dogs")
+    fun getDogs(@Header("Token") token: String): Call<List<Dog>>
+    @GET("/dogs/{id}")
+    fun getDog(@Header("Token")token: String,@Path("id") id: Int): Call<Dog>
 
-    @GET("/api/dogs/1/match")
-    fun getDogMatch(): Call<Dog>
+    @GET("/dogs/{id}/match")
+    fun getDogMatch(@Header("Token")token: String,@Path("id") id: Int): Call<Dog>
 
     companion object{
         fun getInstance():ApiService{
             var apiService: ApiService?=null
-
             if (apiService == null){
                 apiService = Retrofit.Builder()
-                    .baseUrl("https://ac1f38b9-e49a-4f67-a964-c22a73af60de.mock.pstmn.io/")
+                    .baseUrl("https://tindog.hugetower.tech/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(ApiService::class.java)
@@ -37,9 +41,13 @@ public  interface ApiService {
     }
 }
 
-data class TokenResponse(
+data class TokenRequest (
     @SerializedName("Email") val email: String,
-    @SerializedName("Passowrd") val password: String,
-    @SerializedName("Token") val token: String
+    @SerializedName("Password") val password: String,
+)
+
+data class TokenResponse(
+    @SerializedName("email") val email: String,
+    @SerializedName("token") val token: String
 )
 

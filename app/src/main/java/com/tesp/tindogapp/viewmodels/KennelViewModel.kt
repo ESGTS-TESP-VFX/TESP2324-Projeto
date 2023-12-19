@@ -17,21 +17,22 @@ class KennelViewModel: ViewModel() {
         viewModelScope.launch {
             Loading = true;
             val apiService = ApiService.getInstance();
+            var token = mainViewModel.AuthToken;
             try {
-                val dogs = withContext(Dispatchers.IO) {
-                    apiService.getDogs().execute().body()?: listOf<Dog>()
+                val response = withContext(Dispatchers.IO) {
+                    apiService.getDogs(token).execute();
                 }
 
-                Dogs = dogs;
+                Dogs = response.body()?: listOf<Dog>();
             }
             catch (e:Exception)
             {
+                Log.d("MYERROR", e.message.toString())
                 Dogs = listOf<Dog>()
             }
         }
 
         Loading = false;
-
     }
 
     var Loading: Boolean by mutableStateOf(false)
