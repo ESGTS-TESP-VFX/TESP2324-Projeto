@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formOwnerPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                             }}
 
                         //Pedro & Rafael
-                        composable("formOwnerPage") {FormOwnerPage(navController)}
+                        composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
 
                         // Tomas & Ricardo
