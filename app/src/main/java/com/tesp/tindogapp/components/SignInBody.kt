@@ -69,16 +69,19 @@ fun LoginCorpo(
                         .padding(bottom = 16.dp)
                 )
             }
-            if (loginVm.DoingLogin) {
-                CircularProgressIndicator(
-                    modifier = Modifier.width(64.dp),
-                    color = Color(0xFFBB3210)
-                )
-                Spacer(modifier = Modifier.height(64.dp))
-            }
-            else{
-                SignInButtonComponent{
-                    loginVm.DoLogin(mainViewModel,navController)
+            else
+            {
+                if (loginVm.DoingLogin) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.width(64.dp),
+                        color = Color(0xFFBB3210)
+                    )
+                    Spacer(modifier = Modifier.height(64.dp))
+                }
+                else{
+                    SignInButtonComponent{
+                        loginVm.DoLogin(mainViewModel,navController)
+                    }
                 }
             }
 

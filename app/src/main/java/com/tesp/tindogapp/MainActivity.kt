@@ -9,9 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.SignUpBody
 import com.tesp.tindogapp.pages.*
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "pickDog") {
+                    NavHost(navController = navController, startDestination = "login") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -45,12 +47,14 @@ class MainActivity : ComponentActivity() {
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
                         composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
                         composable("formDogPage") {FormDogPage(navController)}
-                        composable("match") {
+                        composable("match/{dogId}",
+                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        ) {
+                            var dogId = it.arguments?.getInt("dogId");
                             NavigationTopBar(navController = navController){
-                                likeDislike(
-                            navController,
-                            matchDogViewModel = MatchDogViewModel()
-                        )}}
+
+                                likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
+                            }}
                     }
                 }
             }

@@ -3,6 +3,7 @@ package com.tesp.tindogapp.pages
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,8 +39,11 @@ import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 fun likeDislike(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = MainViewModel(),
-    matchDogViewModel: MatchDogViewModel = MatchDogViewModel()
+    matchDogViewModel: MatchDogViewModel = MatchDogViewModel(),
+    dogId: Int=0
 ): Unit {
+    matchDogViewModel.SetContext(viewModel, dogId);
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,7 +59,7 @@ fun likeDislike(
             {
                 // Imagem principal da galeria
                 Image(
-                    painter = painterResource(id = matchDogViewModel.MatchDog?.Imagem?:2130968600),
+                    painter = painterResource(id = matchDogViewModel.MatchDog?.Imagem?:2130968601),
                     contentDescription = "foto da galeria",
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
@@ -69,7 +73,7 @@ fun likeDislike(
             ) {
                 // Botão de seleção para o cão à procura de companhia
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {  },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(),
                     modifier = Modifier
@@ -81,7 +85,7 @@ fun likeDislike(
                         .clip(CircleShape)
                 ) {
                     Image(
-                        painter = painterResource(id = matchDogViewModel.Dog?.Imagem?:2130968600),
+                        painter = painterResource(id = matchDogViewModel.Dog?.Imagem?:2130968601),
                         contentDescription = "botao_redondo"
                     )
                 }
@@ -97,8 +101,12 @@ fun likeDislike(
                 .fillMaxWidth()
                 .padding(top = 8.dp, bottom = 8.dp)
         ) {
+            var text = "";
+            if(matchDogViewModel.MatchDog?.Nome!=null) {
+                text="${matchDogViewModel.MatchDog?.Nome?:""}, ${matchDogViewModel.MatchDog?.Idade?:0}";
+            }
             Text(
-                text = "${matchDogViewModel.MatchDog?.Nome}, ${matchDogViewModel.MatchDog?.Idade}",
+                text = text,
                 style = androidx.compose.ui.text.TextStyle( // ???
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -109,7 +117,7 @@ fun likeDislike(
             )
 
             Text(
-                text = "${matchDogViewModel.MatchDog?.Localidade}",
+                text = "${matchDogViewModel.MatchDog?.Localidade?:""}",
                 style = androidx.compose.ui.text.TextStyle( // ???
                     fontSize = 20.sp
                 ),
@@ -119,7 +127,7 @@ fun likeDislike(
             )
         }
         Text(
-            text = "${matchDogViewModel.MatchDog?.Descricao}",
+            text = "${matchDogViewModel.MatchDog?.Descricao?:""}",
             style = androidx.compose.ui.text.TextStyle( // ???
                 fontSize = 14.sp
             )
@@ -137,12 +145,18 @@ fun likeDislike(
                 contentDescription = "dislike",
                 modifier = Modifier
                     .size(100.dp, 100.dp)
+                    .clickable {
+                    navController.navigate("pickDog")
+                }
             )
             Image(
                 painter = painterResource(id = R.drawable.like),
                 contentDescription = "like",
                 modifier = Modifier
                     .size(100.dp, 100.dp)
+                    .clickable {
+                        navController.navigate("pickDog")
+                    }
             )
         }
 

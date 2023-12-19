@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.tesp.tindogapp.R
 import com.tesp.tindogapp.components.LoginCorpo
 import com.tesp.tindogapp.components.Logotipo
 import com.tesp.tindogapp.viewmodels.LoginViewModel
