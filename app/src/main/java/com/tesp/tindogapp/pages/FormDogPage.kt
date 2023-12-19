@@ -1,5 +1,10 @@
 package com.tesp.tindogapp.pages
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,22 +25,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import com.tesp.tindogapp.R
 import com.tesp.tindogapp.components.Logotipo
 import com.tesp.tindogapp.components.VarInputBreedSexDog
 import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.components.VarInputLocBox
 import com.tesp.tindogapp.components.VarInputNameAgeBox
 
-@Preview(showBackground = true, heightDp = 700, widthDp = 380)
+//@Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
 fun FormDogPage(navController: NavHostController = rememberNavController()) {
     var currentStep by remember { mutableStateOf(1) }
@@ -50,22 +61,14 @@ fun FormDogPage(navController: NavHostController = rememberNavController()) {
             2 -> Step2(onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
             3 -> Step3(onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
             4 -> Step4(onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
-            5 -> Step5(onBack = { currentStep = 6 }, onNext = { currentStep = 6 })
-            6 -> Step6(onBack = { currentStep = 1 }, onNext = { navController.navigate("match") })
-            //7 -> Step7(onBack = { currentStep = 1 })
+            5 -> Step5(onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
+            6 -> Step6(onBack = { currentStep = 7 }, onNext = { currentStep = 7 })
+            7 -> Step7(onBack = { currentStep = 1 }, onNext = { navController.navigate("match") })
+
         }
     }
 }
 
-/* FORM PARA TELA COM APENAS 1 PERGUNTA E RESPOSTA
-@Composable
-fun Step1(onNext: () -> Unit) {
-    Column {
-        Logotipo()
-        InputOwnerNameBox(onNext = onNext)
-    }
-}
-*/
 
 // FORM PARA NOME E IDADE DO CAO
 @Composable
@@ -76,53 +79,61 @@ fun Step1(onNext: () -> Unit) {
     }
 }
 
+// FORM PARA FOTO
+@Composable
+fun Step2(onBack: () -> Unit, onNext: () -> Unit){
+    Column {
+        Logotipo()
+        PhotoPickerDog(onBack = onBack, onNext = onNext)
+    }
+}
+
 // FORM PARA DESCRICAO
 @Composable
-fun Step2(onBack: () -> Unit, onNext: () -> Unit) {
+fun Step3(onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
         InputDescBox(onBack = onBack, onNext = onNext)
     }
 }
+
 // FORM PARA RAÇA E SEXO DO CAO
 @Composable
-fun Step3(onBack: () -> Unit,onNext: () -> Unit) {
+fun Step4(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputBreedSexBox(onBack = onBack,onNext = onNext)
     }
 }
+
 // FORM PARA LOCALIZACAO DO CAO
 @Composable
-fun Step4(onBack: () -> Unit,onNext: () -> Unit) {
+fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputLocBox(onBack = onBack,onNext = onNext)
     }
 }
+
 // FROM PARA CHIP DO CAO
 @Composable
-fun Step5(onBack: () -> Unit,onNext: () -> Unit) {
+fun Step6(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputChipBox(onBack = onBack,onNext = onNext)
     }
 }
+
 //FORM PARA FINISH OU NAO DO CAO
 @Composable
-fun Step6(onBack: () -> Unit,onNext: () -> Unit) {
+fun Step7(onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputFinishBox(onBack = onBack,onNext = onNext)
     }
 }
 
-@Composable
-fun Step7(onNext: () -> Unit) {
-    Column {
-        Logotipo()
-    }
-}
+
 
 // STEP-1 VAR INPUTS NOME E IDADE DO CAO
 @Composable
@@ -173,7 +184,138 @@ fun InputDogNameBox(onNext:() -> Unit) {
     }
 }
 
-// STEP-2 VAR INPUTS DE DESCRIPTION
+
+
+// STEP-2 IMAGEM
+@Composable
+fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
+    var selectedImageUriDog by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    val photoPickerLauncherDog = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            selectedImageUriDog = it
+        }
+    )
+
+    Box(
+        modifier = Modifier
+            .background(
+                Color(0xFFFFDBD2),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxSize()
+            .padding(30.dp)
+    ) {
+        Column (
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Show us your dog!",
+                style = androidx.compose.ui.text.TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+
+            Box (
+                modifier = Modifier
+
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.imageplaceholder),
+                    contentDescription = "placeholderimage",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.FillBounds
+                )
+
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    model = selectedImageUriDog,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds
+                )
+            }
+
+            Button(onClick = {
+                photoPickerLauncherDog.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            },
+                modifier = Modifier
+
+                    .height(50.dp),
+
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFBF8B7E)
+                ),
+
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(text = "Add Photo!",
+                    style = androidx.compose.ui.text.TextStyle(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 30.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+
+                Button(onClick = onBack,
+                    modifier = Modifier
+
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Back",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+                Button(onClick = onNext,
+                    modifier = Modifier
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8769)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Next",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+
+            }
+        }
+
+    }
+
+}
+
+// STEP-3 VAR INPUTS DE DESCRIPTION
 @Composable
 fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
     Box(
@@ -242,7 +384,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
 }
 
 
-// STEP-3 VAR INPUTS RACA E SEXO DO CAO
+// STEP-4 VAR INPUTS RACA E SEXO DO CAO
 @Composable
 fun InputBreedSexBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
@@ -310,8 +452,7 @@ fun InputBreedSexBox(onBack: () -> Unit,onNext:() -> Unit) {
     }
 }
 
-
-// VAR INPUTS DE LOCALIZACAO DO CAO
+// STEP-5 VAR INPUTS DE LOCALIZACAO DO CAO
 @Composable
 fun InputLocBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
@@ -379,7 +520,7 @@ fun InputLocBox(onBack: () -> Unit,onNext:() -> Unit) {
     }
 }
 
-// VAR INPUTS DE CHIP OU NAO DO CAO
+// STEP-6 VAR INPUTS DE CHIP OU NAO DO CAO
 @Composable
 fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(
@@ -453,7 +594,7 @@ fun InputChipBox(onBack: () -> Unit,onNext:() -> Unit) {
     }
 }
 
-// VAR INPUTS DE FINISH OU NAO DO CAO
+// STEP-7 VAR INPUTS DE FINISH OU NAO DO CAO
 @Composable
 fun InputFinishBox(onBack: () -> Unit,onNext:() -> Unit) {
     Box(

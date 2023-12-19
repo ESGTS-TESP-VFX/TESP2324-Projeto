@@ -25,10 +25,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.utils.isEmailValid
 
+@Preview()
 @Composable
-@Preview
-fun SignUpCorpo(navController: NavController = rememberNavController()) {
+
+fun RecoverPwBody(navController: NavController = rememberNavController()) {
     Box(
         modifier = Modifier
             .background(
@@ -43,11 +45,11 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var respostaValid by remember {
+            var validAnswer by remember {
                 mutableStateOf(true)
             }
             Text(
-                text = stringResource(id = R.string.register),
+                text = stringResource(id = R.string.reset_password),
                 fontFamily = FontFamily.Monospace,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
@@ -55,17 +57,20 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-            InputUsernameComponent()
             var email = InputEmailComponent()
-            var pwd= InputPasswordComponent()
-            var confirmPassword = InputConfirmPasswordComponent()
+            validAnswer = isEmailValid(email);
 
-            respostaValid = Verficar(email, pwd, confirmPassword);
+            ResetPwButtonComponent {
+                if (validAnswer) {
+                    navController.navigate("pickDog")
+                    //temos de mudar rota
+                }
+            }
+            //este texto só aparece quando os dados de login forem inválidos
 
-            if(!respostaValid) {
-                //este texto só aparece quando os dados de login forem inválidos
+            if (!validAnswer) {
                 Text(
-                    text = stringResource(id = R.string.invalid_register_data),
+                    text = stringResource(id = R.string.verify_your_email),
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     color = Color(0xFFFF0000),
@@ -74,17 +79,9 @@ fun SignUpCorpo(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-
-            SubmitButtonComponent(){
-                navController.navigate("formOwnerPage")
-            }
         }
     }
 }
 
-fun Verficar(email: String, pwd: String, confirmPassword: String): Boolean {
-    return !email.isNullOrEmpty() &&
-            !pwd.isNullOrEmpty() &&
-            !confirmPassword.isNullOrEmpty() &&
-            pwd == confirmPassword;
-}
+//
+

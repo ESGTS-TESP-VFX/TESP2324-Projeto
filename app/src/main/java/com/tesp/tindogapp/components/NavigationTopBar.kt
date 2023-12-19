@@ -124,6 +124,19 @@ fun NavigationTopBar(
                         ) {
                             Text(text = "Matches")
                         }
+                        Button(
+                            onClick = {  navController.navigate("KennelPage") },
+                            colors = ButtonDefaults.buttonColors(
+                                Color(0xFFFF8769),
+                                contentColor = Color(0xFFFFFFFF)),
+                            modifier = Modifier
+                                //.fillMaxWidth()
+                                .padding(6.dp)
+                                .width(200.dp)
+
+                        ) {
+                            Text(text = "Kennel")
+                        }
                     }
                     Image(
                         modifier = Modifier
