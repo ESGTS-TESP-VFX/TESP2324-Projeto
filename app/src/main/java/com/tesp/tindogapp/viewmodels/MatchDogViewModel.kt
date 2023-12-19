@@ -20,16 +20,17 @@ class MatchDogViewModel() : ViewModel() {
 
     fun SetContext(mainViewModel: MainViewModel, dogId: Int) {
         viewModelScope.launch {
-            Loading = true;
             val apiService = ApiService.getInstance();
 
             // Get My Dog Details
             try {
+                Loading = true;
                 val response = withContext(Dispatchers.IO) {
                     apiService.getDog( mainViewModel.AuthToken, dogId).execute();
                 }
 
                 Dog = response.body()?: Dog(0,"Cenas", 0, "","",2130968599);
+                Loading = false;
             }
             catch (e:Exception)
             {
@@ -48,9 +49,7 @@ class MatchDogViewModel() : ViewModel() {
             {
 
             }
+            Loading = false;
         }
-
-        Loading = false;
     }
-
 }
