@@ -21,8 +21,8 @@ import androidx.navigation.compose.rememberNavController
 data class Dog(val index: Int, val name: String, val breed: String, val location: String)
 
 @Composable
-fun GalleryPage() {
-    val navController = rememberNavController()
+fun GalleryPage(navController: NavHostController = rememberNavController()) {
+
 
     Column(
         modifier = Modifier

@@ -45,8 +45,11 @@ class MainActivity : ComponentActivity() {
                         //Pedro
                         composable("formOwnerPage") {FormOwnerPage(navController)}
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
-                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
+
+                        //Ricardo,Bruno e Tomás
+                        composable("KennelPage") {NavigationTopBar(navController = navController){ GalleryPage()}}
                         composable("formDogPage") {FormDogPage(navController)}
+
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
                         ) {
