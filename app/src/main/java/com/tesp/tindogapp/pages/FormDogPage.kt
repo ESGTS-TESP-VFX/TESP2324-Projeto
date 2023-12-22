@@ -63,7 +63,7 @@ fun FormDogPage(navController: NavHostController = rememberNavController()) {
             4 -> Step4(onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
             5 -> Step5(onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
             6 -> Step6(onBack = { currentStep = 7 }, onNext = { currentStep = 7 })
-            7 -> Step7(onBack = { currentStep = 1 }, onNext = { navController.navigate("pickDog") })
+            7 -> Step7(onBack = { currentStep = 1 }, onNext = { navController.navigate("match/0") })
 
         }
     }
