@@ -31,9 +31,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formOwnerPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -41,12 +42,7 @@ class MainActivity : ComponentActivity() {
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
-
-                        //Pedro
-                        composable("formOwnerPage") {FormOwnerPage(navController)}
-                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
                         composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
-                        composable("formDogPage") {FormDogPage(navController)}
 
                         composable("SeeDogPage") {SeeDogPage(navController)}
                         composable("EditDogPage") {EditDogPage(navController)}
@@ -59,6 +55,13 @@ class MainActivity : ComponentActivity() {
 
                                 likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
                             }}
+
+                        //Pedro & Rafael
+                        composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
+                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
+
+                        // Tomas & Ricardo
+                        composable("formDogPage") {FormDogPage(navController)}
                     }
                 }
             }
