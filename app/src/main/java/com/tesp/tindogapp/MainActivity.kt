@@ -42,6 +42,11 @@ class MainActivity : ComponentActivity() {
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
+                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
+
+                        composable("SeeDogPage") {SeeDogPage(navController)}
+                        composable("EditDogPage") {EditDogPage(navController)}
+
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
                         ) {
@@ -56,7 +61,6 @@ class MainActivity : ComponentActivity() {
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
 
                         // Tomas & Ricardo
-                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
                         composable("formDogPage") {FormDogPage(navController)}
                     }
                 }
