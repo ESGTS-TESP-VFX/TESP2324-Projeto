@@ -4,16 +4,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -21,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,33 +39,74 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.footerBeMyFriend
+import com.tesp.tindogapp.viewmodels.KennelViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 
 
 @Preview(showBackground = true, widthDp = 380)
 @Composable
-fun SeletorCaes(navHostController: NavHostController = rememberNavController()): Unit {
+fun PickRighView(navController: NavHostController = rememberNavController(),
+                 mainViewModel: MainViewModel = MainViewModel(),
+                 kennelviewModel: KennelViewModel = KennelViewModel()): Unit {
 
-    val caes = listOf(
-        R.drawable.fotocao1,
-        R.drawable.fotocao2,
-        R.drawable.fotocao3,
-        R.drawable.fotocao4,
-        R.drawable.fotocao5
-    )
+    kennelviewModel.SetContext(mainViewModel);
 
+    var matchDogViewModel = viewModel<MatchDogViewModel>();
+
+    if (kennelviewModel.Dogs.count() == 1) {
+        var id= kennelviewModel.Dogs.first().Id?:0;
+        navController.navigate("match/${id}")
+    }
+
+    if (!kennelviewModel.Loading)
+    {
+        NavigationTopBar(navController = navController)
+        {
+            if (kennelviewModel.Dogs.count() > 1) {
+                SeletorCaes(navController, mainViewModel, kennelviewModel)
+            }
+        }
+    }
+    else
+    {
+        Box( modifier = Modifier
+            .fillMaxSize(),
+            contentAlignment = Alignment.Center){
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize(),
+                color = Color(0xFFBB3210)
+            )
+
+        }
+    }
+}
+
+
+
+@Preview(showBackground = true, widthDp = 380)
+@Composable
+fun SeletorCaes(
+    navHostController: NavHostController = rememberNavController(),
+    mainViewModel: MainViewModel = MainViewModel(),
+    kennelviewModel: KennelViewModel = KennelViewModel()
+): Unit {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     )
     {
-
         // Galeria do seletor de cães
-
+        Text(text = mainViewModel.AuthToken)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,9 +117,9 @@ fun SeletorCaes(navHostController: NavHostController = rememberNavController()):
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(8.dp)
             ) {
-                items(caes.size) { index ->
+                items(kennelviewModel.Dogs) { dog ->
                     Image(
-                        painter = painterResource(id = caes[index]),
+                        painter = painterResource(id = dog.Imagem),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -81,7 +127,7 @@ fun SeletorCaes(navHostController: NavHostController = rememberNavController()):
                             .padding(4.dp)
                             .clip(RoundedCornerShape(20.dp))
                             .background(MaterialTheme.colorScheme.background)
-                            .clickable { /* Handle click if needed */ },
+                            .clickable { navHostController.navigate("match/${dog.Id}") },
                         contentScale = ContentScale.Crop
                     )
                 }

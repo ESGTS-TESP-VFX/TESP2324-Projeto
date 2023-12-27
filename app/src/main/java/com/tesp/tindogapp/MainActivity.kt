@@ -8,80 +8,57 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.tesp.tindogapp.components.NavigationTopBar
 import com.tesp.tindogapp.components.SignUpBody
 import com.tesp.tindogapp.pages.*
 import com.tesp.tindogapp.ui.theme.TinDogAppTheme
+import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TinDogAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "SeeDogPage") {
-                        composable("login") {
-                            LoginPage(navController)
-                        }
-                        composable("signPage") {
-                            SignUpBody(navController)
-                        }
-                        composable("pickDog") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                var dogCounter = 1
-                                if (dogCounter == 1)
-                                    likeDislike(navController)
-                                else
-                                    SeletorCaes(navController)
-                            }
-                        }
-                        composable("SeeDogPage") {
-                            SeeDogPage(navController)
-                        }
-                        composable("EditDogPage") {
-                            EditDogPage(navController)
-                        }
+                    var viewModel = viewModel<MainViewModel>();
 
-                        composable("formOwnerPage") {
-                            FormOwnerPage(navController)
-                        }
-                        composable("seeOwnerPage") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                Text(text = "seeOwnerPage")
-                            }
-                        }
-                        composable("MatchesPage") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                Text(text = "MatchesPage")
-                            }
-                        }
-                        composable("KennelPage") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                Text(text = "KennelPage")
-                            }
-                        }
-                        composable("formDogPage") {
-                            FormDogPage(navController)
-                        }
-                        composable("match") {
-                            NavigationTopBar(navController = navController)
-                            {
-                                likeDislike(navController)
-                            }
-                        }
+                    NavHost(navController = navController, startDestination = "login") {
+                        // Mario, Joao, Mafalda, Alexandre
+                        composable("login") { LoginPage(navController, viewModel, viewModel())}
+                        composable("signPage") {SignUpBody(navController)}
+
+                        // Rodrigo, Marcos, Alen
+                        composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
+                        composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
+
+                        //Pedro
+                        composable("formOwnerPage") {FormOwnerPage(navController)}
+                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
+                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
+                        composable("formDogPage") {FormDogPage(navController)}
+
+                        composable("SeeDogPage") {SeeDogPage(navController)}
+                        composable("EditDogPage") {EditDogPage(navController)}
+
+                        composable("match/{dogId}",
+                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        ) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            NavigationTopBar(navController = navController){
+
+                                likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
+                            }}
                     }
                 }
             }
