@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">TinDogApp</string>
     <string name="loginText">Login to your Dog House</string>
-    <string name="bemyfriendText">be my friend</string>
+    <string name="bemyfriendText">be my friend!</string>
     <string name="logotipoDesc">TinDog Logo</string>
     <string name="create_account_message">New here?\nMake a paw registration</string>
     <string name="invalid_login_data">Incorrect email or password</string>
     <string name="reset_password_link">Reset Password</string>
     <string name="register">Register With us!</string>
     <string name="invalid_register_data">Incorrect data, please check your inputs</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="verify_your_email">Verify your email</string>
+    <string name="input_invalid_username">Username must have between 6 and 20 characters</string>
+    <string name="input_invalid_email">That is not a valide email</string>
+    <string name="input_invalid_password">At least 8 characters, including uppercase, lowercase, digit, and special character</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="invalid_code">Verify your code</string>
+    <string name="setup_new_password">Setup your new password</string>
+    <string name="passwords_must_match">Your passwords must match</string>
 </resources>
