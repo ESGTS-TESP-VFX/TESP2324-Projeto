@@ -31,9 +31,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "formOwnerPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -49,6 +50,8 @@ class MainActivity : ComponentActivity() {
                         //Ricardo,Bruno e Tomás
                         composable("KennelPage") {NavigationTopBar(navController = navController){ GalleryPage()}}
                         composable("formDogPage") {FormDogPage(navController)}
+                        composable("SeeDogPage") {SeeDogPage(navController)}
+                        composable("EditDogPage") {EditDogPage(navController)}
 
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
@@ -58,6 +61,11 @@ class MainActivity : ComponentActivity() {
 
                                 likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
                             }}
+
+                        //Pedro & Rafael
+                        composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
+                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
+
                     }
                 }
             }

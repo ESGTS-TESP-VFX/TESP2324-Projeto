@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tesp.tindogapp.ui.theme.OrangeOpacity65
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +50,7 @@ fun VarInputNameAgeBox() {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
             textAlign = TextAlign.Center,
-            color = Color(0xFFBF8B7E),
+            color = OrangeOpacity65,
         ) },
         modifier = Modifier
             .fillMaxWidth()
@@ -81,7 +82,7 @@ fun VarInputNameAgeBox() {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
             textAlign = TextAlign.Center,
-            color = Color(0xFFBF8B7E),
+            color = OrangeOpacity65,
         ) },
         modifier = Modifier
             .fillMaxWidth()

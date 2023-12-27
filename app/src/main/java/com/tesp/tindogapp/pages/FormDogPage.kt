@@ -45,6 +45,9 @@ import com.tesp.tindogapp.components.VarInputBreedSexDog
 import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.components.VarInputLocBox
 import com.tesp.tindogapp.components.VarInputNameAgeBox
+import com.tesp.tindogapp.ui.theme.Orange
+import com.tesp.tindogapp.ui.theme.OrangeOpacity65
+import com.tesp.tindogapp.ui.theme.Salmon
 
 //@Preview(showBackground = true, heightDp = 700, widthDp = 380)
 @Composable
@@ -69,7 +72,7 @@ fun FormDogPage(navController: NavHostController = rememberNavController()) {
     }
 }
 
-
+//teste
 // FORM PARA NOME E IDADE DO CAO
 @Composable
 fun Step1(onNext: () -> Unit) {
@@ -141,7 +144,7 @@ fun InputDogNameBox(onNext:() -> Unit) {
     Box(
         modifier = Modifier
             .background(
-                Color(0xFFFFDBD2),
+                color = Salmon,
                 shape = RoundedCornerShape(16.dp)
             )
             .fillMaxSize()
@@ -166,7 +169,7 @@ fun InputDogNameBox(onNext:() -> Unit) {
                         .fillMaxWidth()
                         .height(56.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
+                        containerColor = Orange
                     ),
                     shape = RoundedCornerShape(16.dp)
 
@@ -203,7 +206,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
     Box(
         modifier = Modifier
             .background(
-                Color(0xFFFFDBD2),
+                color = Salmon,
                 shape = RoundedCornerShape(16.dp)
             )
             .fillMaxSize()
@@ -213,6 +216,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Show us your dog!",
+                modifier = Modifier.padding(bottom = 10.dp),
                 style = androidx.compose.ui.text.TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -248,13 +252,15 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
                 photoPickerLauncherDog.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
+
             },
                 modifier = Modifier
-
+                    .padding(top = 10.dp)
                     .height(50.dp),
 
+
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFBF8B7E)
+                    containerColor = OrangeOpacity65
                 ),
 
                 shape = RoundedCornerShape(16.dp)
@@ -269,8 +275,9 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp),
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
@@ -280,7 +287,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
 
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
+                        containerColor = Orange
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
@@ -296,7 +303,7 @@ fun PhotoPickerDog(onBack: () -> Unit, onNext: () -> Unit): Unit {
                     modifier = Modifier
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
+                        containerColor = Orange
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
@@ -321,7 +328,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
     Box(
         modifier = Modifier
             .background(
-                Color(0xFFFFDBD2),
+                color = Salmon,
                 shape = RoundedCornerShape(16.dp)
             )
             .fillMaxSize()
@@ -348,7 +355,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
 
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
+                        containerColor = Orange
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
@@ -365,7 +372,7 @@ fun InputDescBox(onBack: () -> Unit, onNext: () -> Unit) {
 
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8769)
+                        containerColor = Orange
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
