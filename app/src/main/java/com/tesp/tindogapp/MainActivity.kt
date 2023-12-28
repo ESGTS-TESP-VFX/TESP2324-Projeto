@@ -44,8 +44,7 @@ class MainActivity : ComponentActivity() {
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
                         composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
 
-                        composable("SeeDogPage") {SeeDogPage(navController)}
-                        composable("EditDogPage") {EditDogPage(navController)}
+
 
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
@@ -62,6 +61,8 @@ class MainActivity : ComponentActivity() {
 
                         // Tomas & Ricardo
                         composable("formDogPage") {FormDogPage(navController)}
+                        composable("SeeDogPage") {SeeDogPage(navController)}
+                        composable("EditDogPage") {EditDogPage(navController)}
                     }
                 }
             }
