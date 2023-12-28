@@ -1,5 +1,7 @@
 package com.tesp.tindogapp.pages
 
+import com.tesp.tindogapp.model.Dog
+import com.tesp.tindogapp.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,12 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
-data class Dog(val index: Int, val name: String, val breed: String, val location: String)
-
 @Composable
 fun GalleryPage(navController: NavHostController = rememberNavController()) {
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,17 +33,18 @@ fun GalleryPage(navController: NavHostController = rememberNavController()) {
                 .fillMaxWidth()
                 .wrapContentWidth(Alignment.CenterHorizontally)
                 .padding(bottom = 16.dp),
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
         )
         DogGallery(
             dogs = listOf(
-                Dog(index = 1, name = "Bob", breed = "Golden Retriever", location = "Carregado"),
-                Dog(index = 2, name = "Buddy", breed = "Labrador", location = "VFX"),
+                Dog(Id = 1, Nome = "Bob", Idade = 3, Descricao = "Golden Retriever", Localidade = "Carregado", Imagem = R.drawable.fotocao3),
+                Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Labrador", Localidade = "VFX", Imagem = R.drawable.fotocao5),
             )
         )
     }
 }
+
 
 @Composable
 fun DogGallery(dogs: List<Dog>) {
@@ -83,7 +82,7 @@ fun DogItem(dog: Dog) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = dog.name,
+                text = dog.Nome,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.CenterHorizontally)
@@ -91,17 +90,17 @@ fun DogItem(dog: Dog) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "Breed: ${dog.breed}",
+            /*Text(
+                text = "Location: ${dog.Localidade}",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.CenterHorizontally)
-            )
+            )*/
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Location: ${dog.location}",
+                text = "Location: ${dog.Localidade}",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.CenterHorizontally)
@@ -115,9 +114,9 @@ fun DogItem(dog: Dog) {
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Age: 3")
+                Text(text = "Age: ${dog.Idade}")
 
-                Text(text = "Sex: M")
+                //Text(text = "Sex: ${dog.}")
             }
         }
     }
