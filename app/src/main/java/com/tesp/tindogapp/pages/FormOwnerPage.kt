@@ -52,7 +52,8 @@ import com.tesp.tindogapp.viewmodels.OwnerViewModel
 fun FormOwnerPage(
     navController: NavHostController = rememberNavController(),
     mainViewModel: MainViewModel = MainViewModel(),
-    ownerViewModel: OwnerViewModel = OwnerViewModel()) {
+    ownerViewModel: OwnerViewModel = OwnerViewModel()
+) {
 
     var currentStep by remember { mutableStateOf(1) }
 
