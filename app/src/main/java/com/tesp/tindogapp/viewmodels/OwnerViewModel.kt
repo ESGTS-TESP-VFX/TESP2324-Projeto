@@ -12,3 +12,5 @@ class OwnerViewModel: ViewModel() {
 
     var Owner: Owner= Owner(0, "", null, "")
 }
+
+

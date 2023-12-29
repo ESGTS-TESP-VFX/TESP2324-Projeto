@@ -2,6 +2,7 @@ package com.tesp.tindogapp.apiService
 
 import com.google.gson.annotations.SerializedName
 import com.tesp.tindogapp.model.Dog
+import com.tesp.tindogapp.model.Owner
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,6 +25,10 @@ public  interface ApiService {
 
     @GET("/dogs/{id}/match")
     fun getDogMatch(@Header("Token")token: String,@Path("id") id: Int): Call<Dog>
+
+    @GET("/owners/{id}")
+    fun getOwner(@Header("Token")token: String,@Path("id") id: Int): Call<Owner>
+
 
     companion object{
         fun getInstance():ApiService{

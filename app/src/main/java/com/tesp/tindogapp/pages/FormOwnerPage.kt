@@ -203,6 +203,9 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext: () -> Unit) {
+
+    var inputDesc by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .background(
@@ -228,8 +231,8 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
             )
 
             OutlinedTextField(
-                value = ownerViewModel.Owner.Desc,
-                onValueChange = {        ownerViewModel.Owner.Desc = it },
+                value = inputDesc,
+                onValueChange = {inputDesc = it},
                 label = {
                     Text(
                         "Insert a description...",
