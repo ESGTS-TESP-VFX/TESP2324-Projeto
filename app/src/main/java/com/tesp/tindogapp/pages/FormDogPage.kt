@@ -1,6 +1,6 @@
 package com.tesp.tindogapp.pages
 
-import android.net.Uri
+
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -49,6 +49,7 @@ import com.tesp.tindogapp.ui.theme.OrangeOpacity65
 import com.tesp.tindogapp.ui.theme.Salmon
 import com.tesp.tindogapp.viewmodels.DogViewModel
 import com.tesp.tindogapp.viewmodels.MainViewModel
+import android.net.Uri
 
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
@@ -167,8 +168,8 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.Nome) }
-            var inputAgeDog by remember { mutableStateOf(dogViewModel.Dog.Idade.toString()) }
+            var inputNameDog by remember { mutableStateOf(dogViewModel.Dog2.Nome) }
+            var inputAgeDog by remember { mutableStateOf(dogViewModel.Dog2.Idade.toString()) }
 
             // What's your Dog's Name?
             Text(
@@ -271,7 +272,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
     val photoPickerLauncherDog = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            dogViewModel.Dog.Imagem
+            dogViewModel.Dog2.ImageUri
         }
     )
 
@@ -314,7 +315,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
                         .fillMaxWidth()
                         .height(250.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    model = dogViewModel.Dog.Imagem,
+                    model = dogViewModel.Dog2.ImageUri,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
                 )
@@ -398,6 +399,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
+    var inputDescDog by remember { mutableStateOf(dogViewModel.Dog2.Desc) }
     Box(
         modifier = Modifier
             .background(
@@ -424,8 +426,8 @@ fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Un
 
 
             OutlinedTextField(
-                value = dogViewModel.Dog.Descricao,
-                onValueChange = { dogViewModel.Dog.Descricao = it },
+                value = inputDescDog,
+                onValueChange = { inputDescDog = it },
                 label = {
                     Text(
                         "Insert a description...",
@@ -517,8 +519,8 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            var inputBreedDog by remember { mutableStateOf(dogViewModel.Dog.raca) }
-            var inputSexDog by remember { mutableStateOf(dogViewModel.Dog.sexo) }
+            var inputBreedDog by remember { mutableStateOf(dogViewModel.Dog2.Raca) }
+            var inputSexDog by remember { mutableStateOf(dogViewModel.Dog2.Sexo) }
 
             // What's your Dog's Name?
             Text(
@@ -650,7 +652,7 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            var inputLocDog by remember { mutableStateOf(dogViewModel.Dog.Localidade) }
+            var inputLocDog by remember { mutableStateOf(dogViewModel.Dog2.Localidade) }
 
 
             Text(
