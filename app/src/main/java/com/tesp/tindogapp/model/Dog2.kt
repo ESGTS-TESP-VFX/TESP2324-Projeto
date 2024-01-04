@@ -9,7 +9,10 @@ data class Dog2(
     var ImageUri: Uri?,
     var Desc: String,
     var Localidade: String,
-    var Idade: Int?,
+    var Idade: Int = 0,
     var Raca: String,
     var Sexo:String,
-)
+    var Chip: Boolean = false
+) {
+
+}

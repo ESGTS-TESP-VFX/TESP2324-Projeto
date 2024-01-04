@@ -49,7 +49,6 @@ import com.tesp.tindogapp.ui.theme.OrangeOpacity65
 import com.tesp.tindogapp.ui.theme.Salmon
 import com.tesp.tindogapp.viewmodels.DogViewModel
 import com.tesp.tindogapp.viewmodels.MainViewModel
-import android.net.Uri
 
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 380)
@@ -71,7 +70,13 @@ fun FormDogPage(navController: NavHostController = rememberNavController(),
             3 -> Step3(dogViewModel,onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
             4 -> Step4(dogViewModel,onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
             5 -> Step5(dogViewModel,onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
-            6 -> Step6(dogViewModel,onBack = { currentStep = 7 }, onNext = { currentStep = 7 })
+            6 -> Step6(dogViewModel,onBack = {
+                currentStep = 7
+                dogViewModel.Dog.Chip = false
+             }, onNext = {
+                currentStep = 7
+                dogViewModel.Dog.Chip = true
+            })
             7 -> Step7(dogViewModel,onBack = { currentStep = 1 })
             {
                 currentStep = 8
@@ -167,9 +172,8 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
-            var inputNameDog by remember { mutableStateOf(dogViewModel.Dog2.Nome) }
-            var inputAgeDog by remember { mutableStateOf(dogViewModel.Dog2.Idade.toString()) }
+            var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.Nome) }
+            var inputAgeDog by remember { mutableStateOf(dogViewModel.Dog.Idade.toString()) }
 
             // What's your Dog's Name?
             Text(
@@ -184,7 +188,10 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
             // Input DogName
             OutlinedTextField(
                 value = inputNameDog,
-                onValueChange = { inputNameDog = it },
+                onValueChange = {
+                    inputNameDog = it
+                    dogViewModel.Dog.Nome = it
+                },
                 label = { Text("Insert here dog's name...",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
@@ -216,7 +223,10 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
             // Input DogAge
             OutlinedTextField(
                 value = inputAgeDog,
-                onValueChange = { inputAgeDog = it },
+                onValueChange = {
+                    inputAgeDog = it
+                    dogViewModel.Dog.Idade = it.toIntOrNull()?:0
+                },
                 label = { Text("Insert here dog's age...",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
@@ -269,10 +279,13 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
 @Composable
 fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit): Unit {
 
+    var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.ImageUri) }
+
     val photoPickerLauncherDog = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            dogViewModel.Dog2.ImageUri
+            inputNameDog = it
+            dogViewModel.Dog.ImageUri = it
         }
     )
 
@@ -315,7 +328,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
                         .fillMaxWidth()
                         .height(250.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    model = dogViewModel.Dog2.ImageUri,
+                    model = inputNameDog,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
                 )
@@ -399,7 +412,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
-    var inputDescDog by remember { mutableStateOf(dogViewModel.Dog2.Desc) }
+    var inputDescDog by remember { mutableStateOf(dogViewModel.Dog.Desc) }
     Box(
         modifier = Modifier
             .background(
@@ -427,7 +440,8 @@ fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Un
 
             OutlinedTextField(
                 value = inputDescDog,
-                onValueChange = { inputDescDog = it },
+                onValueChange = { inputDescDog = it
+                    dogViewModel.Dog.Desc= it},
                 label = {
                     Text(
                         "Insert a description...",
@@ -519,8 +533,8 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            var inputBreedDog by remember { mutableStateOf(dogViewModel.Dog2.Raca) }
-            var inputSexDog by remember { mutableStateOf(dogViewModel.Dog2.Sexo) }
+            var inputBreedDog by remember { mutableStateOf(dogViewModel.Dog.Raca) }
+            var inputSexDog by remember { mutableStateOf(dogViewModel.Dog.Sexo) }
 
             // What's your Dog's Name?
             Text(
@@ -535,7 +549,10 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
             // Input DogName
             OutlinedTextField(
                 value = inputBreedDog,
-                onValueChange = { inputBreedDog = it },
+                onValueChange = {
+                    dogViewModel.Dog.Raca= it
+                    inputBreedDog = it
+                },
                 label = { Text("Insert here dog's breed...",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
@@ -567,7 +584,10 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
             // Input DogAge
             OutlinedTextField(
                 value = inputSexDog,
-                onValueChange = { inputSexDog = it },
+                onValueChange = {
+                    dogViewModel.Dog.Sexo= it
+                    inputSexDog = it
+                },
                 label = { Text("Insert here dog's sex...",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
@@ -652,7 +672,7 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            var inputLocDog by remember { mutableStateOf(dogViewModel.Dog2.Localidade) }
+            var inputLocDog by remember { mutableStateOf(dogViewModel.Dog.Localidade) }
 
 
             Text(
@@ -667,7 +687,10 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
 
             OutlinedTextField(
                 value = inputLocDog,
-                onValueChange = { inputLocDog = it },
+                onValueChange = {
+                    dogViewModel.Dog.Localidade= it
+                    inputLocDog = it
+                },
                 label = {
                     Text(
                         "Insert your location...",
