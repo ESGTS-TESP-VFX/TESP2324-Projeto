@@ -54,10 +54,8 @@ class MainActivity : ComponentActivity() {
                         composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
 
-                        //Ricardo,Bruno e Tomás
-                        composable("EditDogPage") {EditDogPage(navController)}
 
-                        // Tomas & Ricardo
+                        // Ricardo,Bruno e Tomás
                         composable("formDogPage") {FormDogPage(navController,viewModel, viewModel())}
                         composable("SeeDogPage/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
