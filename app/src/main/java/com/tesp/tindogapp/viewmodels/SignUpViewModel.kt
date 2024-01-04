@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class SignUpViewModel:ViewModel() {
-    var Email: String ="";
-    var Password: String="";
-    var ConfirmPassword: String="";
+class SignUpViewModel : ViewModel() {
+    var Email: String = "";
+    var Password: String = "";
+    var ConfirmPassword: String = "";
 
     var SignUpSuccessfull: Boolean by mutableStateOf(false)
     var DoingSignUp: Boolean by mutableStateOf(false)
@@ -30,26 +30,20 @@ class SignUpViewModel:ViewModel() {
             val apiService = ApiService.getInstance();
             try {
                 //em principio não faz sentido pois ainda não existe o user
-                /*
-                var body =  withContext(Dispatchers.IO) {
+                var body = withContext(Dispatchers.IO) {
                     apiService.getToken(TokenRequest(Email, Password)).execute()
                 }
-                */
+                
 
-                if (body.raw().code == 200 )
-                {
+                if (body.raw().code == 200) {
                     navController.navigate("pickDog")
-                    mainViewModel.AuthToken = body.body()?.token ?:"";
+                    mainViewModel.AuthToken = body.body()?.token ?: "";
                     SignUpSuccessfull = true;
-                }
-                else
-                {
+                } else {
                     Password = "";
                     SignUpSuccessfull = false;
                 }
-            }
-            catch (e:Exception)
-            {
+            } catch (e: Exception) {
                 Log.d("MYERROR", e.message.toString())
                 SignUpSuccessfull = false;
             }
@@ -73,34 +67,26 @@ class SignUpViewModel:ViewModel() {
 
 
     fun isAnswerValid(): Boolean {
-        return (
-                isEmailValid() &&
-                        isPasswordValid() &&
-                        isConfirmPasswordValid() &&
-                        this.Password == this.ConfirmPassword
-                )
+        return (isEmailValid() && isPasswordValid() && isConfirmPasswordValid() && this.Password == this.ConfirmPassword)
 
     }
 
-    //validAnswer = checkData(email, password, confirmPassword);
 }
 
 
+/*
+fun IsValidCredentials(): Boolean {
+    val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+    var emailValid = this.Email.matches(emailRegex.toRegex())
+    var passwordValid = this.Password.length>5;
+
+    return passwordValid && emailValid;
+}
 
 
-    /*
-    fun IsValidCredentials(): Boolean {
-        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
-        var emailValid = this.Email.matches(emailRegex.toRegex())
-        var passwordValid = this.Password.length>5;
+fun DoSignUp(mainViewModel: MainViewModel, navController: NavController) {
+    navController.navigate("signPage")
+}
 
-        return passwordValid && emailValid;
-    }
-
-
-    fun DoSignUp(mainViewModel: MainViewModel, navController: NavController) {
-        navController.navigate("signPage")
-    }
-
-     */
+ */
 
