@@ -31,11 +31,17 @@ import com.tesp.tindogapp.components.DogProfileDescBox
 import com.tesp.tindogapp.components.EditDogProfileButton
 
 import com.tesp.tindogapp.ui.theme.Salmon
+import com.tesp.tindogapp.viewmodels.DogPageViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
 
 
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
-fun SeeDogPage(navController: NavHostController = rememberNavController()): Unit {
+fun SeeDogPage(navController: NavHostController = rememberNavController(),
+               viewModel: MainViewModel = MainViewModel(),
+               DogPageViewModel: DogPageViewModel = DogPageViewModel(),
+               dog2Id: Int=0
+): Unit {
 
     Column {
         Image(
