@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "formDogPage") {
+                    NavHost(navController = navController, startDestination = "SeeDogPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -61,9 +61,16 @@ class MainActivity : ComponentActivity() {
 
                         // Tomas & Ricardo
                         composable("formDogPage") {FormDogPage(navController,viewModel, viewModel())}
-                        composable("SeeDogPage") {SeeDogPage(navController)}
+                        composable("SeeDogPage/{dogId}",
+                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        ) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            SeeDogPage(navController, dog2Id = dogId?:0)
+                        }
                         composable("EditDogPage") {EditDogPage(navController)}
-                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
+                        composable("KennelPage") {
+                            NavigationTopBar(navController = navController){Text(text = "KennelPage")}
+                        }
                     }
                 }
             }

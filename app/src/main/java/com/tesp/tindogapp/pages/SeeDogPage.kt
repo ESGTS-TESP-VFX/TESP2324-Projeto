@@ -47,7 +47,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
 
     Column {
         Image(
-            painter = painterResource(id = R.drawable.fotocao3),
+            painter = painterResource(id = R.drawable.fotocao3), // ViewModel
             contentDescription = "fotocao",
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,7 +75,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                             fontWeight = FontWeight.Bold
                         )
                     )
-                    Text(text = "10 anos",
+                    Text(text = "${DogPageViewModel.Dog2?.Idade  ?: ""} Anos",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold

@@ -17,7 +17,14 @@ import kotlinx.coroutines.withContext
 class DogPageViewModel : ViewModel() {
 
     var LoadingDogProfile: Boolean by mutableStateOf(false)
-    var Dog2: Dog2? by mutableStateOf(null)
+    var Dog2: Dog2? by mutableStateOf(Dog2(1,
+        "Bockey",
+        null,
+        "Cão Muito Meigo",
+        "Benavente",
+        5,
+        Raca = "Pastor Alemão",
+        "Masculino", Chip = true))
 
     fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {
         viewModelScope.launch {
