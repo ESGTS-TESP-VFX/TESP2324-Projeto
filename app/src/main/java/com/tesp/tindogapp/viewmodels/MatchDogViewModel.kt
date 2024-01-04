@@ -29,7 +29,17 @@ class MatchDogViewModel() : ViewModel() {
                     apiService.getDog( mainViewModel.AuthToken, dogId).execute();
                 }
 
-                Dog = response.body()?: Dog(0,"Cenas", 0, "","",2130968599);
+                Dog = response.body()?: Dog(Id = 1,
+                    Nome = "Bob",
+                    Idade = 3,
+                    Descricao = "Cão Muito Meigo",
+                    Localidade = "Carregado",
+                    Imagem = null,
+                    Raca = "Golden Retriever",
+                    Chip = false,
+                    Sexo = "Masculino",
+                    Vacinas = null)
+
                 Loading = false;
             }
             catch (e:Exception)
@@ -43,7 +53,16 @@ class MatchDogViewModel() : ViewModel() {
                     apiService.getDogMatch(mainViewModel.AuthToken, dogId).execute();
                 }
 
-                MatchDog = response.body()?: Dog(0,"Cenas", 0, "","",2130968599);
+                MatchDog = response.body()?: Dog(Id = 1,
+                    Nome = "Bob",
+                    Idade = 3,
+                    Descricao = "Cão Muito Meigo",
+                    Localidade = "Carregado",
+                    Imagem = null,
+                    Raca = "Golden Retriever",
+                    Chip = false,
+                    Sexo = "Masculino",
+                    Vacinas = null);
             }
             catch (e:Exception)
             {

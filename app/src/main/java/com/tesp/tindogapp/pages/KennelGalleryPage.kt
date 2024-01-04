@@ -97,7 +97,7 @@ fun DogItem(dog: Dog, navController: NavHostController) {
                         .background(Color.Gray)
                 ) {
                     Image(
-                        painter = painterResource(id = dog.Imagem),
+                        painter = painterResource(id = R.drawable.fotocao5),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()

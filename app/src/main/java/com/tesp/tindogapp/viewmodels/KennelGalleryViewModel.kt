@@ -40,7 +40,21 @@ class KennelGalleryViewModel: ViewModel() {
 
     var Loading: Boolean by mutableStateOf(false)
     var Dogs: List<Dog> by mutableStateOf(listOf(
-        Dog(Id = 1, Nome = "Bob", Idade = 3, Descricao = "Golden Retriever", Localidade = "Carregado", Imagem = R.drawable.fotocao3),
-        Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Labrador", Localidade = "VFX", Imagem = R.drawable.fotocao5),
+        Dog(Id = 1,
+            Nome = "Bob",
+            Idade = 3,
+            Descricao = "Cão Muito Meigo",
+            Localidade = "Carregado",
+            Imagem = null,
+            Raca = "Golden Retriever",
+            Chip = false,
+            Sexo = "Masculino",
+            Vacinas = null),
+        Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Cão Muito Meigo", Localidade = "VFX",
+            Imagem = null,
+            Chip = false,
+            Sexo = "Masculino",
+            Vacinas = null,
+             Raca = "Labrador"),
     ))
 }

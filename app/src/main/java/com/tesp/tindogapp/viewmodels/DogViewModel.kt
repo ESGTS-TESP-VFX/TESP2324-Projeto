@@ -2,7 +2,7 @@ package com.tesp.tindogapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import com.tesp.tindogapp.model.Dog2
+import com.tesp.tindogapp.model.Dog
 
 class DogViewModel: ViewModel() {
     fun DoSaveDog(navController: NavHostController) {
@@ -11,5 +11,14 @@ class DogViewModel: ViewModel() {
         navController.navigate("match/${Dog.Id}")
     }
 
-    var Dog: Dog2 = Dog2(0, "", null, "","",0,"","")
+    var Dog: Dog = Dog(1,
+        "Bockey",
+        0,
+        "Cão Muito Meigo",
+        "Benavente",
+        null,
+        "Pastor Alemão",
+        "Masculino",
+        true,
+        null)
 }

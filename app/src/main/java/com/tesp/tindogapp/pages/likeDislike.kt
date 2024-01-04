@@ -62,7 +62,7 @@ fun likeDislike(
                     // Imagem principal da galeria
                     Image(
                         painter = painterResource(
-                            id = matchDogViewModel.MatchDog?.Imagem ?: 2130968601
+                            id = R.drawable.fotocao5
                         ),
                         contentDescription = "foto da galeria",
                         modifier = Modifier
@@ -90,7 +90,7 @@ fun likeDislike(
                     ) {
                         Image(
                             painter = painterResource(
-                                id = matchDogViewModel.Dog?.Imagem ?: 2130968601
+                                id = R.drawable.fotocao5
                             ),
                             contentDescription = "botao_redondo"
                         )
