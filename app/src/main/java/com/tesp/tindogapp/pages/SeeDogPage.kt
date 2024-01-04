@@ -43,6 +43,8 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                dog2Id: Int=0
 ): Unit {
 
+    DogPageViewModel.SetContext(viewModel, dog2Id)
+
     Column {
         Image(
             painter = painterResource(id = R.drawable.fotocao3),
