@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "formOwnerPage") {
+                    NavHost(navController = navController, startDestination = "SeeDogPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -42,10 +42,9 @@ class MainActivity : ComponentActivity() {
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
-                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
 
-                        composable("SeeDogPage") {SeeDogPage(navController)}
-                        composable("EditDogPage") {EditDogPage(navController)}
+
+
 
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
@@ -61,7 +60,17 @@ class MainActivity : ComponentActivity() {
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
 
                         // Tomas & Ricardo
-                        composable("formDogPage") {FormDogPage(navController)}
+                        composable("formDogPage") {FormDogPage(navController,viewModel, viewModel())}
+                        composable("SeeDogPage/{dogId}",
+                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        ) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            SeeDogPage(navController, dog2Id = dogId?:0)
+                        }
+                        composable("EditDogPage") {EditDogPage(navController)}
+                        composable("KennelPage") {
+                            NavigationTopBar(navController = navController){Text(text = "KennelPage")}
+                        }
                     }
                 }
             }
