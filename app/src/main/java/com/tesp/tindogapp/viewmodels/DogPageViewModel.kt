@@ -24,13 +24,13 @@ class DogPageViewModel : ViewModel() {
             val apiService = ApiService.getInstance();
 
             try {
-                LoadingOwnerProfile = true;
+                LoadingDogProfile = true;
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getOwner( mainViewModel.AuthToken, ownerId).execute();
+                    apiService.getDog2( mainViewModel.AuthToken, dog2ID).execute();
                 }
 
-                Owner = response.body()?: Owner(0,"", null, "");
-                LoadingOwnerProfile = false;
+                Dog2 = response.body()?: Dog2(0,"", null, "","",0,"","");
+                LoadingDogProfile = false;
             }
             catch (e:Exception)
             {
@@ -38,7 +38,7 @@ class DogPageViewModel : ViewModel() {
             }
 
 
-            LoadingOwnerProfile = false;
+            LoadingDogProfile = false;
         }
     }
 
