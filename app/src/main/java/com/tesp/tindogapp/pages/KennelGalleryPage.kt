@@ -1,8 +1,10 @@
 package com.tesp.tindogapp.pages
 
+import androidx.compose.foundation.Image
 import com.tesp.tindogapp.model.Dog
 import com.tesp.tindogapp.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,87 +43,95 @@ fun GalleryPage(navController: NavHostController = rememberNavController()) {
             dogs = listOf(
                 Dog(Id = 1, Nome = "Bob", Idade = 3, Descricao = "Golden Retriever", Localidade = "Carregado", Imagem = R.drawable.fotocao3),
                 Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Labrador", Localidade = "VFX", Imagem = R.drawable.fotocao5),
-            )
+            ),
+            navController = navController
         )
     }
 }
 
 
 @Composable
-fun DogGallery(dogs: List<Dog>) {
+fun DogGallery(dogs: List<Dog>, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
     ) {
         items(dogs) { dog ->
-            DogItem(dog = dog)
+            DogItem(dog = dog, navController = navController)
         }
     }
 }
 
+
 @Composable
-fun DogItem(dog: Dog) {
-    Surface(
+fun DogItem(dog: Dog, navController: NavHostController) {
+    Box(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                navController.navigate("SeeDogPage/${dog.Id}")
+            }
             .padding(8.dp)
     ) {
-        Column(
+        Surface(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .background(Color(0xFFFFDBD2), shape = RoundedCornerShape(16.dp))
                 .padding(16.dp)
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .background(Color.Gray)
+                    .fillMaxSize()
+                    .background(Color(0xFFFFDBD2))
             ) {
-            }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .background(Color.Gray)
+                ) {
+                    Image(
+                        painter = painterResource(id = dog.Imagem),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0xFFFFDBD2))
+                    )
+                }
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = dog.Nome,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentWidth(Alignment.CenterHorizontally)
-            )
+                Text(
+                    text = dog.Nome,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            /*Text(
-                text = "Location: ${dog.Localidade}",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentWidth(Alignment.CenterHorizontally)
-            )*/
+                Text(
+                    text = "Location: ${dog.Localidade}",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "Location: ${dog.Localidade}",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentWidth(Alignment.CenterHorizontally)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = "Age: ${dog.Idade}")
-
-                //Text(text = "Sex: ${dog.}")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Age: ${dog.Idade}")
+                }
             }
         }
     }
 }
+
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
 @Composable
