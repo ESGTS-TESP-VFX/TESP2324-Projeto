@@ -22,16 +22,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import com.tesp.tindogapp.utils.checkData
 import com.tesp.tindogapp.utils.isEmailValid
 import com.tesp.tindogapp.utils.isPasswordValid
+import com.tesp.tindogapp.viewmodels.LoginViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.SignUpViewModel
 
 @Composable
 @Preview
-fun SignUpBody(navController: NavController = rememberNavController()) {
+fun SignUpBody(
+    navController: NavController = rememberNavController(),
+    mainViewModel: MainViewModel = viewModel(),
+    signUpVm: SignUpViewModel = viewModel()
+
+) {
     Box(
         modifier = Modifier
             .background(
@@ -58,24 +67,13 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-/*
-            var username = InputUsernameComponent()
-            if (!isUsernameValid(username)) {
-                Text(
-                    text = stringResource(id = R.string.imput_invalid_username),
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 10.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFFFF0000),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-            }
 
- */
-            var email = InputEmailComponent()
-            if (!isEmailValid(email)) {
+            signUpVm.Email = InputEmailComponent()
+
+
+
+            //var email = InputEmailComponent()
+            if (!signUpVm.isEmailValid()) {
                 Text(
                     text = stringResource(id = R.string.input_invalid_email),
                     fontFamily = FontFamily.Monospace,
@@ -87,8 +85,9 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            var password = InputPasswordComponent()
-            if (!isPasswordValid(password)) {
+            signUpVm.Password = InputPasswordComponent()
+            //var password = InputPasswordComponent()
+            if (!signUpVm.isPasswordValid()) {
                 Text(
                     text = stringResource(id = R.string.input_invalid_password),
                     fontFamily = FontFamily.Monospace,
@@ -100,8 +99,9 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            var confirmPassword = InputConfirmPasswordComponent()
-            if (!isPasswordValid(confirmPassword)) {
+            signUpVm.ConfirmPassword = InputConfirmPasswordComponent()
+            //var confirmPassword = InputConfirmPasswordComponent()
+            if (!signUpVm.isConfirmPasswordValid()) {
                 Text(
                     text = stringResource(id = R.string.input_invalid_password),
                     fontFamily = FontFamily.Monospace,
@@ -113,9 +113,8 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            validAnswer = checkData(email, password, confirmPassword);
 
-            if (!validAnswer) {
+            if (!signUpVm.isAnswerValid()) {
                 //este texto só aparece quando os dados de login forem inválidos
                 Text(
                     text = stringResource(id = R.string.invalid_register_data),
@@ -128,11 +127,11 @@ fun SignUpBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-
-            SubmitButtonComponent() {
-                navController.navigate("formOwnerPage")
+            SubmitButtonComponent()
+            {
+                signUpVm.DoSignUpRealThing( mainViewModel, navController )
+                //navController.navigate("formOwnerPage")
             }
         }
     }
 }
-//
