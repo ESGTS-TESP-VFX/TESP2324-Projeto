@@ -40,6 +40,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -120,7 +121,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var inputName by remember { mutableStateOf(    ownerViewModel.Owner.Nome) }
+            var inputName by remember { mutableStateOf(ownerViewModel.Owner.Nome) }
             var isValid by remember { mutableStateOf(true) }
 
             Text(
@@ -134,10 +135,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 
             OutlinedTextField(
                 value = inputName,
-                onValueChange = {
-                    inputName = it
-                    isValid = it.isNotBlank()
-                },
+                onValueChange = { inputName = it },
                 label = {
                     Text(
                         "Insert your name...",
@@ -159,7 +157,8 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
             )
 
             if (!isValid) {
-                Text(text = "Please fill the empty field !",
+                Text(
+                    text = "Please fill the empty field !",
                     color = Color.Red,
                     modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
                 )
@@ -174,7 +173,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
                 Button(
                     onClick = {
                         ownerViewModel.Owner.Nome = inputName
-                        if (isValid) {
+                        if (inputName.isNotBlank()) {
                             onNext()
                         } else {
                             isValid = false
@@ -205,7 +204,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 @Composable
 fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext: () -> Unit) {
 
-    var inputDesc by remember { mutableStateOf("") }
+    var inputDesc by remember { mutableStateOf(ownerViewModel.Owner.Desc) }
 
     Box(
         modifier = Modifier
@@ -266,7 +265,10 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
             ) {
 
 
-                Button(onClick = onBack,
+                Button(onClick = {
+                    ownerViewModel.Owner.Desc = inputDesc
+                    onBack()
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -283,7 +285,10 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = {
+                    ownerViewModel.Owner.Desc = inputDesc
+                    onNext()
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -315,6 +320,8 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
             ownerViewModel.Owner.ImageUri = it
         }
     )
+
+    var isValid by remember { mutableStateOf(true) }
 
     Box(
         modifier = Modifier
@@ -360,6 +367,14 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                 )
             }
 
+            if (!isValid) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
+
             Button(onClick = {
                 photoPickerLauncher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
@@ -386,7 +401,7 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
+                    .padding(top = 30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
@@ -408,7 +423,13 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = {
+                    if (ownerViewModel.Owner.ImageUri != null) {
+                        onNext()
+                    } else {
+                        isValid = false
+                    }
+                },
                     modifier = Modifier
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
