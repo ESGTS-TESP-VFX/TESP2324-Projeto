@@ -19,7 +19,7 @@ class DogPageViewModel : ViewModel() {
     var LoadingDogProfile: Boolean by mutableStateOf(false)
     var Dog2: Dog2? by mutableStateOf(null)
 
-    fun SetContext(mainViewModel: MainViewModel, ) {
+    fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {
         viewModelScope.launch {
             val apiService = ApiService.getInstance();
 
