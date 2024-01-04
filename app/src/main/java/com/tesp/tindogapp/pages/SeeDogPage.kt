@@ -69,7 +69,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                     .fillMaxWidth()
                     .padding(top = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween){
-                    Text(text = "Alberto",
+                    Text(text = "${DogPageViewModel.Dog2?.Nome ?: ""}",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold
