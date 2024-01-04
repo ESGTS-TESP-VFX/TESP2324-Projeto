@@ -10,7 +10,6 @@ data class Dog (
     @SerializedName("descricao") var Descricao: String,
     @SerializedName("localidade")val Localidade: String,
     @SerializedName("imagem")val Imagem: Int,
-
 )
 
 

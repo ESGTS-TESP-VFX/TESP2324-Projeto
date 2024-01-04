@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
+import com.tesp.tindogapp.pages.GalleryPage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

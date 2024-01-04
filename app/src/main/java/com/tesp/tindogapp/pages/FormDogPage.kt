@@ -77,13 +77,12 @@ fun FormDogPage(navController: NavHostController = rememberNavController(),
                 currentStep = 7
                 dogViewModel.Dog.Chip = true
             })
-            7 -> Step7(dogViewModel,onBack = { currentStep = 1 })
-            {
-                currentStep = 8
-
-                dogViewModel.DoSaveDog(navController)
-            }
-
+            7 -> Step7(dogViewModel,
+                onBack = { currentStep = 1 },
+                onNext = {
+                    currentStep = 8
+                    dogViewModel.DoSaveDog(navController)
+                })
         }
     }
 }

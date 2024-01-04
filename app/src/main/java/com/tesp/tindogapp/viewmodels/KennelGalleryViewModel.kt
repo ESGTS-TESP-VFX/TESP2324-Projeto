@@ -12,9 +12,9 @@ import com.tesp.tindogapp.model.Dog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-class KennelViewModel: ViewModel() {
+class KennelGalleryViewModel: ViewModel() {
     fun SetContext(mainViewModel: MainViewModel) {
+
         viewModelScope.launch {
             Loading = true;
             val apiService = ApiService.getInstance();
@@ -34,6 +34,8 @@ class KennelViewModel: ViewModel() {
         }
 
         Loading = false;
+
+
     }
 
     var Loading: Boolean by mutableStateOf(false)
@@ -42,4 +44,3 @@ class KennelViewModel: ViewModel() {
         Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Labrador", Localidade = "VFX", Imagem = R.drawable.fotocao5),
     ))
 }
-

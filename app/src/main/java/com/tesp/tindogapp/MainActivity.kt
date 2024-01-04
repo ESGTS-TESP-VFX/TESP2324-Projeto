@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "SeeDogPage") {
+                    NavHost(navController = navController, startDestination = "login") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
@@ -42,16 +42,11 @@ class MainActivity : ComponentActivity() {
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
-
-
-
-
                         composable("match/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
                         ) {
                             var dogId = it.arguments?.getInt("dogId");
                             NavigationTopBar(navController = navController){
-
                                 likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
                             }}
 
@@ -59,7 +54,8 @@ class MainActivity : ComponentActivity() {
                         composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
                         composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
 
-                        // Tomas & Ricardo
+
+                        // Ricardo,Bruno e Tomás
                         composable("formDogPage") {FormDogPage(navController,viewModel, viewModel())}
                         composable("SeeDogPage/{dogId}",
                             arguments = listOf(navArgument("dogId") { type = NavType.IntType })
@@ -69,8 +65,11 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("EditDogPage") {EditDogPage(navController)}
                         composable("KennelPage") {
-                            NavigationTopBar(navController = navController){Text(text = "KennelPage")}
+                            NavigationTopBar(navController = navController){
+                                GalleryPage(navController, viewModel, viewModel())
+                            }
                         }
+
                     }
                 }
             }
