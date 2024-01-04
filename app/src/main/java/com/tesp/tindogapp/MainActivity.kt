@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "KennelPage") {
+                    NavHost(navController = navController, startDestination = "formDogPage") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel())}
                         composable("signPage") {SignUpBody(navController)}
