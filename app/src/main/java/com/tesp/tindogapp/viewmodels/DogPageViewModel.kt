@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tesp.tindogapp.apiService.ApiService
 import com.tesp.tindogapp.model.Dog
-import com.tesp.tindogapp.model.Dog2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,14 +16,16 @@ import kotlinx.coroutines.withContext
 class DogPageViewModel : ViewModel() {
 
     var LoadingDogProfile: Boolean by mutableStateOf(false)
-    var Dog2: Dog2? by mutableStateOf(Dog2(1,
+    var Dog2: Dog? by mutableStateOf(Dog(1,
         "Bockey",
-        null,
+        0,
         "Cão Muito Meigo",
         "Benavente",
-        5,
-        Raca = "Pastor Alemão",
-        "Masculino", Chip = true))
+        null,
+        "Pastor Alemão",
+        "Masculino",
+        true,
+        null))
 
     fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {
         viewModelScope.launch {
@@ -36,7 +37,12 @@ class DogPageViewModel : ViewModel() {
                     apiService.getDog2( mainViewModel.AuthToken, dog2ID).execute();
                 }
 
-                Dog2 = response.body()?: Dog2(0,"", null, "","",0,"","");
+                Dog2 = response.body()?:    Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Cão Muito Meigo", Localidade = "VFX",
+                    Imagem = null,
+                    Chip = false,
+                    Sexo = "Masculino",
+                    Vacinas = null,
+                    Raca = "Labrador");
                 LoadingDogProfile = false;
             }
             catch (e:Exception)

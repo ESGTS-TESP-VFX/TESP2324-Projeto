@@ -278,13 +278,13 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
 @Composable
 fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit): Unit {
 
-    var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.ImageUri) }
+    var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.Imagem) }
 
     val photoPickerLauncherDog = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            inputNameDog = it
-            dogViewModel.Dog.ImageUri = it
+           // inputNameDog = it
+            //dogViewModel.Dog.Imagem = it
         }
     )
 
@@ -411,7 +411,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
-    var inputDescDog by remember { mutableStateOf(dogViewModel.Dog.Desc) }
+    var inputDescDog by remember { mutableStateOf(dogViewModel.Dog.Descricao) }
     Box(
         modifier = Modifier
             .background(
@@ -440,7 +440,7 @@ fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Un
             OutlinedTextField(
                 value = inputDescDog,
                 onValueChange = { inputDescDog = it
-                    dogViewModel.Dog.Desc= it},
+                    dogViewModel.Dog.Descricao= it},
                 label = {
                     Text(
                         "Insert a description...",
