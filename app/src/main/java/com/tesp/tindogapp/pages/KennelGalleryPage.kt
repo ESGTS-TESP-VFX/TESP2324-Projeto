@@ -20,11 +20,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.tesp.tindogapp.viewmodels.KennelGalleryViewModel
+import com.tesp.tindogapp.viewmodels.KennelViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
 
 @Composable
-fun GalleryPage(navController: NavHostController = rememberNavController()) {
+fun GalleryPage(navController: NavHostController = rememberNavController(),
+                mainViewModel: MainViewModel = MainViewModel(),
+                kennelViewModel: KennelGalleryViewModel = viewModel()) {
+
+    kennelViewModel.SetContext(mainViewModel)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,10 +49,7 @@ fun GalleryPage(navController: NavHostController = rememberNavController()) {
             fontSize = 24.sp
         )
         DogGallery(
-            dogs = listOf(
-                Dog(Id = 1, Nome = "Bob", Idade = 3, Descricao = "Golden Retriever", Localidade = "Carregado", Imagem = R.drawable.fotocao3),
-                Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Labrador", Localidade = "VFX", Imagem = R.drawable.fotocao5),
-            ),
+            dogs = kennelViewModel.Dogs,
             navController = navController
         )
     }
