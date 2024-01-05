@@ -228,8 +228,8 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
             )
 
             OutlinedTextField(
-                value = ownerViewModel.Owner.Desc,
-                onValueChange = {        ownerViewModel.Owner.Desc = it },
+                value = ownerViewModel.Owner.Descricao,
+                onValueChange = {        ownerViewModel.Owner.Descricao = it },
                 label = {
                     Text(
                         "Insert a description...",
