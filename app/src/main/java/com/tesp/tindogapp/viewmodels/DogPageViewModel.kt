@@ -34,7 +34,7 @@ class DogPageViewModel : ViewModel() {
             try {
                 LoadingDogProfile = true;
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getDog2( mainViewModel.AuthToken, dog2ID).execute();
+                    apiService.getDog( mainViewModel.AuthToken, dog2ID ).execute();
                 }
 
                 Dog2 = response.body()?:    Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Cão Muito Meigo", Localidade = "VFX",
