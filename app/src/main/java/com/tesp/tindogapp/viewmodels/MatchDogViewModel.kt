@@ -50,7 +50,7 @@ class MatchDogViewModel() : ViewModel() {
             // Get My Dog Match Details
             try {
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getDogMatch(mainViewModel.AuthToken, dogId, dogId, false).execute();
+                    apiService.checkMatch(mainViewModel.AuthToken, dogId, dogId, false).execute();
                 }
 
                 MatchDog = response.body()?.Dog?: Dog(Id = 1,

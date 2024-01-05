@@ -46,11 +46,11 @@ public  interface ApiService {
         : Call<Dog>
 
     @GET("/dogs/{id}/CheckMatch")
-    fun getDogMatch(@Header("Token")token: String,@Path("id") id: Int,@Query("matchDog") matchDog: Int,@Query("match") match: Boolean)
+    fun checkMatch(@Header("Token")token: String,@Path("id") id: Int,@Query("matchDog") matchDog: Int,@Query("match") match: Boolean)
         : Call<CheckMatchResponse>
 
     @GET("/dogs/{id}/Match")
-    fun getDog2(@Header("Token")token: String,@Path("id") id: Int,@Query("range") range: Int)
+    fun askMatch(@Header("Token")token: String,@Path("id") id: Int,@Query("range") range: Int)
         : Call<CheckMatchResponse>
 
     companion object{
