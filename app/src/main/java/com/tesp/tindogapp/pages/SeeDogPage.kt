@@ -63,87 +63,84 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                 .fillMaxSize()
                 .padding(20.dp,0.dp,20.dp,0.dp)
         ) {
-                Row (modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween){
-                    Text(text = "${DogPageViewModel.Dog2?.Nome ?: ""}",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+            Row (modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween){
+                Text(text = "${DogPageViewModel.Dog2?.Nome ?: ""}",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                    Text(text = "${DogPageViewModel.Dog2?.Idade  ?: ""} Anos",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+                Text(text = "${DogPageViewModel.Dog2?.Idade  ?: ""} Anos",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                Row (modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween){
-                    Text(text = "Rafeiro",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+            }
+            Row (modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween){
+                Text(text = "Rafeiro",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                    Text(text = "Macho",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+                Text(text = "Macho",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                Row (modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp),
+                )
+            }
+            Row (modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
 
-                    horizontalArrangement = Arrangement.SpaceBetween){
-                    Text(text = "Sintra",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                horizontalArrangement = Arrangement.SpaceBetween){
+                Text(text = "Sintra",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                    Text(text = "Chip(Sim)",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+                Text(text = "Chip(Sim)",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                Row (modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp),){
-                    Text(text = "Vaccines",
-                        style = TextStyle(
-                            fontSize = 23.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+            }
+            Row (modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),){
+                Text(text = "Vaccines",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
+                )
+            }
+            Column() {
+                DogProfileDescBox()
 
-                Column() {
-                    DogProfileDescBox()
-
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        EditDogProfileButton {
-                            navController.navigate("EditDogPage")
-                        }
-                        DeleteDogProfileButton {
-                            // Lógica para excluir o perfil quando o usuário confirma
-                        }
-
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    EditDogProfileButton {
+                        navController.navigate("EditDogPage/$dog2Id")
                     }
+                    DeleteDogProfileButton {
+                        // Lógica para excluir o perfil quando o usuário confirma
+                    }
+
                 }
-
-
+            }
         }
     }
 }
