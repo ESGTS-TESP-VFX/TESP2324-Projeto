@@ -23,11 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tesp.tindogapp.viewmodels.DogPageViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DogProfileDescBox(text: String ="",) {
+fun DogProfileDescBox(text: String ="", DogPageViewModel: DogPageViewModel = DogPageViewModel(),) {
     var inputDescDog by remember { mutableStateOf("") }
 
     Column (
@@ -57,7 +58,7 @@ fun DogProfileDescBox(text: String ="",) {
             onValueChange = { inputDescDog = it },
             label = {
                 Text(
-                    "Cão Bonito",
+                    "${DogPageViewModel.Dog2?.Descricao ?: ""}",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,

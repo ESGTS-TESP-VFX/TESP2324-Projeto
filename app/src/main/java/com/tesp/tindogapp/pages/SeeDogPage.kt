@@ -84,13 +84,13 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                 .fillMaxWidth()
                 .padding(top = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween){
-                Text(text = "Rafeiro",
+                Text(text = "${DogPageViewModel.Dog2?.Raca ?: ""}",
                     style = TextStyle(
                         fontSize = 23.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
-                Text(text = "Macho",
+                Text(text = "${DogPageViewModel.Dog2?.Sexo ?: ""}",
                     style = TextStyle(
                         fontSize = 23.sp,
                         fontWeight = FontWeight.Bold
@@ -102,13 +102,13 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                 .padding(top = 20.dp),
 
                 horizontalArrangement = Arrangement.SpaceBetween){
-                Text(text = "Sintra",
+                Text(text = "${DogPageViewModel.Dog2?.Localidade ?: ""}",
                     style = TextStyle(
                         fontSize = 23.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
-                Text(text = "Chip(Sim)",
+                Text(text = "${DogPageViewModel.Dog2?.Chip ?: ""}",
                     style = TextStyle(
                         fontSize = 23.sp,
                         fontWeight = FontWeight.Bold
