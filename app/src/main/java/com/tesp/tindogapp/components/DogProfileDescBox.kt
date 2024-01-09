@@ -1,6 +1,7 @@
 package com.tesp.tindogapp.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,22 +29,13 @@ import com.tesp.tindogapp.viewmodels.DogPageViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DogProfileDescBox(text: String ="", DogPageViewModel: DogPageViewModel = DogPageViewModel(),) {
-    var inputDescDog by remember { mutableStateOf("") }
+fun DogProfileDescBox( DogPageViewModel: DogPageViewModel = DogPageViewModel(),) {
+
 
     Column (
+        modifier = Modifier.padding(0.dp,30.dp,0.dp,0.dp)
 
     ) {
-
-
-        Text(
-            text = text,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
 
 
         Text(text = "Dog Description",
@@ -53,31 +45,24 @@ fun DogProfileDescBox(text: String ="", DogPageViewModel: DogPageViewModel = Dog
             )
         )
 
-        OutlinedTextField(
-            value = inputDescDog,
-            onValueChange = { inputDescDog = it },
-            label = {
-                Text(
-                    "${DogPageViewModel.Dog2?.Descricao ?: ""}",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Monospace,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFFBF8B7E),
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(0.dp, 15.dp, 0.dp, 0.dp)
-                .background(Color.White, RoundedCornerShape(16.dp))
-                .height(150.dp),
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 15.dp, 0.dp, 0.dp)
+            .background(Color.White, RoundedCornerShape(16.dp))
+            .height(150.dp),
+            ) {
 
-
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
+            Text(modifier = Modifier.padding(15.dp,15.dp,0.dp,0.dp),
+                text= "${DogPageViewModel.Dog2?.Descricao ?: ""}",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
+                color = Color(0xFFBF8B7E),
             )
-        )
+        }
+            }
+
+
     }
 
-}

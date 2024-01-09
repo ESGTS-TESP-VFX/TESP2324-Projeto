@@ -299,7 +299,6 @@ fun EditDogPage(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp)
                             .background(Color.White, shape = CircleShape),
 
                         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -309,7 +308,9 @@ fun EditDogPage(
                     )
                 }
 
-                Column {
+                Column (
+                    modifier = Modifier.padding(0.dp,0.dp,0.dp,20.dp)
+                ){
                     DogProfileDescBox()
 
                     Row(
@@ -317,7 +318,7 @@ fun EditDogPage(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Button(
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate("SeeDogPage/$dog3Id") },
                             modifier = Modifier
                                 .height(65.dp)
                                 .padding(0.dp, 20.dp, 0.dp, 0.dp),
