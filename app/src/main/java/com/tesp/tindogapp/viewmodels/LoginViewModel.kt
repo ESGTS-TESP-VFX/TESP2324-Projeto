@@ -35,6 +35,7 @@ class LoginViewModel:ViewModel() {
                 if (body.raw().code == 200 )
                 {
                     navController.navigate("pickDog")
+                    // adicionar os dados do utilizador cão e afins?
                     mainViewModel.AuthToken = body.body()?.token ?:"";
                     LoginSuccessfull = true;
                 }
