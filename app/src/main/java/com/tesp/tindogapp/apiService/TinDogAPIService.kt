@@ -38,19 +38,19 @@ public  interface ApiService {
     fun createDog(@Header("Token") token: String, @Body RegisterDogRequest: Dog )
         :Call<Dog>
 
-    @PUT("/dogs/{id}")
+    @PUT("/dog/{id}")
     fun updateDog(@Header("Token") token: String,@Path("id") id: Int, @Body RegisterDogRequest: Dog )
         :Call<Dog>
 
-    @GET("/dogs/{id}")
+    @GET("/dog/{id}")
     fun getDog(@Header("Token")token: String,@Path("id") id: Int)
         : Call<Dog>
 
-    @GET("/dogs/{id}/CheckMatch")
+    @GET("/dog/{id}/CheckMatch")
     fun checkMatch(@Header("Token")token: String,@Path("id") id: Int,@Query("matchDog") matchDog: Int,@Query("match") match: Boolean)
         : Call<CheckMatchResponse>
 
-    @GET("/dogs/{id}/Match")
+    @GET("/dog/{id}/Match")
     fun askMatch(@Header("Token")token: String,@Path("id") id: Int,@Query("range") range: Int)
         : Call<CheckMatchResponse>
 
