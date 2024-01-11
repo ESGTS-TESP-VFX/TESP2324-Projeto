@@ -22,15 +22,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import com.tesp.tindogapp.utils.isEmailValid
+import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.SignUpViewModel
+import com.tesp.tindogapp.viewmodels.recoverPwPageViewModel
 
 @Preview()
 @Composable
 
-fun RecoverPwBody(navController: NavController = rememberNavController()) {
+fun RecoverPwBody(
+    navController: NavController = rememberNavController(),
+    mainViewModel: MainViewModel = viewModel(),
+    recPViewModel: recoverPwPageViewModel = viewModel()
+) {
     Box(
         modifier = Modifier
             .background(
@@ -57,8 +65,11 @@ fun RecoverPwBody(navController: NavController = rememberNavController()) {
                     .fillMaxWidth()
                     .padding(bottom = 16.dp, top = 5.dp)
             )
-            var email = InputEmailComponent()
-            validAnswer = isEmailValid(email);
+            //var email = InputEmailComponent()
+            recPViewModel.Email = InputEmailComponent()
+
+            if (!recPViewModel.isEmailValid()) {
+            //validAnswer = isEmailValid(email);
 
             ResetPwButtonComponent {
                 if (validAnswer) {
