@@ -36,6 +36,7 @@ class KennelViewModel: ViewModel() {
         Loading = false;
     }
 
+    var Distancia: Int = 0;
     var Loading: Boolean by mutableStateOf(false)
     var Dogs: List<Dog> by mutableStateOf(listOf(
         Dog(Id = 1,

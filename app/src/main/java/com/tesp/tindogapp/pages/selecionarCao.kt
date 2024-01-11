@@ -99,6 +99,9 @@ fun SeletorCaes(
     mainViewModel: MainViewModel = MainViewModel(),
     kennelviewModel: KennelViewModel = KennelViewModel()
 ): Unit {
+
+    kennelviewModel.SetContext(mainViewModel);
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,7 +130,7 @@ fun SeletorCaes(
                             .padding(4.dp)
                             .clip(RoundedCornerShape(20.dp))
                             .background(MaterialTheme.colorScheme.background)
-                            .clickable { navHostController.navigate("match/${dog.Id}") },
+                            .clickable { navHostController.navigate("match/${dog.Id}/${kennelviewModel.Distancia}") },
                         contentScale = ContentScale.Crop
                     )
                 }
@@ -138,7 +141,10 @@ fun SeletorCaes(
             val distancia = remember { mutableStateOf(5.0f) }
             Slider(
                 value = distancia.value,
-                onValueChange = { distancia.value = it },
+                onValueChange = {
+                    distancia.value = it
+                    kennelviewModel.Distancia = it.toInt()
+                },
                 valueRange = 1f..20f,
                 colors = SliderDefaults.colors(
                     thumbColor = Color(0xFFFF8969),

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MatchDogViewModel() : ViewModel() {
+class MatchDogViewModel(var distancia: Int) : ViewModel() {
     var Loading: Boolean by mutableStateOf(false)
     var Dog: Dog? by mutableStateOf(null)
     var MatchDog: Dog? by mutableStateOf(null)
@@ -50,7 +50,7 @@ class MatchDogViewModel() : ViewModel() {
             // Get My Dog Match Details
             try {
                 val response = withContext(Dispatchers.IO) {
-                    apiService.checkMatch(mainViewModel.AuthToken, dogId, dogId, false).execute();
+                    apiService.askMatch(mainViewModel.AuthToken, dogId, distancia ).execute();
                 }
 
                 MatchDog = response.body()?.Dog?: Dog(Id = 1,
@@ -64,8 +64,7 @@ class MatchDogViewModel() : ViewModel() {
                     Sexo = "Masculino",
                     Vacinas = null);
             }
-            catch (e:Exception)
-            {
+            catch (e:Exception) {
 
             }
             Loading = false;

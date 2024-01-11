@@ -40,14 +40,18 @@ class MainActivity : ComponentActivity() {
                         composable("recoverPwd") { ResetPasswordPage(navController, viewModel, viewModel()) }
 
                         // Rodrigo, Marcos, Alen
-                        composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
+                        composable("pickDog") {SeletorCaes(navController, viewModel, viewModel())}
                         composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
-                        composable("match/{dogId}",
-                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        composable("match/{dogId}/{distancia}",
+                            arguments = listOf(
+                                navArgument("dogId") { type = NavType.IntType },
+                                navArgument("distancia") { type = NavType.IntType },
+                            )
                         ) {
                             var dogId = it.arguments?.getInt("dogId");
+                            var distancia = it.arguments?.getInt("distancia");
                             NavigationTopBar(navController = navController){
-                                likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
+                                likeDislike(navController, viewModel, MatchDogViewModel(distancia?:0), dogId?:0 )
                             }}
 
                         //Pedro & Rafael

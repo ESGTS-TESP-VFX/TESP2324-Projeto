@@ -36,10 +36,10 @@ class DogViewModel: ViewModel() {
                         Vacinas = body.body()?.Vacinas?: listOf())
                     ;
 
-                    navController.navigate("match/${Dog.Id}")
+                    navController.navigate("pickDog")
                 }
                 else {
-                    Log.d("MYERROR", body.raw().code?.toString()?:"AKI")
+                    Log.d("MYERROR", body.raw()?.message?:"")
                 }
             } catch (e: Exception) {
                 Log.d("MYERROR", e.message.toString())
@@ -47,7 +47,7 @@ class DogViewModel: ViewModel() {
         }
     }
 
-    var Dog: Dog = Dog(1,
+    var Dog: Dog = Dog(0,
         "Bockey",
         0,
         "Cão Muito Meigo",
