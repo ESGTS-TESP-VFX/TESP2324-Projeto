@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.tesp.tindogapp.apiService.ApiService
+import com.tesp.tindogapp.apiService.PwdResetRequest
 import com.tesp.tindogapp.apiService.TokenRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import kotlinx.coroutines.withContext
 
 class recoverPwPageViewModel : ViewModel() {
 
+    var Codigo: String = "";
     var Email: String = "";
     var Password: String = "";
     var ConfirmPassword: String = "";
@@ -32,13 +34,12 @@ class recoverPwPageViewModel : ViewModel() {
             try {
                 //em principio não faz sentido pois ainda não existe o user
                 var body = withContext(Dispatchers.IO) {
-                    apiService.getToken(TokenRequest(Email, Password)).execute()
+                    apiService.resetPassword(PwdResetRequest(Email, Password, Codigo.toInt())).execute()
                 }
-                
 
                 if (body.raw().code == 200) {
-                    navController.navigate("pickDog")
-                    mainViewModel.AuthToken = body.body()?.token ?: "";
+                    navController.navigate("login")
+                    mainViewModel.AuthToken = "";
                     SignUpSuccessfull = true;
                 } else {
                     Password = "";

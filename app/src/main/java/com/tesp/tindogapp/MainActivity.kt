@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel()) }
                         composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
+                        composable("recoverPwd") { ResetPasswordPage(navController, viewModel, viewModel()) }
 
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}

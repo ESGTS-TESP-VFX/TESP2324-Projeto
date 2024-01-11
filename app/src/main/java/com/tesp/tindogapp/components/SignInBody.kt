@@ -94,7 +94,9 @@ fun LoginCorpo(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
+                    .clickable {
+                        loginVm.DoPwdReset(navController)
+                    }
                     // ligação ao reset password
             )
 

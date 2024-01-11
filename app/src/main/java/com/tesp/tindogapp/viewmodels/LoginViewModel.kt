@@ -65,4 +65,8 @@ class LoginViewModel:ViewModel() {
         navController.navigate("signUpPage")
     }
 
+    fun DoPwdReset(navController: NavController) {
+        navController.navigate("recoverPwd")
+    }
+
 }
