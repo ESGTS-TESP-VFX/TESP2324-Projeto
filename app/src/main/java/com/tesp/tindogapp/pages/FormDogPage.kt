@@ -66,23 +66,23 @@ fun FormDogPage(navController: NavHostController = rememberNavController(),
             .padding(16.dp)
     ) {
         when (currentStep) {
-            1 -> Step1(dogViewModel,onNext = { currentStep = 2 })
-            2 -> Step2(dogViewModel,onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
-            3 -> Step3(dogViewModel,onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
-            4 -> Step4(dogViewModel,onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
-            5 -> Step5(dogViewModel,onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
-            6 -> Step6(dogViewModel,onBack = {
+            1 -> TelaNomeIdade(dogViewModel,onNext = { currentStep = 2 })
+            2 -> TelaImagem(dogViewModel,onBack = { currentStep = 1 }, onNext = { currentStep = 3 })
+            3 -> TelaDescricao(dogViewModel,onBack = { currentStep = 2 }, onNext = { currentStep = 4 })
+            4 -> TelaRacaSexo(dogViewModel,onBack = { currentStep = 3 }, onNext = { currentStep = 5 })
+            5 -> TelaLocalizacao(dogViewModel,onBack = { currentStep = 4 }, onNext = { currentStep = 6 })
+            6 -> TelaChip(dogViewModel,onBack = {
                 currentStep = 7
                 dogViewModel.Dog.Chip = false
              }, onNext = {
                 currentStep = 7
                 dogViewModel.Dog.Chip = true
             })
-            7 -> Step7(dogViewModel,
+            7 -> TelaFinish(dogViewModel,
                 onBack = { currentStep = 1 },
                 onNext = {
                     currentStep = 8
-                    dogViewModel.DoSaveDog(navController)
+                    dogViewModel.DoSaveDog(mainViewModel,navController)
                 })
         }
     }
@@ -91,7 +91,7 @@ fun FormDogPage(navController: NavHostController = rememberNavController(),
 //teste
 // FORM PARA NOME E IDADE DO CAO
 @Composable
-fun Step1(dogViewModel: DogViewModel = DogViewModel(), onNext: () -> Unit) {
+fun TelaNomeIdade(dogViewModel: DogViewModel = DogViewModel(), onNext: () -> Unit) {
     Column {
         Logotipo()
         InputDogNameBox(dogViewModel,onNext = onNext)
@@ -100,7 +100,7 @@ fun Step1(dogViewModel: DogViewModel = DogViewModel(), onNext: () -> Unit) {
 
 // FORM PARA FOTO
 @Composable
-fun Step2(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit){
+fun TelaImagem(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit){
     Column {
         Logotipo()
         PhotoPickerDog(dogViewModel,onBack = onBack, onNext = onNext)
@@ -109,7 +109,7 @@ fun Step2(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit){
 
 // FORM PARA DESCRICAO
 @Composable
-fun Step3(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
+fun TelaDescricao(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
     Column {
         Logotipo()
         InputDescBox(dogViewModel,onBack = onBack, onNext = onNext)
@@ -118,7 +118,7 @@ fun Step3(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
 
 // FORM PARA RAÇA E SEXO DO CAO
 @Composable
-fun Step4(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
+fun TelaRacaSexo(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputBreedSexBox(dogViewModel,onBack = onBack,onNext = onNext)
@@ -127,7 +127,7 @@ fun Step4(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
 
 // FORM PARA LOCALIZACAO DO CAO
 @Composable
-fun Step5(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
+fun TelaLocalizacao(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputLocBox(dogViewModel,onBack = onBack,onNext = onNext)
@@ -136,7 +136,7 @@ fun Step5(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
 
 // FROM PARA CHIP DO CAO
 @Composable
-fun Step6(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
+fun TelaChip(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputChipBox(dogViewModel,onBack = onBack,onNext = onNext)
@@ -145,7 +145,7 @@ fun Step6(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
 
 //FORM PARA FINISH OU NAO DO CAO
 @Composable
-fun Step7(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
+fun TelaFinish(dogViewModel: DogViewModel,onBack: () -> Unit,onNext: () -> Unit) {
     Column {
         Logotipo()
         InputFinishBox(dogViewModel,onBack = onBack,onNext = onNext)
@@ -279,7 +279,7 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
 @Composable
 fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit): Unit {
 
-    var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.Imagem) }
+    var ImagemDoCao by remember { mutableStateOf(dogViewModel.Dog.Imagem) }
 
     val photoPickerLauncherDog = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
@@ -328,7 +328,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
                         .fillMaxWidth()
                         .height(250.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    model = inputNameDog,
+                    model = ImagemDoCao,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
                 )

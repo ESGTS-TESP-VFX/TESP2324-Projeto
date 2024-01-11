@@ -12,6 +12,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -108,7 +112,7 @@ fun DogItem(dog: Dog, navController: NavHostController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = dog.Nome,
+                    text = "${dog.Nome}",
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.CenterHorizontally)
@@ -132,6 +136,12 @@ fun DogItem(dog: Dog, navController: NavHostController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(text = "Age: ${dog.Idade}")
+                    if(dog.Sexo == "Masculino"){
+                        Text(text = "Sex: M")
+                    }else if(dog.Sexo == "Feminino"){
+                        Text(text = "Sex: F")
+                    }
+                    Text(text = "Raca: ${dog.Raca}")
                 }
             }
         }

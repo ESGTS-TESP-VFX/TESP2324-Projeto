@@ -14,7 +14,7 @@ data class Dog(
     @SerializedName("raca") var Raca: String,
     @SerializedName("sexo") var Sexo: String,
     @SerializedName("chip") var Chip: Boolean,
-    @SerializedName("vacinas") var Vacinas: List<String>?
+    @SerializedName("vaccines") var Vacinas: List<String>?
 )
 
 

@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-
                     var viewModel = viewModel<MainViewModel>();
 
                     NavHost(navController = navController, startDestination = "login") {
@@ -64,7 +63,12 @@ class MainActivity : ComponentActivity() {
                             var dogId = it.arguments?.getInt("dogId");
                             SeeDogPage(navController, dog2Id = dogId?:0)
                         }
-                        composable("EditDogPage") {EditDogPage(navController)}
+                        composable("EditDogPage/{dogId}",
+                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+                        ) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            EditDogPage(navController, dog3Id = dogId ?: 0)
+                        }
                         composable("KennelPage") {
                             NavigationTopBar(navController = navController){
                                 GalleryPage(navController, viewModel, viewModel())
