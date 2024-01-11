@@ -57,7 +57,6 @@ fun FormOwnerPage(
 ) {
 
     var currentStep by remember { mutableStateOf(1) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +69,7 @@ fun FormOwnerPage(
             {
                 currentStep = 4
 
-                ownerViewModel.DoSaveOwner(navController)
+                ownerViewModel.DoSaveOwner(mainViewModel, navController)
             }
         }
     }
