@@ -6,26 +6,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.tesp.tindogapp.apiService.ApiService
 import com.tesp.tindogapp.model.Dog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
-class DogPageViewModel : ViewModel() {
+class DogEditViewModel: ViewModel() {
+    fun DoSaveDog(navController: NavHostController) {
+        // Chamada à API
+        //.... Dog = ChamadaAPI
+        navController.navigate("SeeDogPage/${Dog.Id}")
+    }
 
     var LoadingDogProfile: Boolean by mutableStateOf(false)
-    var Dog2: Dog? by mutableStateOf(Dog(1,
+    var Dog: Dog = Dog(
+        1,
         "Bockey",
         0,
         "Cão Muito Meigo",
         "Benavente",
         null,
         "Pastor Alemão",
-        "Feminino",
-        false,
-        null))
+        "Masculino",
+        true,
+        null
+    )
 
     fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {
         viewModelScope.launch {
@@ -34,18 +41,23 @@ class DogPageViewModel : ViewModel() {
             try {
                 LoadingDogProfile = true;
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getDog( mainViewModel.AuthToken, dog2ID ).execute();
+                    apiService.getDog(mainViewModel.AuthToken, dog2ID).execute();
                 }
 
-                Dog2 = response.body()?:    Dog(Id = 2, Nome = "Buddy", Idade = 3, Descricao = "Cão Muito Meigo", Localidade = "VFX",
+                Dog = response.body() ?: Dog(
+                    Id = 2,
+                    Nome = "Buddy",
+                    Idade = 3,
+                    Descricao = "Cão Muito Meigo",
+                    Localidade = "VFX",
                     Imagem = null,
                     Chip = false,
                     Sexo = "Masculino",
                     Vacinas = null,
-                    Raca = "Labrador");
-                LoadingDogProfile = false;
-            }
-            catch (e:Exception)
+                    Raca = "Labrador"
+                )
+
+            }catch(e:Exception)
             {
                 Log.d("MYERROR", e.message.toString())
             }
@@ -54,6 +66,4 @@ class DogPageViewModel : ViewModel() {
             LoadingDogProfile = false;
         }
     }
-
-
 }

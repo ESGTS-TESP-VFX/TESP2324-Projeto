@@ -22,14 +22,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
 import com.tesp.tindogapp.utils.isPasswordValid
+import com.tesp.tindogapp.utils.isUsernameValid
+import com.tesp.tindogapp.viewmodels.MainViewModel
+import com.tesp.tindogapp.viewmodels.recoverPwPageViewModel
 
 @Composable
 @Preview
-fun ResetPasswordBody(navController: NavController = rememberNavController()) {
+fun ResetPasswordBody(
+    navController: NavController = rememberNavController(),
+    viewModel: MainViewModel = MainViewModel(),
+    recoverVm: recoverPwPageViewModel = viewModel()
+) {
+
     Box(
         modifier = Modifier
             .background(
@@ -44,21 +53,9 @@ fun ResetPasswordBody(navController: NavController = rememberNavController()) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var validAnswer by remember {
-                mutableStateOf(true)
-            }
-            Text(
-                text = stringResource(id = R.string.setup_new_password),
-                fontFamily = FontFamily.Monospace,
-                fontSize = 22.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp, top = 5.dp)
-            )
 
-            var password = InputPasswordComponent()
-            if (!isPasswordValid(password)) {
+            recoverVm.Email = InputEmailComponent()
+            if (!isUsernameValid(recoverVm.Email)) {
                 Text(
                     text = stringResource(id = R.string.input_invalid_password),
                     fontFamily = FontFamily.Monospace,
@@ -70,8 +67,8 @@ fun ResetPasswordBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            var confirmPassword = InputConfirmPasswordComponent()
-            if (!isPasswordValid(confirmPassword)) {
+            recoverVm.Password = InputPasswordComponent()
+            if (!isPasswordValid(recoverVm.Password)) {
                 Text(
                     text = stringResource(id = R.string.input_invalid_password),
                     fontFamily = FontFamily.Monospace,
@@ -83,24 +80,11 @@ fun ResetPasswordBody(navController: NavController = rememberNavController()) {
                         .padding(bottom = 16.dp)
                 )
             }
-            validAnswer = isPasswordValid(password) && isPasswordValid(confirmPassword);
 
-            if (!validAnswer) {
-                Text(
-                    text = stringResource(id = R.string.passwords_must_match),
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 12.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFFFF0000),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-            }
+            recoverVm.Codigo = inputBox("Código Mágico")
 
-            SetupNewPasswordButtonComponent() {
-                navController.navigate("LoginPage")
-
+            SubmitButtonComponent() {
+                recoverVm.DoSignUpRealThing(viewModel, navController)
             }
         }
     }
