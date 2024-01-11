@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 class Owner(
     @SerializedName("id") val Id: Int,
     @SerializedName("nome") var Nome: String,
-    @SerializedName("email") var Email: String,
+    @SerializedName("image")var Image: String,
     @SerializedName("descricao") var Descricao: String,
-    var ImageUri: Uri?,
+    @SerializedName("email") var Email: String,
 ) {
 }

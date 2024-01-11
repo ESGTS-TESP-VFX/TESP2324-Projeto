@@ -59,6 +59,7 @@ fun FormDogPage(navController: NavHostController = rememberNavController(),
 
                 var currentStep by remember { mutableStateOf(1) }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()

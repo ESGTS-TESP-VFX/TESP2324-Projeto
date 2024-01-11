@@ -13,8 +13,9 @@ import androidx.compose.ui.unit.dp
 
 //@Preview
 @Composable
+@Preview()
 
-fun SignInButtonComponent(onClickSigin: () -> Unit) {
+fun SignInButtonComponent(onClickSigin: () -> Unit={}) {
 
     Button(
         onClick = onClickSigin,

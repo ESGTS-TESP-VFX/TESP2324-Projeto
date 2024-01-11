@@ -40,6 +40,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -52,10 +53,10 @@ import com.tesp.tindogapp.viewmodels.OwnerViewModel
 fun FormOwnerPage(
     navController: NavHostController = rememberNavController(),
     mainViewModel: MainViewModel = MainViewModel(),
-    ownerViewModel: OwnerViewModel = OwnerViewModel()) {
+    ownerViewModel: OwnerViewModel = OwnerViewModel()
+) {
 
     var currentStep by remember { mutableStateOf(1) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +69,7 @@ fun FormOwnerPage(
             {
                 currentStep = 4
 
-                ownerViewModel.DoSaveOwner(navController)
+                ownerViewModel.DoSaveOwner(mainViewModel, navController)
             }
         }
     }
@@ -119,7 +120,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            var inputName by remember { mutableStateOf(    ownerViewModel.Owner.Nome) }
+            var inputName by remember { mutableStateOf(ownerViewModel.Owner.Nome) }
             var isValid by remember { mutableStateOf(true) }
 
             Text(
@@ -133,10 +134,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 
             OutlinedTextField(
                 value = inputName,
-                onValueChange = {
-                    inputName = it
-                    isValid = it.isNotBlank()
-                },
+                onValueChange = { inputName = it },
                 label = {
                     Text(
                         "Insert your name...",
@@ -158,7 +156,8 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
             )
 
             if (!isValid) {
-                Text(text = "Please fill the empty field !",
+                Text(
+                    text = "Please fill the empty field !",
                     color = Color.Red,
                     modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
                 )
@@ -173,7 +172,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
                 Button(
                     onClick = {
                         ownerViewModel.Owner.Nome = inputName
-                        if (isValid) {
+                        if (inputName.isNotBlank()) {
                             onNext()
                         } else {
                             isValid = false
@@ -203,6 +202,9 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext: () -> Unit) {
+
+    var inputDesc by remember { mutableStateOf(ownerViewModel.Owner.Descricao) }
+
     Box(
         modifier = Modifier
             .background(
@@ -262,7 +264,10 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
             ) {
 
 
-                Button(onClick = onBack,
+                Button(onClick = {
+                    ownerViewModel.Owner.Descricao = inputDesc
+                    onBack()
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -279,7 +284,10 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = {
+                    ownerViewModel.Owner.Descricao = inputDesc
+                    onNext()
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -308,9 +316,11 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            ownerViewModel.Owner.ImageUri = it
+            ownerViewModel.Owner.Image = it.toString()
         }
     )
+
+    var isValid by remember { mutableStateOf(true) }
 
     Box(
         modifier = Modifier
@@ -350,9 +360,17 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                         .fillMaxWidth()
                         .height(250.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    model = ownerViewModel.Owner.ImageUri,
+                    model = ownerViewModel.Owner.Image,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
+                )
+            }
+
+            if (!isValid) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
                 )
             }
 
@@ -382,7 +400,7 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
+                    .padding(top = 30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
@@ -404,7 +422,13 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = {
+                    if (ownerViewModel.Owner.Image != null) {
+                        onNext()
+                    } else {
+                        isValid = false
+                    }
+                },
                     modifier = Modifier
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
