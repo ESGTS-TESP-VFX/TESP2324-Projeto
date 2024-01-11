@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
                         //Pedro & Rafael
                         composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
-                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
+                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){ seeOwnerPage()}}
 
 
                         // Ricardo,Bruno e Tomás

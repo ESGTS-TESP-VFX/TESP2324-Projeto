@@ -1,6 +1,5 @@
 package com.tesp.tindogapp.pages
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -54,19 +54,25 @@ import com.tesp.tindogapp.components.OwnerProfileDescBox
 import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.viewmodels.MainViewModel
 import com.tesp.tindogapp.viewmodels.MatchDogViewModel
+import com.tesp.tindogapp.viewmodels.OwnerEditViewModel
 import com.tesp.tindogapp.viewmodels.OwnerPageViewModel
 import com.tesp.tindogapp.viewmodels.OwnerViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
-fun seeOwnerPage(
+fun editOwnerPage(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = MainViewModel(),
-    ownerPageViewModel: OwnerPageViewModel = OwnerPageViewModel(),
+    ownerEditViewModel: OwnerEditViewModel = OwnerEditViewModel(),
     ownerId: Int=0
 ): Unit {
 
-    ownerPageViewModel.SetContext(viewModel, ownerId)
+    ownerEditViewModel.SetContext(viewModel, ownerId)
+
+    var inputName by remember { mutableStateOf(ownerEditViewModel.Owner.Nome) }
+    var inputDesc by remember { mutableStateOf(ownerEditViewModel.Owner.Descricao) }
+
 
     Column {
         Logotipo()
@@ -82,14 +88,74 @@ fun seeOwnerPage(
         ) {
             Column {
 
-                Text(text = "${ownerPageViewModel.Owner?.Nome ?: ""}",
+                OutlinedTextField(
+                    value = inputName,
+                    onValueChange = {
+                        inputName = it
+                        ownerEditViewModel.Owner.Nome = it
+                    },
+                    label = {
+                        Text(
+                            "Insert here your name...",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                            textAlign = TextAlign.Center,
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .background(Color.White, shape = CircleShape),
+
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                    )
+                )
+            }
+
+            Column (
+
+            ) {
+
+
+                Text(text = "About me",
                     style = TextStyle(
-                        fontSize = 23.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
 
-                OwnerProfileDescBox()
+                OutlinedTextField(
+                    value = inputDesc,
+                    onValueChange = {
+                        inputDesc = it
+                        ownerEditViewModel.Owner.Descricao = it
+                    },
+                    label = {
+                        Text(
+                            "Example",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFFBF8B7E),
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 15.dp, 0.dp, 20.dp)
+                        .background(Color.White, RoundedCornerShape(16.dp))
+                        .height(150.dp),
+
+
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                    )
+                )
+            }
 
                 Text(text = "My doghouse",
                     style = TextStyle(
@@ -114,7 +180,7 @@ fun seeOwnerPage(
                             .fillMaxWidth()
                             .height(100.dp),
 
-                    ){
+                        ){
                         Row (
                             modifier = Modifier
                                 .align(alignment = Center)
@@ -159,20 +225,54 @@ fun seeOwnerPage(
 
                 }
 
-                Row (
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = { navController.navigate("SeeOwnerPage/$ownerId") },
+                    modifier = Modifier
+                        .height(65.dp)
+                        .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Red
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
-                    EditProfileButton()
-                    DeleteProfileButton {
-                        // Lógica para excluir o perfil quando o usuário confirma
-                    }
+
+                    Text(
+                        text = "Cancel Edit",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
 
                 }
 
+                Button(
+                    onClick = { ownerEditViewModel.DoSaveOwner(navController) },
+                    modifier = Modifier
+                        .height(65.dp)
+                        .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Red
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+
+                    Text(
+                        text = "Submit Edit",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
             }
         }
     }
 }
+
 
 
