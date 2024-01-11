@@ -26,10 +26,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tesp.tindogapp.R
-import com.tesp.tindogapp.utils.checkData
-import com.tesp.tindogapp.utils.isEmailValid
-import com.tesp.tindogapp.utils.isPasswordValid
-import com.tesp.tindogapp.viewmodels.LoginViewModel
 import com.tesp.tindogapp.viewmodels.MainViewModel
 import com.tesp.tindogapp.viewmodels.SignUpViewModel
 

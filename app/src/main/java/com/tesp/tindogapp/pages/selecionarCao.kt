@@ -119,7 +119,7 @@ fun SeletorCaes(
             ) {
                 items(kennelviewModel.Dogs) { dog ->
                     Image(
-                        painter = painterResource(id = dog.Imagem),
+                        painter = painterResource(id = R.drawable.fotocao5),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()

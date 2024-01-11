@@ -31,15 +31,21 @@ import com.tesp.tindogapp.components.DogProfileDescBox
 import com.tesp.tindogapp.components.EditDogProfileButton
 
 import com.tesp.tindogapp.ui.theme.Salmon
+import com.tesp.tindogapp.viewmodels.DogPageViewModel
+import com.tesp.tindogapp.viewmodels.MainViewModel
 
 
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
-fun SeeDogPage(navController: NavHostController = rememberNavController()): Unit {
-
+fun SeeDogPage(navController: NavHostController = rememberNavController(),
+               viewModel: MainViewModel = MainViewModel(),
+               DogPageViewModel: DogPageViewModel = DogPageViewModel(),
+               dog2Id: Int=0
+): Unit {
+    DogPageViewModel.SetContext(viewModel, dog2Id)
     Column {
         Image(
-            painter = painterResource(id = R.drawable.fotocao3),
+            painter = painterResource(id = R.drawable.fotocao3), // ViewModel
             contentDescription = "fotocao",
             modifier = Modifier
                 .fillMaxWidth()
@@ -61,13 +67,13 @@ fun SeeDogPage(navController: NavHostController = rememberNavController()): Unit
                     .fillMaxWidth()
                     .padding(top = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween){
-                    Text(text = "Alberto",
+                    Text(text = "${DogPageViewModel.Dog2?.Nome ?: ""}",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold
                         )
                     )
-                    Text(text = "10 anos",
+                    Text(text = "${DogPageViewModel.Dog2?.Idade  ?: ""} Anos",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold

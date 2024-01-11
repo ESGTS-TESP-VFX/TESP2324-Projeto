@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.tesp.tindogapp.apiService.ApiService
-import com.tesp.tindogapp.apiService.TokenRequest
+import com.tesp.tindogapp.apiService.SignUpRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +22,10 @@ class SignUpViewModel : ViewModel() {
     var SignUpSuccessfull: Boolean by mutableStateOf(false)
     var DoingSignUp: Boolean by mutableStateOf(false)
 
-    fun DoSignUpRealThing(mainViewModel: MainViewModel, navController: NavController) {
+    fun DoSignUpRealThing(
+        mainViewModel: MainViewModel,
+        navController: NavController
+    ) {
         viewModelScope.launch {
             DoingSignUp = true;
             // validar se necessário para escrever novo utilizador
@@ -31,12 +34,11 @@ class SignUpViewModel : ViewModel() {
             try {
                 //em principio não faz sentido pois ainda não existe o user
                 var body = withContext(Dispatchers.IO) {
-                    apiService.getToken(TokenRequest(Email, Password)).execute()
+                    apiService.signUp(SignUpRequest(Email, Password)).execute()
                 }
-                
 
                 if (body.raw().code == 200) {
-                    navController.navigate("pickDog")
+                    navController.navigate("formOwnerPage")
                     mainViewModel.AuthToken = body.body()?.token ?: "";
                     SignUpSuccessfull = true;
                 } else {
