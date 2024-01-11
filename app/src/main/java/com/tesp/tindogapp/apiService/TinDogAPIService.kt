@@ -21,7 +21,7 @@ public  interface ApiService {
     fun signUp(@Body SignUpRequest: SignUpRequest )
         :Call<SignUpResponse>
     @POST("/ResetPassword")
-    fun signUp(@Body PwdResetRequest: PwdResetRequest )
+    fun resetPassword(@Body PwdResetRequest: PwdResetRequest )
         :Call<PwdResetResponse>
     @POST("/UpdateProfile")
     fun updateProfile(@Header("Token") token: String, @Body UpdateProfileRequest: UpdateProfileRequest )

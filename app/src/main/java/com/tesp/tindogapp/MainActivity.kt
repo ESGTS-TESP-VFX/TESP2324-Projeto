@@ -35,13 +35,10 @@ class MainActivity : ComponentActivity() {
                     var viewModel = viewModel<MainViewModel>();
 
                     NavHost(navController = navController, startDestination = "login") {
-
                         // Mario, Joao, Mafalda, Alexandre
-                        composable("login") {
-                            LoginPage(navController, viewModel, viewModel())
-                        }
-
-                        composable("signPage") {SignUpBody(navController)}
+                        composable("login") { LoginPage(navController, viewModel, viewModel()) }
+                        composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
+                        composable("recoverPwd") { ResetPasswordPage(navController, viewModel, viewModel()) }
 
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
@@ -73,7 +70,6 @@ class MainActivity : ComponentActivity() {
                                 GalleryPage(navController, viewModel, viewModel())
                             }
                         }
-
                     }
                 }
             }
