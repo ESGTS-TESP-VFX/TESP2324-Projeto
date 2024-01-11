@@ -23,8 +23,8 @@ class DogPageViewModel : ViewModel() {
         "Benavente",
         null,
         "Pastor Alemão",
-        "Masculino",
-        true,
+        "Feminino",
+        false,
         null))
 
     fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {

@@ -97,13 +97,13 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                     )
                 )
                 if (SexResult == "Masculino"){
-                    Text(text = "Sex:Masculino",
+                    Text(text = "Masculino",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold
                         ))
                 }else if(SexResult == "Feminino"){
-                    Text(text = "Sex:Feminino",
+                    Text(text = "Feminino",
                         style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold

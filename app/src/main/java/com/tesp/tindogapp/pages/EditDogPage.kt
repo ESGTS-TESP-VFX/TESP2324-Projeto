@@ -68,6 +68,7 @@ fun EditDogPage(
     var inputGenderDog by remember { mutableStateOf(dogEditViewModel.Dog.Sexo) }
     var inputLocationDog by remember { mutableStateOf(dogEditViewModel.Dog.Localidade) }
     var inputChipStatus by remember { mutableStateOf(dogEditViewModel.Dog.Chip.toString()) }
+    var inputDescStatus by remember { mutableStateOf(dogEditViewModel.Dog.Descricao) }
     var inputVaccines by remember {
         mutableStateOf(
             dogEditViewModel.Dog.Vacinas?.joinToString(",") ?: ""
@@ -221,7 +222,7 @@ fun EditDogPage(
                         },
                         label = {
                             Text(
-                                "Insert here dog's breed...",
+                                "Insert here your dog's sex...",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
@@ -280,12 +281,18 @@ fun EditDogPage(
                         .padding(top = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    fun convertBooleanToYesNo(boolean: Boolean): String {
+                        return if (boolean) "Yes" else "No"
+                    }
+                    val dogChipStatusYesNo = convertBooleanToYesNo(dogEditViewModel.Dog.Chip)
+
                     // Input DogName
                     OutlinedTextField(
-                        value = inputChipStatus,
+                        value = dogChipStatusYesNo,
                         onValueChange = {
                             inputChipStatus = it
-                            dogEditViewModel.Dog.Chip = it.toBoolean()
+                            dogEditViewModel.Dog.Chip = it.equals("Yes", ignoreCase = true)
+
                         },
                         label = {
                             Text(
@@ -311,7 +318,33 @@ fun EditDogPage(
                 Column (
                     modifier = Modifier.padding(0.dp,0.dp,0.dp,20.dp)
                 ){
-                    DogProfileDescBox()
+                    OutlinedTextField(
+                        value = inputDescStatus,
+                        onValueChange = {  inputDescStatus = it
+                                                    dogEditViewModel.Dog.Descricao = it
+                                        },
+                        label = {
+                            Text(
+                                "Insert a description...",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Monospace,
+                                textAlign = TextAlign.Center,
+                                color = Color(0xFFBF8B7E),
+                            )
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 30.dp, 0.dp, 0.dp)
+                            .background(Color.White, RoundedCornerShape(16.dp))
+                            .height(150.dp),
+
+
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = Color.Transparent,
+                            unfocusedBorderColor = Color.Transparent,
+                        )
+                    )
 
                     Row(
                         Modifier.fillMaxWidth(),
