@@ -69,21 +69,20 @@ fun LoginCorpo(
                         .padding(bottom = 16.dp)
                 )
             }
-            else
-            {
-                if (loginVm.DoingLogin) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.width(64.dp),
-                        color = Color(0xFFBB3210)
-                    )
-                    Spacer(modifier = Modifier.height(64.dp))
-                }
-                else{
-                    SignInButtonComponent{
-                        loginVm.DoLogin(mainViewModel,navController)
-                    }
+
+            if (loginVm.DoingLogin) {
+                CircularProgressIndicator(
+                    modifier = Modifier.width(64.dp),
+                    color = Color(0xFFBB3210)
+                )
+                Spacer(modifier = Modifier.height(64.dp))
+            }
+            else{
+                SignInButtonComponent{
+                    loginVm.DoLogin(mainViewModel,navController)
                 }
             }
+
 
             Text(
                 // texto só deverá aparecer quando se carrega no botão
@@ -95,7 +94,9 @@ fun LoginCorpo(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
-                    .clickable { /*ação*/ }
+                    .clickable {
+                        loginVm.DoPwdReset(navController)
+                    }
                     // ligação ao reset password
             )
 

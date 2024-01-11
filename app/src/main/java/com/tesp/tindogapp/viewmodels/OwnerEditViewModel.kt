@@ -24,8 +24,9 @@ class OwnerEditViewModel: ViewModel() {
     var Owner: Owner = Owner(
         1,
         "José",
-        null,
-        "ola",
+        "",
+   "",
+        ""
     )
 
     fun SetContext(mainViewModel: MainViewModel, owner2ID: Int) {
@@ -41,8 +42,9 @@ class OwnerEditViewModel: ViewModel() {
                 Owner = response.body() ?: Owner(
                     Id = 2,
                     Nome = "Manel",
-                    Image = null,
-                    Desc = "ola"
+                    Image ="",
+                    "",
+                    ""
                 )
 
             }catch(e:Exception)

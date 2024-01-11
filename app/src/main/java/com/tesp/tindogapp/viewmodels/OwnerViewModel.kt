@@ -10,7 +10,7 @@ class OwnerViewModel: ViewModel() {
         navController.navigate("formDogPage")
     }
 
-    var Owner: Owner= Owner(0, "", null, "")
-}
 
+    var Owner: Owner= Owner(0, "", "", "","")
+}
 

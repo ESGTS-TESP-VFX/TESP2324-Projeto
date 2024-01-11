@@ -71,7 +71,7 @@ fun editOwnerPage(
     ownerEditViewModel.SetContext(viewModel, ownerId)
 
     var inputName by remember { mutableStateOf(ownerEditViewModel.Owner.Nome) }
-    var inputDesc by remember { mutableStateOf(ownerEditViewModel.Owner.Desc) }
+    var inputDesc by remember { mutableStateOf(ownerEditViewModel.Owner.Descricao) }
 
 
     Column {
@@ -131,7 +131,7 @@ fun editOwnerPage(
                     value = inputDesc,
                     onValueChange = {
                         inputDesc = it
-                        ownerEditViewModel.Owner.Desc = it
+                        ownerEditViewModel.Owner.Descricao = it
                     },
                     label = {
                         Text(

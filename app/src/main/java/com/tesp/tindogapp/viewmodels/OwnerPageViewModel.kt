@@ -29,7 +29,7 @@ class OwnerPageViewModel : ViewModel() {
                     apiService.getOwner( mainViewModel.AuthToken, ownerId).execute();
                 }
 
-                Owner = response.body()?: Owner(0,"", null, "");
+                Owner = response.body()?: Owner(0,"", "","", "");
                 LoadingOwnerProfile = false;
             }
             catch (e:Exception)

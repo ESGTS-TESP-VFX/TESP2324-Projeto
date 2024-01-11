@@ -30,4 +30,22 @@ fun checkData( email: String, password: String, confirmPassword: String): Boolea
 
 }
 
+
+
 //
+
+/*
+fun IsValidCredentials(): Boolean {
+    val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+    var emailValid = this.Email.matches(emailRegex.toRegex())
+    var passwordValid = this.Password.length>5;
+
+    return passwordValid && emailValid;
+}
+
+
+fun DoSignUp(mainViewModel: MainViewModel, navController: NavController) {
+    navController.navigate("signPage")
+}
+
+ */

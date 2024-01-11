@@ -204,7 +204,7 @@ fun InputOwnerNameBox(ownerViewModel: OwnerViewModel = OwnerViewModel(),onNext: 
 @Composable
 fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext: () -> Unit) {
 
-    var inputDesc by remember { mutableStateOf(ownerViewModel.Owner.Desc) }
+    var inputDesc by remember { mutableStateOf(ownerViewModel.Owner.Descricao) }
 
     Box(
         modifier = Modifier
@@ -231,8 +231,8 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
             )
 
             OutlinedTextField(
-                value = inputDesc,
-                onValueChange = {inputDesc = it},
+                value = ownerViewModel.Owner.Descricao,
+                onValueChange = {        ownerViewModel.Owner.Descricao = it },
                 label = {
                     Text(
                         "Insert a description...",
@@ -266,7 +266,7 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
 
 
                 Button(onClick = {
-                    ownerViewModel.Owner.Desc = inputDesc
+                    ownerViewModel.Owner.Descricao = inputDesc
                     onBack()
                 },
                     modifier = Modifier
@@ -286,7 +286,7 @@ fun InputDescBox_Owner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNex
                 }
 
                 Button(onClick = {
-                    ownerViewModel.Owner.Desc = inputDesc
+                    ownerViewModel.Owner.Descricao = inputDesc
                     onNext()
                 },
                     modifier = Modifier
@@ -317,7 +317,7 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            ownerViewModel.Owner.ImageUri = it
+            ownerViewModel.Owner.Image = it.toString()
         }
     )
 
@@ -361,7 +361,7 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                         .fillMaxWidth()
                         .height(250.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    model = ownerViewModel.Owner.ImageUri,
+                    model = ownerViewModel.Owner.Image,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
                 )
@@ -424,7 +424,7 @@ fun PhotoPickerOwner(ownerViewModel: OwnerViewModel, onBack: () -> Unit, onNext:
                 }
 
                 Button(onClick = {
-                    if (ownerViewModel.Owner.ImageUri != null) {
+                    if (ownerViewModel.Owner.Image != null) {
                         onNext()
                     } else {
                         isValid = false
