@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = "seeOwnerPage/{ownerId}") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel()) }
                         composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
@@ -56,8 +56,19 @@ class MainActivity : ComponentActivity() {
 
                         //Pedro & Rafael
                         composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
-                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){ seeOwnerPage()}}
 
+                        composable("seeOwnerPage/{ownerId}",
+                            arguments = listOf(navArgument("ownerId") { type = NavType.IntType })
+                        ) {
+                            var ownerId = it.arguments?.getInt("ownerId");
+                            seeOwnerPage(navController, ownerId = ownerId?:0)
+                        }
+                        composable("EditOwnerPage/{ownerId}",
+                            arguments = listOf(navArgument("ownerId") { type = NavType.IntType })
+                        ) {
+                            var ownerId = it.arguments?.getInt("ownerId");
+                            editOwnerPage(navController, ownerId = ownerId ?: 0)
+                        }
 
                         // Ricardo,Bruno e Tomás
                         composable("formDogPage") {FormDogPage(navController,viewModel, viewModel())}

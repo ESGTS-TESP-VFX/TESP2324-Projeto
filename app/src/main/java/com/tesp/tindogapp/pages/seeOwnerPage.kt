@@ -163,7 +163,9 @@ fun seeOwnerPage(
                     Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    EditProfileButton()
+                    EditProfileButton {
+                        navController.navigate("EditOwnerPage/$ownerId")
+                    }
                     DeleteProfileButton {
                         // Lógica para excluir o perfil quando o usuário confirma
                     }
