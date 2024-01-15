@@ -235,13 +235,13 @@ fun editOwnerPage(
                         .height(65.dp)
                         .padding(0.dp, 20.dp, 0.dp, 0.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red
+                        containerColor = Color(0xFF807471)
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
 
                     Text(
-                        text = "Cancel Edit",
+                        text = "Cancel",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
@@ -256,13 +256,13 @@ fun editOwnerPage(
                         .height(65.dp)
                         .padding(0.dp, 20.dp, 0.dp, 0.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red
+                        containerColor = Color(0xFF807471)
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
 
                     Text(
-                        text = "Submit Edit",
+                        text = "Save",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
