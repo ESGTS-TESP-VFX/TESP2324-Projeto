@@ -17,7 +17,11 @@ import kotlinx.coroutines.withContext
 class OwnerPageViewModel : ViewModel() {
 
     var LoadingOwnerProfile: Boolean by mutableStateOf(false)
-    var Owner: Owner? by mutableStateOf(null)
+    var Owner: Owner? by mutableStateOf(Owner(1,
+        "José",
+        "null",
+        "adeus",
+        "jose@gmail.com"))
 
     fun SetContext(mainViewModel: MainViewModel, ownerId: Int) {
         viewModelScope.launch {
@@ -29,7 +33,7 @@ class OwnerPageViewModel : ViewModel() {
                     apiService.getOwner( mainViewModel.AuthToken, ownerId).execute();
                 }
 
-                Owner = response.body()?: Owner(0,"", "","", "");
+                Owner = response.body()?: Owner(2,"Manel", "null","adeus", "manel@gmail.com");
                 LoadingOwnerProfile = false;
             }
             catch (e:Exception)
