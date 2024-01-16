@@ -174,6 +174,8 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
         ) {
             var inputNameDog by remember { mutableStateOf(dogViewModel.Dog.Nome) }
             var inputAgeDog by remember { mutableStateOf(dogViewModel.Dog.Idade.toString()) }
+            var isValidName by remember { mutableStateOf(true) }
+            var isValidAge by remember { mutableStateOf(true) }
 
             // What's your Dog's Name?
             Text(
@@ -210,6 +212,14 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
                     unfocusedBorderColor = Color.Transparent,
                 )
             )
+            if (!isValidName) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
+
             // What's your Dog's Age?
             Text(
                 text = "What's your Dog's Age?",
@@ -243,6 +253,14 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
                     unfocusedBorderColor = Color.Transparent,
                 )
             )
+            if (!isValidAge) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
+
 
             Box(
                 modifier = Modifier
@@ -250,7 +268,20 @@ fun InputDogNameBox(dogViewModel: DogViewModel = DogViewModel(),onNext:() -> Uni
                     .padding(top = 16.dp)
             ) {
                 Button(
-                    onClick = onNext,
+                    onClick = { dogViewModel.Dog.Nome = inputNameDog
+
+                        if (inputNameDog.isNotBlank() && inputAgeDog.isNotBlank()) {
+                            onNext()
+                        } else if (inputNameDog.isNotBlank() && inputAgeDog.isBlank()){
+                            isValidAge = false
+                        } else if (inputNameDog.isBlank() && inputAgeDog.isNotBlank()){
+                            isValidName = false
+                        } else if (inputNameDog.isBlank() && inputAgeDog.isBlank()) {
+                            isValidAge = false
+                            isValidName = false
+                        }
+
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -288,6 +319,8 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
             //dogViewModel.Dog.Imagem = it
         }
     )
+
+    var isValidImage by remember { mutableStateOf(true) }
 
     Box(
         modifier = Modifier
@@ -331,6 +364,14 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
                     model = ImagemDoCao,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds
+                )
+            }
+
+            if (!isValidImage) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
                 )
             }
 
@@ -385,7 +426,15 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = onNext,/*
+                onClick = {
+                    if (dogViewModel.Dog.Imagem != null) {
+                        onNext()
+                    } else {
+                        isValidImage = false
+                    }
+                }, USAR QUANDO DER PARA METER A IMAGEM NO MOMENTO TA INT
+                */
                     modifier = Modifier
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -413,6 +462,7 @@ fun PhotoPickerDog(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> 
 @Composable
 fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Unit) {
     var inputDescDog by remember { mutableStateOf(dogViewModel.Dog.Descricao) }
+    var isValidDesc by remember { mutableStateOf(true) }
     Box(
         modifier = Modifier
             .background(
@@ -464,6 +514,13 @@ fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Un
                     unfocusedBorderColor = Color.Transparent,
                 )
             )
+            if (!isValidDesc) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
 
             Row(
                 modifier = Modifier
@@ -490,7 +547,14 @@ fun InputDescBox(dogViewModel: DogViewModel,onBack: () -> Unit, onNext: () -> Un
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = { dogViewModel.Dog.Descricao = inputDescDog
+
+                    if (inputDescDog.isNotBlank() ) {
+                        onNext()
+                    } else if (inputDescDog.isBlank()){
+                        isValidDesc = false
+                    }
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -535,6 +599,8 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
 
             var inputBreedDog by remember { mutableStateOf(dogViewModel.Dog.Raca) }
             var inputSexDog by remember { mutableStateOf(dogViewModel.Dog.Sexo) }
+            var isValidBreed by remember { mutableStateOf(true) }
+            var isValidSex by remember { mutableStateOf(true) }
 
             // What's your Dog's Name?
             Text(
@@ -571,6 +637,13 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
                     unfocusedBorderColor = Color.Transparent,
                 )
             )
+            if (!isValidBreed) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
             // What's your Dog's Age?
             Text(
                 text = "What's your Dog's Sex?",
@@ -605,6 +678,14 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
                 )
             )
 
+            if (!isValidSex) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -630,7 +711,21 @@ fun InputBreedSexBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> 
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = { dogViewModel.Dog.Raca = inputBreedDog
+                    dogViewModel.Dog.Sexo = inputSexDog
+
+                    if (inputBreedDog.isNotBlank() && inputSexDog.isNotBlank()) {
+                        onNext()
+                    } else if (inputBreedDog.isNotBlank() && inputSexDog.isBlank()){
+                        isValidSex = false
+                    } else if (inputBreedDog.isBlank() && inputSexDog.isNotBlank()){
+                        isValidBreed = false
+                    } else if (inputBreedDog.isBlank() && inputSexDog.isBlank()) {
+                        isValidSex = false
+                        isValidBreed = false
+                    }
+
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -673,6 +768,7 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
         ) {
 
             var inputLocDog by remember { mutableStateOf(dogViewModel.Dog.Localidade) }
+            var isValidLoc by remember { mutableStateOf(true) }
 
 
             Text(
@@ -712,6 +808,13 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
                     unfocusedBorderColor = Color.Transparent,
                 )
             )
+            if (!isValidLoc) {
+                Text(
+                    text = "Please fill the empty field !",
+                    color = Color.Red,
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+                )
+            }
 
             Row(
                 modifier = Modifier
@@ -738,7 +841,14 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = { dogViewModel.Dog.Localidade = inputLocDog
+
+                    if (inputLocDog.isNotBlank() ) {
+                        onNext()
+                    } else if (inputLocDog.isBlank()){
+                        isValidLoc = false
+                    }
+                },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -764,6 +874,7 @@ fun InputLocBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit)
 // STEP-6 VAR INPUTS DE CHIP OU NAO DO CAO
 @Composable
 fun InputChipBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit) {
+    var inputChipDog by remember { mutableStateOf(dogViewModel.Dog.Chip) }
     Box(
         modifier = Modifier
             .background(
@@ -795,7 +906,7 @@ fun InputChipBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
-                Button(onClick = onBack,
+                Button(onClick = { inputChipDog = false; onBack() },
                     modifier = Modifier
 
                         .height(50.dp),
@@ -812,7 +923,7 @@ fun InputChipBox(dogViewModel: DogViewModel,onBack: () -> Unit,onNext:() -> Unit
                     )
                 }
 
-                Button(onClick = onNext,
+                Button(onClick = { inputChipDog = true; onNext() },
                     modifier = Modifier
 
                         .height(50.dp),
