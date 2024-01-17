@@ -156,7 +156,7 @@ fun VaccinesButton(onDeleteConfirmed: () -> Unit ): Unit {
                         Color(0xFFFF8769),
                         contentColor = Color(0xFFFFFFFF))
                 ) {
-                    Text("Delete")
+                    Text("Submit")
                 }
             },
             dismissButton = {
