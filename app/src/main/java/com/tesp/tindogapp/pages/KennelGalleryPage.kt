@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,10 +55,38 @@ fun GalleryPage(navController: NavHostController = rememberNavController(),
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp
         )
+        NewDog {
+            navController.navigate("formDogPage")
+
+        }
         DogGallery(
             dogs = kennelViewModel.Dogs,
             navController = navController
         )
+
+
+    }
+}
+
+@Composable
+fun NewDog(onClick: () -> Unit): Unit {
+    Button(onClick = onClick,
+        modifier = Modifier
+            .height(65.dp)
+            .padding(0.dp, 20.dp, 0.dp, 0.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFFFF8769)
+        ),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+
+        Text(text = "New Dog",
+            style = TextStyle(
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
     }
 }
 
@@ -147,6 +178,9 @@ fun DogItem(dog: Dog, navController: NavHostController) {
         }
     }
 }
+
+
+
 
 
 @Preview(showBackground = true, heightDp = 600, widthDp = 380)
