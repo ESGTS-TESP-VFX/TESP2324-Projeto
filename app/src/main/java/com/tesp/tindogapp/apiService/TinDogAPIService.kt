@@ -26,10 +26,10 @@ public  interface ApiService {
         :Call<PwdResetResponse>
     @POST("/UpdateProfile")
     fun updateProfile(@Header("Token") token: String, @Body UpdateProfileRequest: UpdateProfileRequest )
-        :Call<UpdateProfileResponse>
+        :Call<Owner>
     @GET("/Profile")
     fun getProfile(@Header("Token") token: String)
-        :Call<ProfileResponse>
+        :Call<Owner>
 
     @GET("/dog")
     fun getDogs(@Header("Token") token: String)

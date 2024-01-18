@@ -16,32 +16,39 @@ import kotlinx.coroutines.withContext
 
 class OwnerPageViewModel : ViewModel() {
 
-    var LoadingOwnerProfile: Boolean by mutableStateOf(false)
-    var Owner: Owner? by mutableStateOf(null)
+    var Nome: String  by mutableStateOf("")
+    var Descricao: String  by mutableStateOf("")
+
+
+    var Dogs: List<Dog> by mutableStateOf(listOf())
+    var Loaded: Boolean by mutableStateOf(false)
 
     fun SetContext(mainViewModel: MainViewModel, ownerId: Int) {
         viewModelScope.launch {
             val apiService = ApiService.getInstance();
 
             try {
-                LoadingOwnerProfile = true;
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getOwner( mainViewModel.AuthToken, ownerId).execute();
+                    apiService.getProfile(mainViewModel.AuthToken).execute();
                 }
 
-                Owner = response.body()?: Owner(0,"", "","", "");
-                LoadingOwnerProfile = false;
+                val dogs = withContext(Dispatchers.IO) {
+                    apiService.getDogs(mainViewModel.AuthToken).execute();
+                }
+
+                Dogs = dogs.body()?: listOf<Dog>();
+                var Owner = response.body()!!;
+
+                Nome = Owner.Nome;
+                Descricao = Owner.Descricao;
+                Loaded = true;
             }
             catch (e:Exception)
             {
                 Log.d("MYERROR", e.message.toString())
             }
 
-
-            LoadingOwnerProfile = false;
         }
     }
-
-
 }
 
