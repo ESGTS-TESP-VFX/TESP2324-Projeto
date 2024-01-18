@@ -33,6 +33,7 @@ import com.tesp.tindogapp.components.DeleteDogProfileButton
 
 import com.tesp.tindogapp.components.DogProfileDescBox
 import com.tesp.tindogapp.components.EditDogProfileButton
+import com.tesp.tindogapp.components.VaccinesButton
 
 import com.tesp.tindogapp.ui.theme.Salmon
 import com.tesp.tindogapp.viewmodels.DogPageViewModel
@@ -71,7 +72,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
         ) {
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 15.dp),
                 horizontalArrangement = Arrangement.SpaceBetween){
                 Text(text = "${DogPageViewModel.Dog2?.Nome ?: ""}",
                     style = TextStyle(
@@ -88,7 +89,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
             }
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 15.dp),
                 horizontalArrangement = Arrangement.SpaceBetween){
                 Text(text = "${DogPageViewModel.Dog2?.Raca ?: ""}",
                     style = TextStyle(
@@ -112,7 +113,7 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
             }
             Row (modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 15.dp),
 
                 horizontalArrangement = Arrangement.SpaceBetween){
                 Text(text = "${DogPageViewModel.Dog2?.Localidade ?: ""}",
@@ -135,15 +136,20 @@ fun SeeDogPage(navController: NavHostController = rememberNavController(),
                         ))
                 }
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),){
-                Text(text = "Vaccines",
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Vaccines",
                     style = TextStyle(
                         fontSize = 23.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
+                VaccinesButton {}
             }
             Column() {
                 DogProfileDescBox()
