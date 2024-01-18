@@ -35,19 +35,27 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = "login") {
                         // Mario, Joao, Mafalda, Alexandre
-                        composable("login") { LoginPage(navController, viewModel, viewModel()) }
-                        composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
-                        composable("recoverPwd") { ResetPasswordPage(navController, viewModel, viewModel()) }
+                        composable("login") {
+                            LoginPage(navController, viewModel, viewModel())
+                        }
+                        composable("signUpPage") {
+                            SignUpBody(navController, viewModel, viewModel())
+                        }
+                        composable("recoverPwd") {
+                            ResetPasswordPage(navController, viewModel, viewModel())
+                        }
 
                         // Rodrigo, Marcos, Alen
                         composable("pickDog") {
-                            NavigationTopBar(navController = navController, viewModel){SeletorCaes(navController, viewModel, viewModel())
+                            NavigationTopBar(navController = navController, viewModel){
+                                SeletorCaes(navController, viewModel, viewModel())
                             }
                         }
-                        composable("MatchesPage") {NavigationTopBar(
-                            navController = navController,
-                            viewModel
-                        ){Text(text = "MatchesPage")}}
+                        composable("MatchesPage") {
+                            NavigationTopBar(navController = navController, viewModel){
+                                ecraMatch(navController)
+                            }
+                        }
                         composable("match/{dogId}/{distancia}", arguments = listOf(navArgument("dogId") { type = NavType.IntType },navArgument("distancia") { type = NavType.IntType })) {
                             var dogId = it.arguments?.getInt("dogId");
                             var distancia = it.arguments?.getInt("distancia");
@@ -57,9 +65,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         //Pedro & Rafael
-                        composable("formOwnerPage") { NavigationTopBar(navController = navController, viewModel) {
+                        composable("formOwnerPage") {
+                            NavigationTopBar(navController = navController, viewModel) {
                             FormOwnerPage(navController,  viewModel, viewModel())
-                        }}
+                            }
+                        }
 
                         composable("seeOwnerPage/{ownerId}", arguments = listOf(navArgument("ownerId") { type = NavType.IntType })) {
                             var ownerId = it.arguments?.getInt("ownerId");

@@ -15,24 +15,11 @@ import kotlinx.coroutines.withContext
 
 class DogEditViewModel: ViewModel() {
     fun DoSaveDog(navController: NavHostController) {
-        // Chamada à API
-        //.... Dog = ChamadaAPI
         navController.navigate("SeeDogPage/${Dog.Id}")
     }
 
     var LoadingDogProfile: Boolean by mutableStateOf(false)
-    var Dog: Dog = Dog(
-        1,
-        "Bockey",
-        0,
-        "Cão Muito Meigo",
-        "Benavente",
-        null,
-        "Pastor Alemão",
-        "Masculino",
-        true,
-        null
-    )
+    var Dog: Dog = Dog(1,"",0,"","",null,"","",true,null)
 
     fun SetContext(mainViewModel: MainViewModel, dog2ID: Int) {
         viewModelScope.launch {
@@ -61,7 +48,6 @@ class DogEditViewModel: ViewModel() {
             {
                 Log.d("MYERROR", e.message.toString())
             }
-
 
             LoadingDogProfile = false;
         }
