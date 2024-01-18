@@ -172,6 +172,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
                 }
                 Row(
                     modifier = Modifier
@@ -206,6 +207,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
                 }
                 Row(
                     modifier = Modifier
@@ -240,6 +242,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
                 }
                 Row(
                     modifier = Modifier
@@ -274,6 +277,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
                 }
                 Row(
                     modifier = Modifier
@@ -313,6 +317,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
                 }
 
                 Column (
@@ -345,6 +350,7 @@ fun EditDogPage(
                             unfocusedBorderColor = Color.Transparent,
                         )
                     )
+
 
                     Row(
                         Modifier.fillMaxWidth(),
