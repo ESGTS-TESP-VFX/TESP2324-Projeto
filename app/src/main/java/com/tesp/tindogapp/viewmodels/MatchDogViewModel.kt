@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MatchDogViewModel() : ViewModel() {
+class MatchDogViewModel(var distancia: Int) : ViewModel() {
     var Loading: Boolean by mutableStateOf(false)
     var Dog: Dog? by mutableStateOf(null)
     var MatchDog: Dog? by mutableStateOf(null)
@@ -29,7 +29,17 @@ class MatchDogViewModel() : ViewModel() {
                     apiService.getDog( mainViewModel.AuthToken, dogId).execute();
                 }
 
-                Dog = response.body()?: Dog(0,"Cenas", 0, "","",2130968599);
+                Dog = response.body()?: Dog(Id = 1,
+                    Nome = "Bob",
+                    Idade = 3,
+                    Descricao = "Cão Muito Meigo",
+                    Localidade = "Carregado",
+                    Imagem = null,
+                    Raca = "Golden Retriever",
+                    Chip = false,
+                    Sexo = "Masculino",
+                    Vacinas = null)
+
                 Loading = false;
             }
             catch (e:Exception)
@@ -40,13 +50,21 @@ class MatchDogViewModel() : ViewModel() {
             // Get My Dog Match Details
             try {
                 val response = withContext(Dispatchers.IO) {
-                    apiService.getDogMatch(mainViewModel.AuthToken, dogId).execute();
+                    apiService.askMatch(mainViewModel.AuthToken, dogId, distancia ).execute();
                 }
 
-                MatchDog = response.body()?: Dog(0,"Cenas", 0, "","",2130968599);
+                MatchDog = response.body()?.Dog?: Dog(Id = 1,
+                    Nome = "Bob",
+                    Idade = 3,
+                    Descricao = "Cão Muito Meigo",
+                    Localidade = "Carregado",
+                    Imagem = null,
+                    Raca = "Golden Retriever",
+                    Chip = false,
+                    Sexo = "Masculino",
+                    Vacinas = null);
             }
-            catch (e:Exception)
-            {
+            catch (e:Exception) {
 
             }
             Loading = false;

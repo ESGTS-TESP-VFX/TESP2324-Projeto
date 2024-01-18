@@ -1,6 +1,5 @@
 package com.tesp.tindogapp.pages
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -59,19 +57,22 @@ import com.tesp.tindogapp.components.OwnerProfileDescBox
 import com.tesp.tindogapp.components.VarInputDescBox
 import com.tesp.tindogapp.viewmodels.MainViewModel
 import com.tesp.tindogapp.viewmodels.MatchDogViewModel
+import com.tesp.tindogapp.viewmodels.OwnerEditViewModel
 import com.tesp.tindogapp.viewmodels.OwnerPageViewModel
 import com.tesp.tindogapp.viewmodels.OwnerViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
-fun seeOwnerPage(
+fun editOwnerPage(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = MainViewModel(),
-    ownerPageViewModel: OwnerPageViewModel = OwnerPageViewModel(),
+    ownerEditViewModel: OwnerEditViewModel = OwnerEditViewModel(),
 ): Unit {
 
-    ownerPageViewModel.SetContext(viewModel, viewModel.Owner.Id)
+
+    if (!ownerEditViewModel.Loaded)
+        ownerEditViewModel.SetContext(viewModel)
 
     Column {
         Logotipo()
@@ -87,19 +88,49 @@ fun seeOwnerPage(
         ) {
             Column {
 
-                Text(text = "${ownerPageViewModel.Nome ?: ""}",
+                OutlinedTextField(
+                    value = ownerEditViewModel.Nome,
+                    onValueChange = {
+                        ownerEditViewModel.Nome = it
+                    },
+                    label = {
+                        Text(
+                            "Insert here your name...",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                            textAlign = TextAlign.Center,
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .background(Color.White, shape = CircleShape),
+
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                    )
+                )
+            }
+
+            Column (
+
+            ) {
+                Text(text = "About me",
                     style = TextStyle(
-                        fontSize = 23.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
-
                 OutlinedTextField(
-                    value = ownerPageViewModel.Descricao,
-                    onValueChange = {},
+                    value = ownerEditViewModel.Descricao,
+                    onValueChange = {
+                        ownerEditViewModel.Descricao = it
+                    },
                     label = {
                         Text(
-                            "Descrição",
+                            "Example",
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Monospace,
@@ -119,6 +150,7 @@ fun seeOwnerPage(
                         unfocusedBorderColor = Color.Transparent,
                     )
                 )
+            }
 
                 Text(text = "My doghouse",
                     style = TextStyle(
@@ -143,13 +175,12 @@ fun seeOwnerPage(
                             .fillMaxWidth()
                             .height(100.dp),
 
-                    ){
-
+                        ){
                         LazyRow(
                             modifier = Modifier
                                 .align(alignment = Center)
                         ) {
-                            items(ownerPageViewModel.Dogs) { dog ->
+                            items(ownerEditViewModel.Dogs) { dog ->
                                 Image(painter = painterResource(id = R.drawable.fotocao1),
                                     contentDescription = "cao",
                                     modifier = Modifier
@@ -157,7 +188,7 @@ fun seeOwnerPage(
                                         .size(55.dp)
                                         .clickable {
                                             navController.navigate("EditDogPage/${dog.Id}")
-                                           }
+                                        }
                                 )
                             }
                         }
@@ -165,7 +196,8 @@ fun seeOwnerPage(
 
                     Button(
                         onClick = {
-                                navController.navigate("pickDog")
+
+                            navController.navigate("pickDog")
                                   },
                         modifier = Modifier
                             .offset(y = 45.dp)
@@ -181,26 +213,56 @@ fun seeOwnerPage(
 
                 }
 
-                Row (
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = { navController.navigate("SeeOwnerPage/${ownerEditViewModel.Id}") },
+                    modifier = Modifier
+                        .height(65.dp)
+                        .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF807471)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
-                    EditProfileButton {
-                        navController.navigate("EditOwnerPage/${viewModel.Owner.Id}")
-                    }
-                    /*
-                    DeleteProfileButton {
-                        // Lógica para excluir o perfil quando o usuário confirma
 
-                    }
+                    Text(
+                        text = "Cancel",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
 
-
-                     */
                 }
 
+                Button(
+                    onClick = {
+                        ownerEditViewModel.DoSaveOwner(viewModel, navController)
+                    },
+                    modifier = Modifier
+                        .height(65.dp)
+                        .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF807471)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+
+                    Text(
+                        text = "Save",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
             }
         }
     }
 }
+
 
 

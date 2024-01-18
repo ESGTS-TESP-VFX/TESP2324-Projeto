@@ -31,33 +31,70 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "formOwnerPage") {
+                    NavHost(navController = navController, startDestination = "login") {
                         // Mario, Joao, Mafalda, Alexandre
-                        composable("login") { LoginPage(navController, viewModel, viewModel())}
-                        composable("signPage") {SignUpBody(navController)}
+                        composable("login") { LoginPage(navController, viewModel, viewModel()) }
+                        composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
+                        composable("recoverPwd") { ResetPasswordPage(navController, viewModel, viewModel()) }
 
                         // Rodrigo, Marcos, Alen
-                        composable("pickDog") {PickRighView(navController, viewModel, viewModel())}
-                        composable("MatchesPage") {NavigationTopBar(navController = navController){Text(text = "MatchesPage")}}
-                        composable("match/{dogId}",
-                            arguments = listOf(navArgument("dogId") { type = NavType.IntType })
-                        ) {
+                        composable("pickDog") {
+                            NavigationTopBar(navController = navController, viewModel){SeletorCaes(navController, viewModel, viewModel())
+                            }
+                        }
+                        composable("MatchesPage") {NavigationTopBar(
+                            navController = navController,
+                            viewModel
+                        ){Text(text = "MatchesPage")}}
+                        composable("match/{dogId}/{distancia}", arguments = listOf(navArgument("dogId") { type = NavType.IntType },navArgument("distancia") { type = NavType.IntType })) {
                             var dogId = it.arguments?.getInt("dogId");
-                            NavigationTopBar(navController = navController){
-
-                                likeDislike(navController, viewModel,MatchDogViewModel(), dogId?:0 )
-                            }}
+                            var distancia = it.arguments?.getInt("distancia");
+                            NavigationTopBar(navController = navController, viewModel){
+                                likeDislike(navController, viewModel, MatchDogViewModel(distancia?:0), dogId?:0 )
+                            }
+                        }
 
                         //Pedro & Rafael
-                        composable("formOwnerPage") {FormOwnerPage(navController,  viewModel, viewModel())}
-                        composable("seeOwnerPage") {NavigationTopBar(navController = navController){Text(text = "seeOwnerPage")}}
+                        composable("formOwnerPage") { NavigationTopBar(navController = navController, viewModel) {
+                            FormOwnerPage(navController,  viewModel, viewModel())
+                        }}
 
-                        // Tomas & Ricardo
-                        composable("KennelPage") {NavigationTopBar(navController = navController){Text(text = "KennelPage")}}
-                        composable("formDogPage") {FormDogPage(navController)}
+                        composable("seeOwnerPage/{ownerId}", arguments = listOf(navArgument("ownerId") { type = NavType.IntType })) {
+                            var ownerId = it.arguments?.getInt("ownerId");
+                            NavigationTopBar(navController = navController, viewModel) {   seeOwnerPage(navController, viewModel, viewModel() ) }
+                        }
+                        composable("EditOwnerPage/{ownerId}", arguments = listOf(navArgument("ownerId") { type = NavType.IntType })) {
+                            var ownerId = it.arguments?.getInt("ownerId");
+                            NavigationTopBar(navController = navController, viewModel) {
+                                editOwnerPage(navController,  viewModel, viewModel() )
+                            }
+                        }
+
+                        // Ricardo,Bruno e Tomás
+                        composable("formDogPage") {
+                            NavigationTopBar(navController = navController, viewModel) {
+                                FormDogPage(navController,viewModel, viewModel())
+                            }
+                        }
+                        composable("SeeDogPage/{dogId}", arguments = listOf(navArgument("dogId") { type = NavType.IntType })) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            NavigationTopBar(navController = navController, viewModel) {
+                                SeeDogPage(navController, dog2Id = dogId?:0)
+                            }
+                        }
+                        composable("EditDogPage/{dogId}", arguments = listOf(navArgument("dogId") { type = NavType.IntType })) {
+                            var dogId = it.arguments?.getInt("dogId");
+                            NavigationTopBar(navController = navController, viewModel) {
+                                EditDogPage(navController, dog3Id = dogId ?: 0)
+                            }
+                        }
+                        composable("KennelPage") {
+                            NavigationTopBar(navController = navController, viewModel){
+                                GalleryPage(navController, viewModel, viewModel())
+                            }
+                        }
                     }
                 }
             }

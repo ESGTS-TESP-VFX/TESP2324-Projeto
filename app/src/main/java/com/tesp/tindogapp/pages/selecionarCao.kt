@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -68,7 +67,7 @@ fun PickRighView(navController: NavHostController = rememberNavController(),
 
     if (!kennelviewModel.Loading)
     {
-        NavigationTopBar(navController = navController)
+        NavigationTopBar(navController = navController, viewModel())
         {
             if (kennelviewModel.Dogs.count() > 1) {
                 SeletorCaes(navController, mainViewModel, kennelviewModel)
@@ -99,6 +98,9 @@ fun SeletorCaes(
     mainViewModel: MainViewModel = MainViewModel(),
     kennelviewModel: KennelViewModel = KennelViewModel()
 ): Unit {
+
+    kennelviewModel.SetContext(mainViewModel);
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,7 +108,6 @@ fun SeletorCaes(
     )
     {
         // Galeria do seletor de cães
-        Text(text = mainViewModel.AuthToken)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -119,7 +120,7 @@ fun SeletorCaes(
             ) {
                 items(kennelviewModel.Dogs) { dog ->
                     Image(
-                        painter = painterResource(id = dog.Imagem),
+                        painter = painterResource(id = R.drawable.fotocao5),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -127,7 +128,7 @@ fun SeletorCaes(
                             .padding(4.dp)
                             .clip(RoundedCornerShape(20.dp))
                             .background(MaterialTheme.colorScheme.background)
-                            .clickable { navHostController.navigate("match/${dog.Id}") },
+                            .clickable { navHostController.navigate("match/${dog.Id}/${kennelviewModel.Distancia}") },
                         contentScale = ContentScale.Crop
                     )
                 }
@@ -138,7 +139,10 @@ fun SeletorCaes(
             val distancia = remember { mutableStateOf(5.0f) }
             Slider(
                 value = distancia.value,
-                onValueChange = { distancia.value = it },
+                onValueChange = {
+                    distancia.value = it
+                    kennelviewModel.Distancia = it.toInt()
+                },
                 valueRange = 1f..20f,
                 colors = SliderDefaults.colors(
                     thumbColor = Color(0xFFFF8969),

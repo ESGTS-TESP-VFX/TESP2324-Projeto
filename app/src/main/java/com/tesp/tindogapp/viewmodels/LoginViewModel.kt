@@ -9,6 +9,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.tesp.tindogapp.apiService.ApiService
 import com.tesp.tindogapp.apiService.TokenRequest
+import com.tesp.tindogapp.model.Owner
+import com.tesp.tindogapp.utils.isEmailValid
+import com.tesp.tindogapp.utils.isPasswordValid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +36,13 @@ class LoginViewModel:ViewModel() {
                 if (body.raw().code == 200 )
                 {
                     navController.navigate("pickDog")
+                    // adicionar os dados do utilizador cão e afins?
                     mainViewModel.AuthToken = body.body()?.token ?:"";
+
+                    var user =  withContext(Dispatchers.IO) {
+                        apiService.getProfile(mainViewModel.AuthToken).execute()
+                    }
+                    mainViewModel.Owner = user.body()!!
                     LoginSuccessfull = true;
                 }
                 else
@@ -52,15 +61,18 @@ class LoginViewModel:ViewModel() {
     }
 
     fun IsValidCredentials(): Boolean {
-        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
-        var emailValid = this.Email.matches(emailRegex.toRegex())
-        var passwordValid = this.Password.length>5;
+        var emailValid = isEmailValid(this.Email)
+        var passwordValid = isPasswordValid(this.Password);
 
         return passwordValid && emailValid;
     }
 
     fun DoSignUp(mainViewModel: MainViewModel, navController: NavController) {
-        navController.navigate("signPage")
+        navController.navigate("signUpPage")
+    }
+
+    fun DoPwdReset(navController: NavController) {
+        navController.navigate("recoverPwd")
     }
 
 }

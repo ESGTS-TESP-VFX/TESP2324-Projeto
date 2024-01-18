@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun EditProfileButton(onClick: () -> Unit): Unit {
+fun EditDogProfileButton(onClick: () -> Unit): Unit {
     Button(onClick = onClick,
         modifier = Modifier
             .height(65.dp)
@@ -37,5 +37,3 @@ fun EditProfileButton(onClick: () -> Unit): Unit {
 
     }
 }
-
-

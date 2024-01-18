@@ -12,12 +12,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,7 +39,7 @@ import com.tesp.tindogapp.viewmodels.MatchDogViewModel
 fun likeDislike(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = MainViewModel(),
-    matchDogViewModel: MatchDogViewModel = MatchDogViewModel(),
+    matchDogViewModel: MatchDogViewModel = MatchDogViewModel(0),
     dogId: Int=0
 ): Unit {
     matchDogViewModel.SetContext(viewModel, dogId);
@@ -62,7 +60,7 @@ fun likeDislike(
                     // Imagem principal da galeria
                     Image(
                         painter = painterResource(
-                            id = matchDogViewModel.MatchDog?.Imagem ?: 2130968601
+                            id = R.drawable.fotocao5
                         ),
                         contentDescription = "foto da galeria",
                         modifier = Modifier
@@ -90,7 +88,7 @@ fun likeDislike(
                     ) {
                         Image(
                             painter = painterResource(
-                                id = matchDogViewModel.Dog?.Imagem ?: 2130968601
+                                id = R.drawable.fotocao5
                             ),
                             contentDescription = "botao_redondo"
                         )
