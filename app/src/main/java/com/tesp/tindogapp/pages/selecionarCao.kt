@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -68,7 +67,7 @@ fun PickRighView(navController: NavHostController = rememberNavController(),
 
     if (!kennelviewModel.Loading)
     {
-        NavigationTopBar(navController = navController)
+        NavigationTopBar(navController = navController, viewModel())
         {
             if (kennelviewModel.Dogs.count() > 1) {
                 SeletorCaes(navController, mainViewModel, kennelviewModel)
@@ -109,7 +108,6 @@ fun SeletorCaes(
     )
     {
         // Galeria do seletor de cães
-        Text(text = mainViewModel.AuthToken)
         Row(
             modifier = Modifier
                 .fillMaxWidth()

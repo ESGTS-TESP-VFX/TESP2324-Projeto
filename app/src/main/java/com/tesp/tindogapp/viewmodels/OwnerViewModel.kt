@@ -29,7 +29,7 @@ class OwnerViewModel: ViewModel() {
 
                 if (body.raw().code == 200) {
                     navController.navigate("formDogPage")
-                    mainViewModel.Owner = Owner(body.body()?.id?:0, body.body()?.nome?:"", body.body()?.image?:"", body.body()?.descricao?:"",body.body()?.email?:"");
+                    mainViewModel.Owner = body.body()!!;
                 }
             } catch (e: Exception) {
                 Log.d("MYERROR", e.message.toString())
