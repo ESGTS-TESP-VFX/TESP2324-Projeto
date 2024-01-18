@@ -2,6 +2,7 @@ package com.tesp.tindogapp.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -15,6 +16,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
@@ -65,14 +68,11 @@ fun editOwnerPage(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = MainViewModel(),
     ownerEditViewModel: OwnerEditViewModel = OwnerEditViewModel(),
-    ownerId: Int=0
 ): Unit {
 
-    ownerEditViewModel.SetContext(viewModel, ownerId)
 
-    var inputName by remember { mutableStateOf(ownerEditViewModel.Owner.Nome) }
-    var inputDesc by remember { mutableStateOf(ownerEditViewModel.Owner.Descricao) }
-
+    if (!ownerEditViewModel.Loaded)
+        ownerEditViewModel.SetContext(viewModel)
 
     Column {
         Logotipo()
@@ -89,10 +89,9 @@ fun editOwnerPage(
             Column {
 
                 OutlinedTextField(
-                    value = inputName,
+                    value = ownerEditViewModel.Nome,
                     onValueChange = {
-                        inputName = it
-                        ownerEditViewModel.Owner.Nome = it
+                        ownerEditViewModel.Nome = it
                     },
                     label = {
                         Text(
@@ -118,20 +117,16 @@ fun editOwnerPage(
             Column (
 
             ) {
-
-
                 Text(text = "About me",
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
-
                 OutlinedTextField(
-                    value = inputDesc,
+                    value = ownerEditViewModel.Descricao,
                     onValueChange = {
-                        inputDesc = it
-                        ownerEditViewModel.Owner.Descricao = it
+                        ownerEditViewModel.Descricao = it
                     },
                     label = {
                         Text(
@@ -181,36 +176,29 @@ fun editOwnerPage(
                             .height(100.dp),
 
                         ){
-                        Row (
+                        LazyRow(
                             modifier = Modifier
                                 .align(alignment = Center)
                         ) {
-                            Image(painter = painterResource(id = R.drawable.fotocao1), contentDescription = "cao",
-                                modifier = Modifier
-                                    .clip(shape = CircleShape)
-                                    .size(55.dp)
-                            )
-
-                            Spacer(modifier = Modifier.width(25.dp))
-
-                            Image(painter = painterResource(id = R.drawable.fotocao1), contentDescription = "cao",
-                                modifier = Modifier
-                                    .clip(shape = CircleShape)
-                                    .size(55.dp)
-                            )
-
-                            Spacer(modifier = Modifier.width(25.dp))
-
-                            Image(painter = painterResource(id = R.drawable.fotocao1), contentDescription = "cao",
-                                modifier = Modifier
-                                    .clip(shape = CircleShape)
-                                    .size(55.dp)
-                            )
+                            items(ownerEditViewModel.Dogs) { dog ->
+                                Image(painter = painterResource(id = R.drawable.fotocao1),
+                                    contentDescription = "cao",
+                                    modifier = Modifier
+                                        .clip(shape = CircleShape)
+                                        .size(55.dp)
+                                        .clickable {
+                                            navController.navigate("EditDogPage/${dog.Id}")
+                                        }
+                                )
+                            }
                         }
                     }
 
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+
+                            navController.navigate("pickDog")
+                                  },
                         modifier = Modifier
                             .offset(y = 45.dp)
                             .align(Alignment.Center)
@@ -230,18 +218,18 @@ fun editOwnerPage(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = { navController.navigate("SeeOwnerPage/$ownerId") },
+                    onClick = { navController.navigate("SeeOwnerPage/${ownerEditViewModel.Id}") },
                     modifier = Modifier
                         .height(65.dp)
                         .padding(0.dp, 20.dp, 0.dp, 0.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red
+                        containerColor = Color(0xFF807471)
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
 
                     Text(
-                        text = "Cancel Edit",
+                        text = "Cancel",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
@@ -251,18 +239,20 @@ fun editOwnerPage(
                 }
 
                 Button(
-                    onClick = { ownerEditViewModel.DoSaveOwner(navController) },
+                    onClick = {
+                        ownerEditViewModel.DoSaveOwner(viewModel, navController)
+                    },
                     modifier = Modifier
                         .height(65.dp)
                         .padding(0.dp, 20.dp, 0.dp, 0.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red
+                        containerColor = Color(0xFF807471)
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
 
                     Text(
-                        text = "Submit Edit",
+                        text = "Save",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
