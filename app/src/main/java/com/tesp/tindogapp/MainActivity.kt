@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     var viewModel = viewModel<MainViewModel>();
 
-                    NavHost(navController = navController, startDestination = "KennelPage") {
+                    NavHost(navController = navController, startDestination = "login") {
                         // Mario, Joao, Mafalda, Alexandre
                         composable("login") { LoginPage(navController, viewModel, viewModel()) }
                         composable("signUpPage") { SignUpBody(navController, viewModel, viewModel()) }
